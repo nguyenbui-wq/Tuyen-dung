@@ -1,0 +1,294 @@
+/* ==========================================================================
+   WINGS BEAUTY & ACADEMY - MOBILE-FIRST iPHONE LUXURY THEME
+   Thiết kế tối ưu hóa 100% cho màn hình điện thoại iPhone & iOS Safari
+   ========================================================================== */
+
+:root {
+    --gold-primary: #d4af37;
+    --gold-light: #fef08a;
+    --gold-bright: #f59e0b;
+    --gold-dark: #854d0e;
+    --bg-dark: #090b0e;
+    --bg-card: #12161f;
+    --bg-card-hover: #171d29;
+    --border-gold: rgba(212, 175, 55, 0.3);
+    --border-gold-glow: rgba(212, 175, 55, 0.65);
+    
+    /* iOS Safe Area Insets */
+    --sat: env(safe-area-inset-top, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #e2e8f0;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* Dành khoảng trống dưới đáy cho iOS Bottom Tab Bar */
+    padding-bottom: calc(78px + var(--sab));
+    margin: 0;
+}
+
+/* KHẮC PHỤC LỖI iPHONE: Chữ trong input tối thiểu 16px để Safari không tự ý zoom giao diện */
+input, select, textarea, button {
+    font-size: 16px !important;
+}
+
+/* ==========================================================================
+   iOS BOTTOM TAB BAR (Thanh Điều Hướng Đáy Màn Hình Chuẩn iPhone)
+   ========================================================================== */
+.ios-bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(64px + var(--sab));
+    padding-bottom: var(--sab);
+    background: rgba(10, 12, 16, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 50;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.ios-tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.ios-tab-item i, .ios-tab-item span.emoji-icon {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+    transition: all 0.2s ease;
+}
+
+.ios-tab-item span.tab-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.ios-tab-item.active {
+    color: #facc15 !important;
+}
+
+.ios-tab-item.active i, .ios-tab-item.active span.emoji-icon {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.6));
+}
+
+.ios-tab-item.active span.tab-label {
+    color: #fef08a;
+    font-weight: 800;
+}
+
+/* Active indicator dot */
+.ios-tab-item.active::after {
+    content: '';
+    position: absolute;
+    top: 4px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #facc15;
+    box-shadow: 0 0 6px #facc15;
+}
+
+/* ==========================================================================
+   TOUCH CHIPS (Nút Bấm Chạm Cho Lựa Chọn Trên iPhone)
+   ========================================================================== */
+.touch-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(18, 22, 31, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    color: #cbd5e1;
+    font-weight: 600;
+    font-size: 13px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    text-align: center;
+}
+
+.touch-chip:active {
+    transform: scale(0.96);
+}
+
+.touch-chip.active, input[type="radio"]:checked + .touch-chip-content {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(202, 138, 4, 0.35) 100%);
+    border-color: #facc15;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   MOBILE CARDS & LUXURY STYLING
+   ========================================================================== */
+.gold-card {
+    background: linear-gradient(180deg, rgba(22, 27, 38, 0.95) 0%, rgba(13, 16, 23, 0.95) 100%);
+    border: 1px solid var(--border-gold);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.7);
+    border-radius: 18px;
+    transition: all 0.25s ease;
+}
+
+.gold-card:active {
+    border-color: var(--border-gold-glow);
+}
+
+.banana-card {
+    background: linear-gradient(180deg, rgba(30, 24, 10, 0.95) 0%, rgba(15, 13, 7, 0.95) 100%);
+    border: 1px solid rgba(250, 204, 21, 0.4);
+    box-shadow: 0 8px 25px rgba(234, 179, 8, 0.15);
+    border-radius: 20px;
+}
+
+/* Gold Gradient Text */
+.gold-text-gradient {
+    background: linear-gradient(135deg, #fef08a 0%, #eab308 50%, #ca8a04 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gold-foil-text {
+    background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Luxury Gold Button (Touch Optimized) */
+.btn-gold {
+    background: linear-gradient(135deg, #eab308 0%, #ca8a04 50%, #a16207 100%);
+    color: #0b0d11;
+    font-weight: 800;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 15px rgba(234, 179, 8, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px; /* Chuẩn ngón tay bấm trên iPhone */
+}
+
+.btn-gold:active {
+    transform: scale(0.97);
+    background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+}
+
+.btn-gold-outline {
+    background: rgba(234, 179, 8, 0.06);
+    border: 1px solid #eab308;
+    color: #fef08a;
+    font-weight: 700;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+}
+
+.btn-gold-outline:active {
+    transform: scale(0.97);
+    background: rgba(234, 179, 8, 0.2);
+}
+
+/* Form Inputs for iPhone */
+.form-input-luxury {
+    background-color: rgba(13, 16, 23, 0.9);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #f8fafc;
+    border-radius: 12px;
+    padding: 12px 14px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.form-input-luxury:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+    background-color: rgba(18, 22, 31, 0.95);
+}
+
+/* Banana Glow & Animation */
+.banana-badge {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.25) 0%, rgba(202, 138, 4, 0.35) 100%);
+    border: 1px solid #facc15;
+    color: #fef08a;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(250, 204, 21, 0.25);
+}
+
+.banana-glow {
+    animation: bananaFloat 3s ease-in-out infinite;
+}
+
+@keyframes bananaFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-4px) rotate(3deg); }
+}
+
+/* iOS Bottom Sheet Modals */
+.ios-bottom-sheet {
+    align-items: flex-end !important;
+}
+
+.ios-sheet-card {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 24px !important;
+    border-top-right-radius: 24px !important;
+    max-height: 90vh;
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: calc(20px + var(--sab)) !important;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* Pull-down handle bar for iOS modal */
+.sheet-handle {
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    margin: 0 auto 14px auto;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: #272e3d;
+    border-radius: 2px;
+}
