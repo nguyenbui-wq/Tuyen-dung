@@ -1,0 +1,7 @@
+{
+  "app": "wings-staff-portal",
+  "base_path": "/",
+  "api_base": "/api/1/staff-portal",
+  "api_contract": "1",
+  "min_schema_version": 1
+}

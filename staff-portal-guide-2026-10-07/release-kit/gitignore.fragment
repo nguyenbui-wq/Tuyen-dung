@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.releases/
+.vercel/
+deploy.local.json
+deploy.*.local.json
+.env*
+!.env.example
+__pycache__/

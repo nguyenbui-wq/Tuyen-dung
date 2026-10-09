@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Wings Beauty & Academy - Trang Quản Trị & Báo Cáo Hiệu Suất KPI</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .font-heading { font-family: 'Cinzel', serif; }
+        .funnel-step {
+            transition: all 0.3s ease;
+        }
+        .funnel-step:hover {
+            transform: translateY(-2px);
+        }
+        .filter-btn-active {
+            background-color: #d4af37 !important;
+            color: #0b0d11 !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+        }
+        .filter-btn-inactive {
+            background-color: rgba(22, 27, 38, 0.8) !important;
+            color: #cbd5e1 !important;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .filter-btn-inactive:hover {
+            background-color: rgba(30, 37, 50, 0.9) !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="bg-[#07090d] text-slate-200 antialiased min-h-screen flex flex-col select-none">
+
+    <!-- TOP HEADER: WINGS EXECUTIVE DASHBOARD -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-[#0a0d14]/95 border-b border-amber-500/30 shadow-lg w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl w-full mx-auto px-2 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2">
+            <!-- Brand Logo & Page Title -->
+            <div class="flex items-center gap-1 sm:gap-2.5 shrink-0">
+                <a href="index.html" class="flex items-center gap-1.5" title="Quay lại trang chủ người dùng">
+                    <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-300 flex items-center justify-center text-black font-extrabold text-xs sm:text-lg shadow-[0_0_12px_rgba(245,158,11,0.5)] shrink-0">
+                        <i class="fa-solid fa-feather-pointed"></i>
+                    </div>
+                </a>
+                <div class="min-w-0">
+                    <div class="flex items-center gap-1 sm:gap-1.5">
+                        <span class="font-heading font-extrabold text-xs sm:text-base tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500 truncate">
+                            WINGS
+                        </span>
+                        <span id="adminHeaderBadge" class="px-1.5 py-0.5 rounded text-[8px] sm:text-[9px] font-extrabold uppercase bg-amber-500/20 text-yellow-300 border border-amber-500/40 whitespace-nowrap shrink-0">
+                            🌲 KIỂM LÂM WINGS
+                        </span>
+                    </div>
+                    <span id="adminHeaderSub" class="text-[9px] text-slate-400 hidden sm:block -mt-0.5 truncate max-w-[120px] sm:max-w-none">
+                        Hệ Thống Kiểm Lâm & Báo Cáo
+                    </span>
+                </div>
+            </div>
+
+            <!-- Top Header Actions: Trượt ngang mượt mà trên mobile, không bao giờ bị cắt mất hoặc tràn vỡ màn hình -->
+            <div class="flex items-center gap-1 sm:gap-1.5 flex-nowrap overflow-x-auto scrollbar-none py-1 min-w-0 flex-1 justify-end shrink-0">
+                <!-- BỘ CHUYỂN ĐỔI GÓC NHÌN: KIỂM LÂM ⇄ BÀ TIÊN XANH -->
+                <div class="inline-flex items-center p-0.5 rounded-lg bg-slate-900 border border-slate-700/80 text-xs shadow-md shrink-0" title="Chuyển đổi góc nhìn giữa Kiểm Lâm và Bà Tiên Xanh để kiểm tra phân quyền">
+                    <button type="button" onclick="setAdminRoleActive('admin')" id="roleSwitchBtn_admin" class="p-1 sm:px-2.5 sm:py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer bg-amber-500/30 text-yellow-300 border border-amber-500/50 shadow font-extrabold text-[10px] sm:text-[11px] shrink-0">
+                        <span class="text-xs">🌲</span>
+                        <span class="hidden sm:inline">Kiểm Lâm</span>
+                    </button>
+                    <button type="button" onclick="setAdminRoleActive('counselor')" id="roleSwitchBtn_counselor" class="p-1 sm:px-2.5 sm:py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer text-slate-400 hover:text-purple-300 border border-transparent font-medium text-[10px] sm:text-[11px] shrink-0">
+                        <span class="text-xs">🧚</span>
+                        <span class="hidden sm:inline">Bà Tiên Xanh</span>
+                    </button>
+                </div>
+
+                <!-- NÚT CHUYỂN ĐỔI CHẾ ĐỘ: VƯỜN ƯƠM WINGS <-> BẢN THÔ TIÊU CHUẨN -->
+                <button id="btnToggleThemeModeAdmin" type="button" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-gradient-to-r from-amber-950/60 to-black/80 hover:from-amber-900/60 hover:to-black text-amber-300 border border-amber-500/40 text-[10px] sm:text-xs font-bold flex items-center gap-0.5 sm:gap-1 transition-all shadow-md active:scale-95 shrink-0" title="Chuyển đổi giao diện Vườn Ươm Wings / Bản Thô Tiêu Chuẩn">
+                    <span id="themeModeIconAdmin" class="text-xs">🌱</span>
+                    <span id="themeModeLabelAdmin" class="hidden sm:inline">Vườn Ươm</span>
+                    <i class="fa-solid fa-arrows-rotate text-[8px] sm:text-[10px] text-amber-400/80"></i>
+                </button>
+                <a href="index.html" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] sm:text-xs font-semibold flex items-center gap-1 transition-all shadow-sm shrink-0" title="Trang Chủ Ứng Viên">
+                    <i class="fa-solid fa-globe text-amber-400 text-xs"></i>
+                    <span class="hidden md:inline">Trang Chủ</span>
+                </a>
+                <button id="btnExportExcel" class="btn-gold-outline p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg text-[10px] sm:text-xs font-bold flex items-center gap-1 active:scale-95 shadow-sm shrink-0" title="Xuất file Excel báo cáo">
+                    <i class="fa-solid fa-file-excel text-emerald-400 text-xs"></i>
+                    <span class="hidden md:inline">Xuất Excel</span>
+                </button>
+                <button id="btnAdminLogout" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 text-[10px] sm:text-xs font-bold active:scale-95 transition-all flex items-center gap-1 shrink-0" title="Đăng xuất quản trị">
+                    <i class="fa-solid fa-power-off text-xs"></i>
+                    <span class="hidden sm:inline">Thoát</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN ADMIN CONTENT -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 py-5 pb-28 space-y-5">
+
+        <!-- ==========================================================================
+             SCREEN 7: GIEO HẠT - QUẢN LÝ HẠT GIỐNG & TIẾN TRÌNH (NHƯ HÌNH 2)
+             ========================================================================== -->
+        <div id="tabContent_leads" class="admin-tab-content hidden space-y-4">
+            
+            <!-- Screen 7 Header: Quản Lý Hạt Giống & Tiến Trình -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-amber-300 flex items-center gap-2">
+                        <span>🌱</span>
+                        <span id="screenTitleLeads">Quản Lý Hạt Giống & Tiến Trình</span>
+                    </h3>
+                    <p id="screenSubLeads" class="text-xs text-slate-400">Theo dõi phễu gieo hạt, tưới mát, nảy mầm, đào tạo và chi thưởng cho người gieo hạt</p>
+                </div>
+            </div>
+
+            <!-- Filter Bar for Leads -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+                <div class="flex flex-wrap items-center gap-2 flex-1">
+                    <!-- Status Filter Dropdown -->
+                    <select id="adminStatusFilter" class="form-input-luxury py-2 px-3 text-xs w-auto">
+                        <option value="ALL">Tất cả trạng thái</option>
+                        <option value="DATA">1. 🤲 Gieo hạt (Data mới)</option>
+                        <option value="CARE">2. 💧 Tưới mát (Chăm sóc)</option>
+                        <option value="CHECKIN">3. 🌱 Nảy mầm (Checkin học viện)</option>
+                        <option value="TRAINING">4. 🌿 Đâm chồi (Đang đào tạo)</option>
+                        <option value="WON">5. 🍎 Kết trái (Duyệt quả ngọt)</option>
+                        <option value="PAID">🍎 Đã thu hoạch (Chi trả thưởng)</option>
+                        <option value="LOST">🥀 Khô héo / Thất bại</option>
+                    </select>
+
+                    <!-- Referrer Filter Dropdown -->
+                    <select id="adminReferrerFilter" class="form-input-luxury py-2 px-3 text-xs w-auto">
+                        <option value="ALL">Tất cả người giới thiệu</option>
+                    </select>
+
+                    <!-- Search Input -->
+                    <div class="relative flex-1 min-w-[200px]">
+                        <input type="text" id="adminLeadSearch" placeholder="Tìm tên khách, SĐT, mã lead, người GT..." class="form-input-luxury py-2 px-3 pr-8 text-xs">
+                        <i class="fa-solid fa-magnifying-glass absolute right-2.5 top-3 text-slate-500 text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="text-xs text-slate-400 whitespace-nowrap flex items-center gap-1">
+                    <span>Tổng hiển thị:</span>
+                    <strong id="leadsCountDisplay" class="text-amber-400 font-mono font-bold">0</strong>
+                </div>
+            </div>
+
+            <!-- Table Leads with Interactive Inline Funnel Status Stepper & Note -->
+            <div class="gold-card rounded-2xl overflow-x-auto shadow-xl border border-amber-500/25">
+                <table class="w-full text-left custom-table text-xs">
+                    <thead>
+                        <tr class="bg-black/60 text-white text-[11px] font-bold border-b border-amber-500/30 uppercase tracking-wider">
+                            <th class="py-3 px-3">Mã & Ngày</th>
+                            <th class="py-3 px-3">Khách Hàng</th>
+                            <th class="py-3 px-3">Người Giới Thiệu</th>
+                            <th class="py-3 px-3">Khóa Học & Hình Thức</th>
+                            <th class="py-3 px-3 text-center">Tình Trạng Hiện Tại (Lũy Tiến)</th>
+                            <th class="py-3 px-3">Ghi Chú Tiến Độ</th>
+                            <th class="py-3 px-3 text-right">Thưởng</th>
+                            <th class="py-3 px-3 text-right">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminLeadsTableBody" class="divide-y divide-slate-800">
+                        <!-- Rendered by js/admin.js -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Referrer Summary Table -->
+            <div class="gold-card rounded-2xl overflow-x-auto shadow-xl border border-amber-500/20">
+                <div class="p-3.5 border-b border-amber-500/20 flex items-center justify-between">
+                    <span class="font-bold text-xs text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-hand-holding-dollar text-yellow-400"></i> Tổng Hợp Chi Thưởng Theo Người Giới Thiệu
+                    </span>
+                    <span class="text-[11px] text-slate-400">Chi trả đúng hẹn tạo uy tín cho CTV</span>
+                </div>
+                <table class="w-full text-left custom-table text-xs">
+                    <thead>
+                        <tr class="bg-black/40 text-slate-300 text-[11px] border-b border-slate-800">
+                            <th class="py-2.5 px-3">Người GT & SĐT</th>
+                            <th class="py-2.5 px-3">Tài Khoản Nhận</th>
+                            <th class="py-2.5 px-3 text-center">Số Data Giới Thiệu</th>
+                            <th class="py-2.5 px-3 text-right">Tổng Thưởng</th>
+                            <th class="py-2.5 px-3 text-right">Đã Chi</th>
+                            <th class="py-2.5 px-3 text-right text-emerald-400">Còn Phải Chi</th>
+                            <th class="py-2.5 px-3 text-right">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminReferrerSummaryTableBody" class="divide-y divide-slate-800">
+                        <!-- Rendered by js/admin.js -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- ==========================================================================
+             SCREEN 8 / TAB 2: MINI GAME - DUYỆT MINI GAMES (DUYỆT ẢNH CHUỐI & LINK BÀI)
+             ========================================================================== -->
+        <div id="tabContent_minigame" class="admin-tab-content hidden space-y-4">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-yellow-300 flex items-center gap-2">
+                        <span>🎮</span>
+                        <span>Duyệt Mini Games (Ảnh Chuối & Link Bài)</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Xem ảnh biên lai chuyển chuối mở quyền chơi và duyệt link bài đăng nhận thưởng chuối</p>
+                </div>
+
+                <!-- Sub-tabs for Minigame: Duyệt Ảnh Chuối vs Duyệt Link Bài -->
+                <div class="inline-flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs">
+                    <button type="button" onclick="switchAdminMinigameSubTab('game_regs')" id="btnSubTab_game_regs" class="px-3 py-1.5 rounded-lg filter-btn-active font-bold flex items-center gap-1.5 relative cursor-pointer">
+                        <span>🍌 Duyệt Ảnh Chuối</span>
+                        <span id="badgePendingGameRegsCount" class="hidden px-1.5 py-0.2 rounded-full bg-amber-400 text-black font-extrabold text-[9px]">0</span>
+                    </button>
+                    <button type="button" onclick="switchAdminMinigameSubTab('banana_posts')" id="btnSubTab_banana_posts" class="px-3 py-1.5 rounded-lg filter-btn-inactive font-bold flex items-center gap-1.5 relative cursor-pointer">
+                        <i class="fa-solid fa-share-nodes text-yellow-400"></i>
+                        <span>Duyệt Link Bài</span>
+                        <span id="badgePendingPostsCount" class="hidden px-1.5 py-0.2 rounded-full bg-yellow-500 text-black font-bold text-[9px]">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sub-view A: Duyệt Đăng Ký Mini Game (Biên Lai Chuyển Chuối) -->
+            <div id="minigameSubContent_game_regs" class="space-y-4">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3">Mã Đơn</th>
+                                <th class="py-2.5 px-3">Thành Viên</th>
+                                <th class="py-2.5 px-3 text-center">Số Chuối Nộp</th>
+                                <th class="py-2.5 px-3 text-center">Ảnh Bằng Chứng</th>
+                                <th class="py-2.5 px-3">Ghi Chú</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Duyệt Mở Quyền</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminGameRegsTableBody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-view B: Duyệt Link Bài Đăng / Video Nhận Chuối -->
+            <div id="minigameSubContent_banana_posts" class="space-y-4 hidden">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3">Mã Bài</th>
+                                <th class="py-2.5 px-3">Thành Viên</th>
+                                <th class="py-2.5 px-3">Nền Tảng & Link</th>
+                                <th class="py-2.5 px-3">Nội Dung</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBananaPostsTableBody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==========================================================================
+             SCREEN 9 / TAB 3: XẾP HẠNG - BẢNG VINH DANH (NHƯ HÌNH 3)
+             ========================================================================== -->
+        <div id="tabContent_leaderboard" class="admin-tab-content hidden space-y-5">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-yellow-400"></i>
+                        <span id="adminLbMainTitleText">Bảng Vinh Danh Người Gieo Hạt & Vua Săn Chuối</span>
+                    </h3>
+                    <p id="adminLbMainSubtitle" class="text-xs text-slate-400">Theo dõi thành tích vun trồng hạt giống và săn chuối của chuyên viên & người gieo hạt</p>
+                </div>
+
+                <!-- Sub-toggle for Leaderboard Category -->
+                <div class="inline-flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs">
+                    <button type="button" onclick="switchAdminLeaderboardCategory('data')" id="btnAdminLbData" class="px-3 py-1.5 rounded-lg filter-btn-active font-bold cursor-pointer">
+                        <span id="btnAdminLbDataLabel">🌱 Đua Top Gieo Hạt</span>
+                    </button>
+                    <button type="button" onclick="switchAdminLeaderboardCategory('banana')" id="btnAdminLbBanana" class="px-3 py-1.5 rounded-lg filter-btn-inactive font-bold cursor-pointer">
+                        <span>🍌 Vua Săn Chuối</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- View 1: Top Đưa Data Giới Thiệu Khách Hàng -->
+            <div id="adminLbView_data" class="space-y-4">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl border border-amber-500/20">
+                    <div class="p-3 border-b border-amber-500/20 font-bold text-xs text-yellow-300 flex items-center justify-between">
+                        <span id="adminLbDataSectionTitle">Bảng Vinh Danh Người Gieo Hạt & Gặt Quả Ngọt Nhiều Nhất</span>
+                        <span id="adminLbDataPeriodBadge" class="text-[10px] text-slate-400 font-mono">Tháng 10/2026</span>
+                    </div>
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3 text-center w-16">Hạng</th>
+                                <th id="adminLbColReferrer" class="py-2.5 px-3">Người Gieo Hạt</th>
+                                <th id="adminLbColTotalData" class="py-2.5 px-3 text-center">Số Hạt Giống</th>
+                                <th id="adminLbColCheckin" class="py-2.5 px-3 text-center text-purple-300">🌱 Nảy Mầm</th>
+                                <th id="adminLbColTraining" class="py-2.5 px-3 text-center text-cyan-300">🌿 Đâm Chồi</th>
+                                <th id="adminLbColWon" class="py-2.5 px-3 text-center text-emerald-300">🍎 Kết Trái (Won)</th>
+                                <th id="adminLbColReward" class="py-2.5 px-3 text-right text-yellow-300 font-bold">Quả Ngọt (VNĐ)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminLbDataTableBody" class="divide-y divide-slate-800">
+                            <!-- Rendered by js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- View 2: Top Săn Chuối Mini Game -->
+            <div id="adminLbView_banana" class="space-y-4 hidden">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl border border-amber-500/20">
+                    <div class="p-3 border-b border-amber-500/20 font-bold text-xs text-yellow-300 flex items-center justify-between">
+                        <span>Bảng Phong Thần Mini Game - Top Thành Viên Tích Lũy Chuối 🍌</span>
+                        <span id="adminLbBananaPeriodBadge" class="text-[10px] text-slate-400 font-mono">Tháng 10/2026</span>
+                    </div>
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3 text-center w-16">Hạng</th>
+                                <th class="py-2.5 px-3">Thành Viên</th>
+                                <th class="py-2.5 px-3 text-center">Số Bài Nộp</th>
+                                <th class="py-2.5 px-3 text-center text-emerald-300">Bài Hợp Lệ</th>
+                                <th class="py-2.5 px-3 text-right text-yellow-300 font-extrabold">Chuối Tích Lũy (🍌)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminLbBananaTableBody" class="divide-y divide-slate-800">
+                            <!-- Rendered by js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==========================================================================
+             TAB 4: TÔI - KPI & BÁO CÁO HIỆU SUẤT (NHƯ HÌNH 4)
+             ========================================================================== -->
+        <div id="tabContent_kpi" class="admin-tab-content hidden space-y-5">
+            
+            <!-- BẢNG ĐIỀU KHIỂN & BỘ LỌC THỜI GIAN THEO ẢNH MẪU (KPI & BÁO CÁO HIỆU SUẤT) -->
+            <div class="gold-card p-4 sm:p-5 rounded-2xl bg-[#0c1017] border border-amber-500/30 shadow-xl space-y-4">
+                
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
+                    <!-- Title & Subtitle -->
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                            <span>KPI & Báo Cáo Hiệu Suất</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-mono">Live</span>
+                        </h1>
+                        <p class="text-xs text-slate-400 mt-0.5">
+                            Giám sát tỷ lệ chuyển đổi cuộc gọi thành lịch hẹn và doanh thu thưởng commission
+                        </p>
+                    </div>
+
+                    <!-- Controls: Time Filters (Tháng - Tuần - Ngày) + Date Navigator + Role Segment -->
+                    <div class="flex flex-wrap items-center gap-2.5">
+                        
+                        <!-- Mode Buttons: Tháng - Tuần - Ngày -->
+                        <div class="inline-flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs">
+                            <button type="button" onclick="setDashboardTimeFilter('month')" id="btnFilterMonth" class="px-3 py-1.5 rounded-lg filter-btn-active transition-all flex items-center gap-1 cursor-pointer">
+                                <i class="fa-regular fa-calendar-days text-[11px]"></i>
+                                <span>Tháng</span>
+                            </button>
+                            <button type="button" onclick="setDashboardTimeFilter('week')" id="btnFilterWeek" class="px-3 py-1.5 rounded-lg filter-btn-inactive transition-all flex items-center gap-1 cursor-pointer">
+                                <i class="fa-solid fa-calendar-week text-[11px]"></i>
+                                <span>Tuần</span>
+                            </button>
+                            <button type="button" onclick="setDashboardTimeFilter('day')" id="btnFilterDay" class="px-3 py-1.5 rounded-lg filter-btn-inactive transition-all flex items-center gap-1 cursor-pointer">
+                                <i class="fa-regular fa-calendar text-[11px]"></i>
+                                <span>Ngày</span>
+                            </button>
+                        </div>
+
+                        <!-- Date Navigator: < 10/2026 > -->
+                        <div class="flex items-center gap-1 bg-slate-900 px-2 py-1 rounded-xl border border-slate-800 text-xs">
+                            <button type="button" onclick="shiftDashboardPeriod(-1)" class="p-1 hover:text-amber-300 text-slate-400 cursor-pointer">
+                                <i class="fa-solid fa-chevron-left text-xs"></i>
+                            </button>
+                            <span id="dashboardPeriodLabel" class="font-bold text-yellow-300 font-mono px-1.5">10/2026</span>
+                            <button type="button" onclick="shiftDashboardPeriod(1)" class="p-1 hover:text-amber-300 text-slate-400 cursor-pointer">
+                                <i class="fa-solid fa-chevron-right text-xs"></i>
+                            </button>
+                        </div>
+
+                        <!-- Phân loại hình thức: Tất Cả / Trao Hạt (50%) / Tự Vun Trồng (100%) -->
+                        <div class="inline-flex rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs">
+                            <button type="button" onclick="setConsultantFilter('ALL')" id="btnConsAll" class="px-2.5 py-1.5 rounded-lg filter-btn-active text-[11px] cursor-pointer">
+                                Tất Cả
+                            </button>
+                            <button type="button" onclick="setConsultantFilter('ONLINE')" id="btnConsOnline" class="px-2.5 py-1.5 rounded-lg filter-btn-inactive text-[11px] cursor-pointer" title="Trao hạt giống cho Bà Tiên Xanh tư vấn chăm sóc">
+                                🌰 Trao Hạt (50%)
+                            </button>
+                            <button type="button" onclick="setConsultantFilter('CLIENT')" id="btnConsClient" class="px-2.5 py-1.5 rounded-lg filter-btn-inactive text-[11px] cursor-pointer" title="Người gieo hạt tự tư vấn, chăm sóc đến ngày kết trái">
+                                🌟 Tự Vun Trồng (100%)
+                            </button>
+                        </div>
+
+                        <!-- Reset Demo Button -->
+                        <button type="button" id="btnResetDemoData" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700 transition-all cursor-pointer" title="Khôi phục lại toàn bộ dữ liệu mẫu ban đầu">
+                            <i class="fa-solid fa-rotate text-amber-400"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. HÀNG 6 CARDS KPI & TỶ LỆ CHUYỂN ĐỔI (ĐÚNG PHONG CÁCH ẢNH media_1791450682289.png) -->
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                    
+                    <!-- Card 1: ∑ TỔNG DATA (100% GỐC PHỄU) -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-slate-800 space-y-1 relative overflow-hidden group hover:border-blue-500/50 transition-all">
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+                            <span>∑ TỔNG DATA</span>
+                            <i class="fa-solid fa-database text-blue-400/80"></i>
+                        </div>
+                        <div id="kpiFunnelData" class="text-2xl sm:text-3xl font-black text-white font-mono">0</div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div class="bg-blue-500 h-full rounded-full" style="width: 100%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5">100% Data tiếp nhận</div>
+                    </div>
+
+                    <!-- Card 2: CHĂM SÓC (LŨY TIẾN) -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-slate-800 space-y-1 relative overflow-hidden group hover:border-amber-500/50 transition-all">
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+                            <span>CHĂM SÓC (CARE)</span>
+                            <i class="fa-solid fa-headset text-amber-400/80"></i>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <div id="kpiFunnelCare" class="text-2xl sm:text-3xl font-black text-amber-300 font-mono">0</div>
+                            <span id="kpiRateCare" class="text-xs font-bold text-amber-400 font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div id="barFunnelCare" class="bg-amber-500 h-full rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5">Đã tư vấn / chăm sóc</div>
+                    </div>
+
+                    <!-- Card 3: ĐẾN HỌC VIỆN (CHECKIN) -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-slate-800 space-y-1 relative overflow-hidden group hover:border-purple-500/50 transition-all">
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+                            <span>ĐẾN TIỆM (CHECKIN)</span>
+                            <i class="fa-solid fa-location-dot text-purple-400/80"></i>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <div id="kpiFunnelCheckin" class="text-2xl sm:text-3xl font-black text-purple-300 font-mono">0</div>
+                            <span id="kpiRateCheckin" class="text-xs font-bold text-purple-400 font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div id="barFunnelCheckin" class="bg-purple-500 h-full rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5">Khách ghé viện / hẹn</div>
+                    </div>
+
+                    <!-- Card 4: ĐÀO TẠO (TRAINING) -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-slate-800 space-y-1 relative overflow-hidden group hover:border-cyan-500/50 transition-all">
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+                            <span>TRAINING (HỌC NGHỀ)</span>
+                            <i class="fa-solid fa-graduation-cap text-cyan-400/80"></i>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <div id="kpiFunnelTraining" class="text-2xl sm:text-3xl font-black text-cyan-300 font-mono">0</div>
+                            <span id="kpiRateTraining" class="text-xs font-bold text-cyan-400 font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div id="barFunnelTraining" class="bg-cyan-500 h-full rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5">Đang học thực hành</div>
+                    </div>
+
+                    <!-- Card 5: HOÀN THÀNH / NHẬN THƯỞNG (WON) -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-slate-800 space-y-1 relative overflow-hidden group hover:border-emerald-500/50 transition-all">
+                        <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold flex items-center justify-between">
+                            <span>NHẬN THƯỞNG (WON)</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400/80"></i>
+                        </div>
+                        <div class="flex items-baseline justify-between">
+                            <div id="kpiFunnelWon" class="text-2xl sm:text-3xl font-black text-emerald-300 font-mono">0</div>
+                            <span id="kpiRateWon" class="text-xs font-bold text-emerald-400 font-mono">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div id="barFunnelWon" class="bg-emerald-500 h-full rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5">Chốt & hoàn tất khóa</div>
+                    </div>
+
+                    <!-- Card 6: THU NHẬP LIVE / COMMISSION -->
+                    <div class="p-3.5 rounded-2xl bg-black/50 border border-amber-500/40 space-y-1 relative overflow-hidden group shadow-lg">
+                        <div class="text-[10px] uppercase tracking-wider text-yellow-300/90 font-bold flex items-center justify-between">
+                            <span>THU NHẬP LIVE</span>
+                            <i class="fa-solid fa-coins text-yellow-400"></i>
+                        </div>
+                        <div id="kpiTotalRewardLive" class="text-lg sm:text-xl font-black text-yellow-300 font-mono truncate" title="Tổng tiền thưởng">
+                            0 đ
+                        </div>
+                        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-2">
+                            <div class="bg-gradient-to-r from-yellow-400 to-amber-500 h-full rounded-full" style="width: 100%"></div>
+                        </div>
+                        <div class="text-[10px] text-slate-400 pt-0.5 flex items-center justify-between">
+                            <span>Đã chi: <strong id="kpiPaidRewardLive" class="text-yellow-400 font-mono">0 đ</strong></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PHỄU CHUYỂN ĐỔI TRỰC QUAN (VISUAL FUNNEL BAR) -->
+                <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span id="funnelSectionTitle" class="font-bold text-white uppercase tracking-wider flex items-center gap-1.5 text-[11px]">
+                            <i class="fa-solid fa-seedling text-amber-400"></i> Hành Trình Vun Trồng Hạt Giống:
+                        </span>
+                        <span id="funnelSectionTip" class="text-[10px] text-slate-400 italic">
+                            💡 Hạt giống đâm chồi thì đã trải qua tưới mát và nảy mầm
+                        </span>
+                    </div>
+                    <!-- Funnel steps connected -->
+                    <div class="grid grid-cols-5 gap-1.5 text-center text-xs font-semibold">
+                        <div class="p-2 rounded-lg bg-blue-950/30 border border-blue-500/30 funnel-step">
+                            <span id="funnelStep1Label" class="text-[10px] text-blue-300 block">1. 🤲 Gieo hạt</span>
+                            <strong id="funnelText_data" class="text-sm font-mono text-white">0</strong>
+                            <div class="text-[9px] text-blue-400 font-mono mt-0.5">100%</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-amber-950/30 border border-amber-500/30 funnel-step">
+                            <span id="funnelStep2Label" class="text-[10px] text-amber-300 block">2. 💧 Tưới mát</span>
+                            <strong id="funnelText_care" class="text-sm font-mono text-white">0</strong>
+                            <div id="funnelPct_care" class="text-[9px] text-amber-400 font-mono mt-0.5">0%</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-purple-950/30 border border-purple-500/30 funnel-step">
+                            <span id="funnelStep3Label" class="text-[10px] text-purple-300 block">3. 🌱 Nảy mầm</span>
+                            <strong id="funnelText_checkin" class="text-sm font-mono text-white">0</strong>
+                            <div id="funnelPct_checkin" class="text-[9px] text-purple-400 font-mono mt-0.5">0%</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-cyan-950/30 border border-cyan-500/30 funnel-step">
+                            <span id="funnelStep4Label" class="text-[10px] text-cyan-300 block">4. 🌿 Đâm chồi</span>
+                            <strong id="funnelText_training" class="text-sm font-mono text-white">0</strong>
+                            <div id="funnelPct_training" class="text-[9px] text-cyan-400 font-mono mt-0.5">0%</div>
+                        </div>
+                        <div class="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/30 funnel-step">
+                            <span id="funnelStep5Label" class="text-[10px] text-emerald-300 block">5. 🍎 Kết trái</span>
+                            <strong id="funnelText_won" class="text-sm font-mono text-white">0</strong>
+                            <div id="funnelPct_won" class="text-[9px] text-emerald-400 font-mono mt-0.5">0%</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- CARD HỒ SƠ & QUẢN TRỊ VIÊN -->
+            <div class="gold-card p-4 rounded-2xl bg-gradient-to-r from-amber-950/20 via-black to-slate-950 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-yellow-300 flex items-center justify-center text-black font-extrabold text-xl shadow-[0_0_15px_rgba(245,158,11,0.4)]">
+                        <i class="fa-solid fa-tree"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 id="adminProfileName" class="text-sm font-extrabold text-white">Kiểm Lâm Vườn Ươm Wings</h4>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Active</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Toàn quyền giám sát phễu hạt giống, doanh thu và kiểm duyệt hệ thống</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <a href="index.html" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-house text-amber-400"></i>
+                        <span>Về Trang Chủ</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ==========================================================================
+             TAB 5: SET UP - BẢNG THƯỞNG KHÓA HỌC, CẤU HÌNH GAME, PHÂN QUYỀN (NHƯ HÌNH 5)
+             ========================================================================== -->
+        <div id="tabContent_setup" class="admin-tab-content space-y-4">
+            
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-gear text-amber-400"></i>
+                        <span>Thiết Lập Hệ Thống & Cấu Hình Nghiệp Vụ</span>
+                    </h3>
+                    <p class="text-xs text-slate-400">Quản lý mẫu bảng thưởng khóa học, cấu hình mini game ví chuối, phân quyền kiểm lâm và duyệt thành viên</p>
+                </div>
+
+                <!-- Sub-tabs inside Set up -->
+                <div class="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs">
+                    <button type="button" onclick="switchAdminSetupSubTab('courses')" id="btnSetupSubTab_courses" class="px-3 py-1.5 rounded-lg filter-btn-active font-bold whitespace-nowrap flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-graduation-cap text-amber-400"></i>
+                        <span>Bảng Thưởng Khóa Học</span>
+                    </button>
+                    <button type="button" onclick="switchAdminSetupSubTab('banana_config')" id="btnSetupSubTab_banana_config" class="px-3 py-1.5 rounded-lg filter-btn-inactive font-bold whitespace-nowrap flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-sliders text-yellow-400"></i>
+                        <span>Cấu Hình Game</span>
+                    </button>
+                    <button type="button" onclick="switchAdminSetupSubTab('permissions')" id="btnSetupSubTab_permissions" class="px-3 py-1.5 rounded-lg filter-btn-inactive font-bold whitespace-nowrap flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-shield-halved text-purple-400"></i>
+                        <span id="adminTabLabel_permissions">Phân Quyền Kiểm Lâm</span>
+                    </button>
+                    <button type="button" onclick="switchAdminSetupSubTab('users')" id="btnSetupSubTab_users" class="px-3 py-1.5 rounded-lg filter-btn-inactive font-bold whitespace-nowrap flex items-center gap-1.5 relative cursor-pointer">
+                        <i class="fa-solid fa-users text-slate-400"></i>
+                        <span id="adminTabLabel_users">Duyệt Thành Viên</span>
+                        <span id="badgePendingUsersCount" class="hidden px-1.5 py-0.2 rounded-full bg-rose-500 text-white font-bold text-[9px]">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sub-tab 1: Bảng Thưởng Khóa Học (Image 5) -->
+            <div id="setupSubContent_courses" class="space-y-4">
+                <div class="p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="space-y-1 min-w-0 max-w-full">
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 min-w-0">
+                            <label for="adminCampaignSelect" class="text-xs font-bold text-amber-300 shrink-0">Mẫu Bảng Thưởng:</label>
+                            <select id="adminCampaignSelect" class="form-input-luxury py-1 px-2.5 text-xs font-bold w-full max-w-full sm:w-auto text-yellow-300 bg-black/60 truncate"></select>
+                        </div>
+                        <div class="text-[11px] text-slate-300 flex items-center gap-2 flex-wrap">
+                            <span id="adminCampDatesDisplay" class="font-mono text-amber-200">01/10/2026 - 31/10/2026</span>
+                            <span id="adminCampStatusBadge"></span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <button type="button" id="btnAdminActivateCamp" onclick="adminActivateCurrentCampaign()" class="btn-gold py-1.5 px-2.5 rounded-lg text-xs font-bold shadow hidden cursor-pointer">
+                            <i class="fa-solid fa-circle-check mr-1"></i> Kích Hoạt
+                        </button>
+                        <button type="button" onclick="openDuplicateCampaignModal()" class="px-2.5 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition-all cursor-pointer">
+                            <i class="fa-solid fa-copy mr-1"></i> Nhân Bản Mẫu
+                        </button>
+                        <button type="button" onclick="openEditCampaignMetaModal()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold cursor-pointer">
+                            <i class="fa-solid fa-pen mr-1"></i> Sửa Tên/Kỳ
+                        </button>
+                        <button type="button" onclick="openAddCourseModal()" class="btn-gold py-1.5 px-3 rounded-lg text-xs font-black shadow-md cursor-pointer">
+                            <i class="fa-solid fa-plus mr-1"></i> Thêm Khóa Mới
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table Courses in Selected Campaign -->
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3">Khóa Học & Ảnh Mi</th>
+                                <th class="py-2.5 px-3">Học Phí</th>
+                                <th class="py-2.5 px-3">Học Bổng</th>
+                                <th class="py-2.5 px-3 text-center">Wiki</th>
+                                <th class="py-2.5 px-3 text-center text-yellow-300">🌟 Tự Vun Trồng (100%)</th>
+                                <th class="py-2.5 px-3 text-center text-emerald-300">🌰 Trao Hạt (50%)</th>
+                                <th class="py-2.5 px-3 text-right">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminCoursesTableBody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab 2: Cấu Hình Banana Mini Game & Ví Chuối -->
+            <div id="setupSubContent_banana_config" class="space-y-4 hidden">
+                <div class="max-w-2xl">
+                    <h3 class="text-base font-bold text-yellow-300 mb-1">Cấu Hình Ví Chuối & Thể Lệ Mini Game</h3>
+                    <p class="text-xs text-slate-400 mb-4">Điều chỉnh mã ví Admin, tỷ lệ nhận chuối và lệ phí điều kiện tham gia</p>
+
+                    <form id="adminBananaConfigForm" class="gold-card p-4 sm:p-5 rounded-2xl space-y-3 text-xs">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mã Ví Admin Nhận Chuối:</label>
+                            <input type="text" id="configAdminWallet" required class="form-input-luxury py-2 px-3 text-xs font-mono font-bold text-yellow-300">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Người Quản Lý Ví (Đại Diện):</label>
+                            <input type="text" id="configAdminOwner" required class="form-input-luxury py-2 px-3 text-xs text-white">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Số Chuối / 1 Link Duyệt:</label>
+                                <input type="number" id="configBananasPerLink" min="1" required class="form-input-luxury py-2 px-3 text-xs font-mono">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Lệ Phí Mở Game (Số Chuối):</label>
+                                <input type="number" id="configRequiredBananas" min="0" required class="form-input-luxury py-2 px-3 text-xs font-mono">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tiêu Đề Thể Lệ:</label>
+                            <input type="text" id="configFeeTitle" class="form-input-luxury py-2 px-3 text-xs text-yellow-200">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Hướng Dẫn Nộp Chuối:</label>
+                            <textarea id="configGuidelines" rows="3" class="form-input-luxury py-2 px-3 text-xs text-slate-300"></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold py-2.5 px-4 rounded-xl text-xs font-bold active:scale-95 shadow-md cursor-pointer">
+                            <i class="fa-solid fa-floppy-disk mr-1"></i> Lưu Cấu Hình Game
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Sub-tab 3: Bảng Phân Quyền RBAC 3 Cấp -->
+            <div id="setupSubContent_permissions" class="space-y-4 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-purple-500/20 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                            <span>Bảng Ma Trận Phân Quyền Hệ Thống</span>
+                        </h3>
+                        <p id="adminPermDesc" class="text-xs text-slate-400">Chỉ Kiểm Lâm (Admin) mới có quyền phân quyền. Tích chọn để mở tính năng cho từng vai trò</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="savePermissionsMatrixFromUI()" class="btn-gold py-1.5 px-3 rounded-lg text-xs font-bold shadow-md cursor-pointer flex items-center gap-1.5 active:scale-95 transition-all">
+                            <i class="fa-solid fa-floppy-disk text-xs"></i>
+                            <span>Lưu Phân Quyền</span>
+                        </button>
+                        <button type="button" onclick="resetPermissionsMatrixToDefault()" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold cursor-pointer flex items-center gap-1.5 active:scale-95 transition-all">
+                            <i class="fa-solid fa-rotate-left text-xs"></i>
+                            <span>Mặc Định</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl border border-purple-500/30">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/60 text-white text-[11px] border-b border-purple-500/30">
+                                <th class="py-3 px-4 w-1/3">Tác Vụ / Nghiệp Vụ</th>
+                                <th class="py-3 px-3 text-center">
+                                    <span id="permColAdminTitle" class="font-bold text-amber-300 block">1. Kiểm Lâm (Admin)</span>
+                                    <span class="text-[9px] text-slate-400 block font-normal">(Toàn quyền)</span>
+                                </th>
+                                <th class="py-3 px-3 text-center">
+                                    <span id="permColCounselorTitle" class="font-bold text-yellow-300 block">2. Bà Tiên Xanh</span>
+                                    <span class="text-[9px] text-slate-400 block font-normal">(Chăm sóc / Vun trồng)</span>
+                                </th>
+                                <th class="py-3 px-3 text-center">
+                                    <span id="permColCollabTitle" class="font-bold text-slate-300 block">3. Người Gieo Hạt</span>
+                                    <span class="text-[9px] text-slate-400 block font-normal">(Người giới thiệu)</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminPermissionsTableBody" class="divide-y divide-slate-800">
+                            <!-- Rendered by js/admin.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab 4: Duyệt Thành Viên Đăng Ký (SĐT / Gmail) -->
+            <div id="setupSubContent_users" class="space-y-4 hidden">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-3">
+                    <div>
+                        <h3 class="text-base font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-users text-amber-400"></i>
+                            <span id="userSectionMainTitle">Danh Sách Thành Viên & Phê Duyệt</span>
+                        </h3>
+                        <p class="text-xs text-slate-400">Tìm kiếm, lọc và truy cập thông tin thành viên theo cấp bậc phân quyền</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="userListCountBadge" class="text-xs px-2.5 py-1 rounded-full bg-slate-900 text-amber-300 border border-slate-800 font-mono font-bold">Hiển thị: 0 thành viên</span>
+                    </div>
+                </div>
+
+                <!-- BỘ TÌM KIẾM & BỘ LỌC THÀNH VIÊN -->
+                <div class="p-3 rounded-2xl bg-black/40 border border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 text-xs">
+                    <!-- Ô tìm kiếm -->
+                    <div class="relative flex-1 min-w-[200px]">
+                        <input type="text" id="adminUserSearchInput" oninput="onUserFilterChange()" placeholder="🔍 Tìm theo tên, SĐT, Gmail, mã TV..." 
+                            class="form-input-luxury py-2 pl-8 pr-3 text-xs w-full text-white placeholder-slate-500">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-slate-400 text-xs"></i>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <!-- Lọc Vai Trò -->
+                        <div class="flex items-center gap-1.5">
+                            <label for="adminUserRoleFilter" class="text-[11px] font-bold text-slate-400 whitespace-nowrap">Vai Trò:</label>
+                            <select id="adminUserRoleFilter" onchange="onUserFilterChange()" class="form-input-luxury py-1.5 px-2.5 text-xs w-auto font-medium text-amber-300 bg-black/70">
+                                <option value="ALL">Tất Cả Vai Trò</option>
+                                <option value="collaborator">🌱 Người Gieo Hạt</option>
+                                <option value="counselor" id="optRoleCounselor">🧚 Bà Tiên Xanh</option>
+                                <option value="admin" id="optRoleAdmin">🌲 Kiểm Lâm</option>
+                            </select>
+                        </div>
+
+                        <!-- Lọc Trạng Thái -->
+                        <div class="flex items-center gap-1.5">
+                            <label for="adminUserStatusFilter" class="text-[11px] font-bold text-slate-400 whitespace-nowrap">Trạng Thái:</label>
+                            <select id="adminUserStatusFilter" onchange="onUserFilterChange()" class="form-input-luxury py-1.5 px-2.5 text-xs w-auto font-medium text-slate-200 bg-black/70">
+                                <option value="ALL">Tất Cả Trạng Thái</option>
+                                <option value="PENDING">⏳ Chờ Duyệt</option>
+                                <option value="APPROVED">✅ Đã Duyệt</option>
+                                <option value="REJECTED">🚫 Bị Khóa</option>
+                            </select>
+                        </div>
+
+                        <!-- Lọc Mini Game -->
+                        <div class="flex items-center gap-1.5">
+                            <label for="adminUserGameFilter" class="text-[11px] font-bold text-slate-400 whitespace-nowrap">Mini Game:</label>
+                            <select id="adminUserGameFilter" onchange="onUserFilterChange()" class="form-input-luxury py-1.5 px-2.5 text-xs w-auto font-medium text-yellow-300 bg-black/70">
+                                <option value="ALL">Tất Cả Game</option>
+                                <option value="APPROVED">🍌 Đã Mở Quyền</option>
+                                <option value="LOCKED">🔒 Chưa Mở Quyền</option>
+                            </select>
+                        </div>
+
+                        <!-- Reset Filter Button -->
+                        <button type="button" onclick="adminResetUserFilters()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs border border-slate-700 transition-all cursor-pointer flex items-center gap-1" title="Đặt lại bộ lọc">
+                            <i class="fa-solid fa-rotate-left text-xs"></i>
+                            <span class="hidden sm:inline">Đặt Lại</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BẢNG DANH SÁCH THÀNH VIÊN -->
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr class="bg-black/50 text-white text-[11px]">
+                                <th class="py-2.5 px-3">Mã TV</th>
+                                <th class="py-2.5 px-3">Họ Tên</th>
+                                <th class="py-2.5 px-3">SĐT / Gmail (Định danh)</th>
+                                <th class="py-2.5 px-3 min-w-[180px]">Cấp Quyền & Vai Trò</th>
+                                <th class="py-2.5 px-3 min-w-[140px]">Mật Khẩu & Cấp Lại</th>
+                                <th class="py-2.5 px-3 text-center">Số Chuối</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-center">Truy Cập Thông Tin</th>
+                                <th class="py-2.5 px-3 text-right">Thao Tác Duyệt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody" class="divide-y divide-slate-800"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ==========================================================================
+         MODALS DIALOGS CHO ADMIN
+         ========================================================================== -->
+
+    <!-- MODAL XỬ LÝ LEAD ADMIN -->
+    <div id="adminEditModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 class="font-bold text-xs text-white">Xử Lý & Duyệt Thưởng: <span id="editLeadIdDisplay" class="text-amber-400 font-mono"></span></h4>
+                <button id="btnCloseEditModal" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminEditLeadForm" class="space-y-3 text-xs">
+                <div class="p-2 bg-black/40 rounded-lg text-[11px] space-y-0.5">
+                    <div>Khách: <strong id="editCustomerNameDisplay" class="text-white"></strong></div>
+                    <div>Người GT: <span id="editReferrerNameDisplay" class="text-amber-300"></span></div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Khóa Học Chốt:</label>
+                    <select id="editActualCourse" class="course-select-options form-input-luxury py-1.5 px-2 text-xs"></select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Hình Thức:</label>
+                    <select id="editActualCloseType" class="form-input-luxury py-1.5 px-2 text-xs">
+                        <option value="pass">🌰 Trao Hạt Giống (50% Quả Ngọt)</option>
+                        <option value="self">🌟 Tự Vun Trồng (100% Quả Ngọt)</option>
+                    </select>
+                </div>
+
+                <!-- KẾ HOẠCH ACA CHO ADMIN / ĐỘI ACA -->
+                <div id="editAcaPlanningSection" class="p-2.5 rounded-xl bg-yellow-950/20 border border-yellow-500/30 space-y-2">
+                    <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1">
+                        <i class="fa-solid fa-calendar-check text-yellow-400"></i> Kế Hoạch ACA (Lịch Hẹn & Học Phí):
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Lịch Hẹn Lên Học Viện:</label>
+                        <input type="datetime-local" id="editAppointmentDate" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ngày Đóng Học Phí:</label>
+                        <input type="date" id="editTuitionPaymentDate" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ghi Chú Kế Hoạch / Thanh Toán:</label>
+                        <input type="text" id="editTuitionPaymentNote" placeholder="Tình trạng cọc / thanh toán" class="form-input-luxury py-1.5 px-2 text-xs">
+                    </div>
+                </div>
+
+                <div class="p-2 rounded-lg bg-amber-950/30 border border-amber-500/40 flex items-center justify-between text-xs">
+                    <span>Mức thưởng:</span>
+                    <strong id="editRewardPreview" class="text-yellow-400 font-bold">0 đ</strong>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Trạng Thái (Phễu Lũy Tiến):</label>
+                    <select id="editStatus" class="form-input-luxury py-1.5 px-2 text-xs font-semibold">
+                        <option value="DATA">1. Data mới</option>
+                        <option value="CARE">2. Đang Chăm Sóc</option>
+                        <option value="CHECKIN">3. Đã Checkin học viện</option>
+                        <option value="TRAINING">4. Đang Training (Học nghề)</option>
+                        <option value="WON">5. Hoàn thành (Nhận thưởng)</option>
+                        <option value="PAID">✓ Đã chi trả thưởng</option>
+                        <option value="LOST">✕ Không thành công</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ghi Chú Admin / Tiến Độ:</label>
+                    <textarea id="editAdminNote" rows="2" class="form-input-luxury py-1.5 px-2 text-xs"></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold py-2 rounded-lg text-xs font-bold w-full active:scale-95">Lưu & Cập Nhật</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL XEM CHI TIẾT LEAD -->
+    <div id="leadDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto text-xs space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20">
+                <h4 class="font-bold text-white text-xs">Hồ Sơ: <span id="detailLeadId" class="text-amber-400 font-mono"></span></h4>
+                <button id="btnCloseDetailModal" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div>Người GT: <div id="detailReferrer" class="text-white mt-0.5"></div></div>
+            <div>Khách: <div id="detailCustomer" class="text-white mt-0.5"></div></div>
+            <div>Khóa học: <div id="detailCourse" class="text-amber-300 font-bold mt-0.5"></div></div>
+            <div>Hình thức: <div id="detailCloseType" class="text-slate-300 mt-0.5"></div></div>
+            
+            <div id="detailAcaPlanningBox" class="p-2.5 rounded-xl bg-yellow-950/30 border border-yellow-500/40 space-y-1 text-xs">
+                <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1.5">
+                    <i class="fa-solid fa-calendar-check text-yellow-400"></i> Kế Hoạch Đội ACA:
+                </div>
+                <div>Lịch hẹn lên: <strong id="detailAppointment" class="text-white"></strong></div>
+                <div>Ngày đóng học phí: <strong id="detailTuitionDate" class="text-amber-300 font-mono"></strong></div>
+                <div>Ghi chú thanh toán: <p id="detailTuitionNote" class="text-slate-300 italic text-[11px]"></p></div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-1.5">
+                <div class="font-bold text-amber-300 text-[11px]">4 Thông Tin Vàng:</div>
+                <div>Mục tiêu: <p id="detailTarget" class="text-white font-medium"></p></div>
+                <div>Giai đoạn: <p id="detailStage" class="text-amber-200 font-medium"></p></div>
+                <div>Điểm chốt: <p id="detailPainPoint" class="text-emerald-300"></p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QUẢN LÝ / CHỈNH SỬA KHÓA HỌC (TỰ TÍNH 2 CHIỀU TIỀN <-> %) -->
+    <div id="courseEditModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-md w-full p-4 rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 id="courseModalTitle" class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> Thiết Lập Khóa Học & Mức Thưởng
+                </h4>
+                <button type="button" onclick="closeCourseEditModal()" class="text-slate-400 p-1 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminCourseForm" class="space-y-3 text-xs">
+                <input type="hidden" id="courseEditId" value="">
+
+                <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 flex items-center justify-between shadow-inner">
+                    <div class="pr-2">
+                        <label for="courseInputShowOnWiki" class="text-xs font-bold text-amber-300 cursor-pointer flex items-center gap-1.5">
+                            <i class="fa-solid fa-book-open"></i> Hiển Thị Khóa Học Trên WIKI
+                        </label>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Bật công tắc này để khóa học hiển thị ra mục Cẩm nang Wiki cho học viên & CTV</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                        <input type="checkbox" id="courseInputShowOnWiki" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                    </label>
+                </div>
+
+                <!-- Hình Ảnh Bộ Mi Đại Diện -->
+                <div class="p-3 rounded-xl bg-black/40 border border-amber-500/20 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[11px] font-semibold text-slate-300 flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-amber-400"></i> Hình Ảnh Bộ Mi Đại Diện:
+                        </label>
+                        <span class="text-[10px] text-slate-400">Hiển thị trong Wiki</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-16 h-16 rounded-xl border border-amber-500/40 overflow-hidden bg-stone-900 flex-shrink-0 relative shadow">
+                            <img id="courseImagePreview" src="" alt="Lash preview" class="w-full h-full object-cover hidden">
+                            <div id="courseImagePlaceholder" class="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px]">
+                                <i class="fa-solid fa-eye text-base mb-0.5 text-amber-400/60"></i>
+                                <span>Ảnh mi</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 space-y-1.5">
+                            <input type="text" id="courseInputImage" placeholder="https://... (URL ảnh bộ mi đại diện)" class="form-input-luxury py-1.5 px-2.5 text-xs text-slate-200">
+                            <div class="flex items-center gap-2">
+                                <label class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[10px] font-bold cursor-pointer inline-flex items-center gap-1 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-upload text-[9px]"></i> Tải ảnh từ máy
+                                    <input type="file" id="courseInputImageFile" accept="image/*" class="hidden">
+                                </label>
+                                <span class="text-[9px] text-slate-400">Mẫu nhanh:</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <button type="button" onclick="setQuickLashPreset('classic')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Classic</button>
+                        <button type="button" onclick="setQuickLashPreset('thienthan')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Thiên Thần</button>
+                        <button type="button" onclick="setQuickLashPreset('volume')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Volume</button>
+                        <button type="button" onclick="setQuickLashPreset('thietke')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Thiết Kế</button>
+                        <button type="button" onclick="setQuickLashPreset('master')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Master</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Khóa Học <span class="text-rose-400">*</span></label>
+                    <input type="text" id="courseInputName" required placeholder="Ví dụ: Tinh Hoa, Volume & Mega, Combo 4 khóa..." class="form-input-luxury py-2 px-3 text-xs text-white font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Đối Tượng Học Viên:</label>
+                    <textarea id="courseInputTargetAudience" rows="2" placeholder="Đối tượng học viên phù hợp..." class="form-input-luxury py-1.5 px-3 text-xs text-slate-200"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Nội Dung Đào Tạo (Mỗi dòng một mục):</label>
+                    <textarea id="courseInputCurriculum" rows="4" placeholder="Kỹ thuật nối mi Classic One-by-One&#10;Kỹ thuật tháo mi an toàn 100%&#10;Thực hành trên người mẫu thật..." class="form-input-luxury py-2 px-3 text-xs text-slate-200 font-mono"></textarea>
+                </div>
+
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">⏱️ Thời Gian</label>
+                        <input type="text" id="courseInputDuration" placeholder="1 - 2 tuần" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">👁️ Số Lượng Mẫu</label>
+                        <input type="text" id="courseInputModelCount" placeholder="2 mẫu" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">💵 Chi Phí Mẫu</label>
+                        <input type="text" id="courseInputModelCost" placeholder="Miễn phí" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Học Phí Niêm Yết (VNĐ) <span class="text-rose-400">*</span></label>
+                        <input type="number" id="courseInputTuition" required min="0" step="100000" placeholder="9900000" class="form-input-luxury py-2 px-3 text-xs font-mono text-white font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-amber-300 mb-1">Giá Ưu Đãi (VNĐ)</label>
+                        <input type="number" id="courseInputDiscountPrice" min="0" step="100000" placeholder="8900000" class="form-input-luxury py-2 px-3 text-xs font-mono text-yellow-300 font-bold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Học Bổng Tài Trợ (VNĐ)</label>
+                        <input type="number" id="courseInputScholarship" min="0" step="100000" value="0" placeholder="2000000" class="form-input-luxury py-2 px-3 text-xs font-mono text-emerald-300">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Học Bổng</label>
+                        <input type="text" id="courseInputScholarshipNote" placeholder="Tài trợ học bổng 2M..." class="form-input-luxury py-2 px-3 text-xs text-yellow-200">
+                    </div>
+                </div>
+
+                <!-- ĐIỀU CHỈNH HOA HỒNG & TIỀN THƯỞNG 2 CHIỀU: TIỀN <-> % -->
+                <div class="p-3 rounded-xl bg-amber-950/30 border border-amber-500/40 space-y-2.5 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-1.5">
+                        <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-coins text-amber-400"></i> Điều Chỉnh Tiền Thưởng & Hoa Hồng:
+                        </div>
+                        <span class="text-[9px] text-amber-300/80 bg-amber-500/20 px-1.5 py-0.5 rounded border border-amber-500/30">Tự đổi 2 chiều: Tiền ⇄ %</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <!-- Tự Vun Trồng (100% Quả Ngọt) -->
+                        <div class="p-2.5 rounded-xl bg-black/60 border border-amber-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-yellow-300 text-[11px] flex items-center gap-1">
+                                    <i class="fa-solid fa-seedling text-amber-400 text-[10px]"></i> 🌟 Tự Vun Trồng:
+                                </span>
+                                <span id="badgeSelfSummary" class="text-[10px] text-amber-400 font-mono font-bold">--</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tiền Thưởng (VNĐ):</label>
+                                    <input type="number" id="courseInputRewardSelf" min="0" step="50000" placeholder="500000" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-yellow-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tỷ Lệ (%):</label>
+                                    <input type="number" id="courseInputSelfPercent" min="0" max="100" step="0.1" placeholder="20" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-amber-200">
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-slate-400 flex items-center justify-between pt-1 border-t border-amber-500/10">
+                                <span>Thực tế hiển thị:</span>
+                                <strong id="coursePreviewSelfReward" class="text-yellow-400 font-mono">0 đ</strong>
+                            </div>
+                        </div>
+
+                        <!-- Trao Hạt Giống (50% Quả Ngọt) -->
+                        <div class="p-2.5 rounded-xl bg-black/60 border border-emerald-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-emerald-300 text-[11px] flex items-center gap-1">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-emerald-400 text-[10px]"></i> 🧚 Trao Bà Tiên Xanh:
+                                </span>
+                                <span id="badgeAcaSummary" class="text-[10px] text-emerald-400 font-mono font-bold">--</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tiền Thưởng (VNĐ):</label>
+                                    <input type="number" id="courseInputRewardPass" min="0" step="50000" placeholder="250000" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-emerald-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tỷ Lệ (%):</label>
+                                    <input type="number" id="courseInputAcaPercent" min="0" max="100" step="0.1" placeholder="10" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-emerald-200">
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-slate-400 flex items-center justify-between pt-1 border-t border-emerald-500/10">
+                                <span>Thực tế hiển thị:</span>
+                                <strong id="coursePreviewAcaReward" class="text-emerald-400 font-mono">0 đ</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Huy Hiệu (Badge)</label>
+                        <input type="text" id="courseInputBadge" placeholder="HOT COMBO / Chuyên sâu" class="form-input-luxury py-2 px-3 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Biểu Tượng (Icon)</label>
+                        <select id="courseInputIcon" class="form-input-luxury py-2 px-2 text-xs">
+                            <option value="gem">💎 Gem (Cơ bản)</option>
+                            <option value="shield">🛡️ Shield (Nền tảng)</option>
+                            <option value="crown">👑 Crown (Chuyên sâu)</option>
+                            <option value="award">🏆 Award (Combo)</option>
+                            <option value="graduation-cap">🎓 Cap (Học viện)</option>
+                            <option value="star">⭐ Star (VIP)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeCourseEditModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">Hủy</button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i> Lưu Khóa Học
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NHÂN BẢN MẪU BẢNG THƯỞNG -->
+    <div id="duplicateCampaignModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20">
+                <h4 class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-copy text-amber-400"></i> Nhân Bản Mẫu Bảng Thưởng Mới
+                </h4>
+                <button type="button" onclick="closeDuplicateCampaignModal()" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="adminDuplicateCampaignForm" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-[10px] text-slate-400 mb-0.5">Nhân bản từ mẫu gốc:</label>
+                    <div id="dupSourceCampName" class="font-bold text-white p-2 rounded-lg bg-black/40 border border-slate-800"></div>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Mẫu Mới <span class="text-rose-400">*</span></label>
+                    <input type="text" id="dupInputName" required class="form-input-luxury py-2 px-3 text-xs text-white font-medium">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Bắt Đầu <span class="text-rose-400">*</span></label>
+                        <input type="date" id="dupInputStartDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Kết Thúc <span class="text-rose-400">*</span></label>
+                        <input type="date" id="dupInputEndDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Áp Dụng:</label>
+                    <textarea id="dupInputNote" rows="2" class="form-input-luxury py-2 px-3 text-xs text-slate-200"></textarea>
+                </div>
+                <div class="p-2.5 rounded-xl bg-black/50 border border-slate-800 flex items-center gap-2">
+                    <input type="checkbox" id="dupCheckActive" class="w-4 h-4 accent-amber-500 rounded cursor-pointer">
+                    <label for="dupCheckActive" class="text-[11px] font-semibold text-slate-200 cursor-pointer">
+                        Đặt làm bảng thưởng <span class="text-emerald-400 font-bold">CHÍNH THỨC</span>
+                    </label>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeDuplicateCampaignModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">Hủy</button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md">Tạo Mẫu Mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SỬA THÔNG TIN KỲ BẢNG THƯỞNG -->
+    <div id="editCampaignMetaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20">
+                <h4 class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-pen text-amber-400"></i> Sửa Tên & Kỳ Bảng Thưởng
+                </h4>
+                <button type="button" onclick="closeEditCampaignMetaModal()" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="adminEditCampaignMetaForm" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Mẫu / Chiến Dịch <span class="text-rose-400">*</span></label>
+                    <input type="text" id="metaInputName" required class="form-input-luxury py-2 px-3 text-xs text-white font-medium">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Bắt Đầu <span class="text-rose-400">*</span></label>
+                        <input type="date" id="metaInputStartDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Kết Thúc <span class="text-rose-400">*</span></label>
+                        <input type="date" id="metaInputEndDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Áp Dụng:</label>
+                    <textarea id="metaInputNote" rows="2" class="form-input-luxury py-2 px-3 text-xs text-amber-200"></textarea>
+                </div>
+                <div class="p-2.5 rounded-xl bg-black/50 border border-slate-800 flex items-center gap-2">
+                    <input type="checkbox" id="metaCheckActive" class="w-4 h-4 accent-amber-500 rounded cursor-pointer">
+                    <label for="metaCheckActive" class="text-[11px] font-semibold text-slate-200 cursor-pointer">
+                        Đặt làm bảng thưởng <span class="text-emerald-400 font-bold">CHÍNH THỨC</span>
+                    </label>
+                </div>
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeEditCampaignMetaModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">Hủy</button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md">Lưu Thay Đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL PHÓNG TO XEM ẢNH CHUỐI -->
+    <div id="proofZoomModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl relative flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/30 mb-2">
+                <h4 id="proofZoomTitle" class="font-bold text-xs text-yellow-300 truncate">Ảnh Bằng Chứng Chuối</h4>
+                <button id="btnCloseProofZoomModal" class="text-slate-400 p-1"><i class="fa-solid fa-xmark text-base"></i></button>
+            </div>
+            <div class="text-center bg-black/60 rounded-xl p-1 flex items-center justify-center">
+                <img id="proofZoomImage" src="" alt="Ảnh phóng to" class="max-h-[70vh] w-auto max-w-full rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CẤP LẠI MẬT KHẨU THÀNH VIÊN CHO ADMIN -->
+    <div id="adminResetPasswordModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-5 rounded-2xl shadow-2xl text-left space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/30">
+                <h4 class="font-bold text-sm text-yellow-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-key text-amber-400"></i> Cấp Lại Mật Khẩu Thành Viên
+                </h4>
+                <button type="button" onclick="closeAdminResetPasswordModal()" class="text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-black/60 border border-slate-800 space-y-1 text-xs">
+                <div>Thành viên: <strong id="resetTargetUserName" class="text-white"></strong></div>
+                <div>Định danh: <span id="resetTargetUserIdentifier" class="text-amber-300 font-mono font-bold"></span></div>
+                <div>Mật khẩu hiện tại: <span id="resetTargetCurrentPassword" class="text-emerald-400 font-mono font-bold"></span></div>
+            </div>
+
+            <form id="adminResetPasswordForm" class="space-y-3 text-xs">
+                <input type="hidden" id="resetTargetUserId">
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mật Khẩu Mới Cần Cấp Lại <span class="text-rose-400">*</span></label>
+                    <div class="relative">
+                        <input type="password" id="resetNewPasswordInput" required placeholder="Nhập mật khẩu mới (tối thiểu 6 ký tự)" minlength="6"
+                            class="form-input-luxury py-2.5 px-3 pr-9 text-xs font-mono text-white">
+                        <button type="button" onclick="togglePasswordVisibility('resetNewPasswordInput', this)" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-amber-300 p-1">
+                            <i class="fa-solid fa-eye-slash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Nút điền nhanh -->
+                <div class="flex items-center gap-2 pt-1">
+                    <button type="button" onclick="document.getElementById('resetNewPasswordInput').value = '123456'" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-mono border border-slate-700">
+                        Đặt về: 123456
+                    </button>
+                    <button type="button" onclick="document.getElementById('resetNewPasswordInput').value = Math.floor(100000 + Math.random() * 900000)" class="px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-[10px] font-mono border border-amber-500/30">
+                        Ngẫu nhiên 6 số
+                    </button>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeAdminResetPasswordModal()" class="w-1/2 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">
+                        Hủy
+                    </button>
+                    <button type="submit" class="w-1/2 btn-gold py-2 rounded-xl text-xs font-bold active:scale-95 shadow-md flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-check text-xs"></i> Cấp Mật Khẩu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL TRUY CẬP THÔNG TIN CHI TIẾT THÀNH VIÊN & ĐĂNG NHẬP DƯỚI DANH NGHĨA -->
+    <div id="adminUserDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-lg w-full p-5 rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto space-y-4">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between pb-3 border-b border-amber-500/20">
+                <div class="flex items-center gap-3">
+                    <div id="modalUserAvatarBox" class="w-12 h-12 rounded-2xl bg-slate-800 border border-amber-500/40 flex items-center justify-center text-amber-400 text-xl font-bold overflow-hidden shadow">
+                        <i class="fa-solid fa-circle-user"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h4 id="modalUserName" class="font-bold text-sm sm:text-base text-white">--</h4>
+                            <span id="modalUserRoleBadge"></span>
+                        </div>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            <span id="modalUserId" class="text-[11px] font-mono text-amber-400 font-bold">USR-000</span>
+                            <span id="modalUserStatusBadge"></span>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="closeAdminUserDetailModal()" class="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 cursor-pointer">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+
+            <!-- Tab / Section 1: Thông tin tài khoản & Ngân hàng -->
+            <div class="p-3.5 rounded-xl bg-black/50 border border-slate-800 space-y-2.5 text-xs">
+                <div class="font-bold text-amber-300 text-[11px] uppercase flex items-center gap-1.5 border-b border-slate-800 pb-1.5">
+                    <i class="fa-solid fa-id-card text-amber-400"></i> Hồ Sơ Tài Khoản & Ngân Hàng:
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-slate-300">
+                    <div>
+                        <span class="text-slate-400 text-[10px] block">SĐT / Gmail (Định danh):</span>
+                        <strong id="modalUserIdentifier" class="font-mono text-white text-xs">--</strong>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block">Ngày đăng ký:</span>
+                        <span id="modalUserRegisteredAt" class="text-slate-300 font-mono text-xs">--</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block">Mật khẩu hiện tại:</span>
+                        <div class="flex items-center gap-2 font-mono text-emerald-400 font-bold">
+                            <span id="modalUserPasswordText">••••••</span>
+                            <button type="button" onclick="toggleModalUserPassword()" class="text-slate-400 hover:text-amber-300 p-0.5 cursor-pointer">
+                                <i class="fa-solid fa-eye text-xs" id="modalUserPwdIcon"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="text-slate-400 text-[10px] block">Quyền tham gia Mini Game:</span>
+                        <span id="modalUserMiniGameBadge" class="text-xs">--</span>
+                    </div>
+                </div>
+
+                <!-- Thông tin STK Ngân hàng -->
+                <div class="pt-1.5 border-t border-slate-800/80">
+                    <span class="text-slate-400 text-[10px] block mb-0.5">Thông tin tài khoản nhận thưởng (STK / Ngân Hàng):</span>
+                    <div id="modalUserBankInfo" class="p-2 rounded-lg bg-slate-900 border border-slate-800 text-amber-200 font-mono text-xs">
+                        Chưa cập nhật thông tin nhận hoa hồng
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab / Section 2: Thống kê hiệu suất & Quả ngọt -->
+            <div class="p-3.5 rounded-xl bg-black/50 border border-slate-800 space-y-2.5 text-xs">
+                <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center justify-between border-b border-slate-800 pb-1.5">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-line text-yellow-400"></i> Tiến Trình Vun Trồng & Quả Ngọt:
+                    </span>
+                    <span id="modalUserBananaCount" class="font-mono text-amber-300 font-black">🍌 0 Chuối</span>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                    <div class="p-2 rounded-lg bg-blue-950/30 border border-blue-500/25">
+                        <span class="text-[10px] text-blue-300 block">Số Hạt Giống</span>
+                        <strong id="modalUserTotalLeads" class="text-sm font-mono text-white">0</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-purple-950/30 border border-purple-500/25">
+                        <span class="text-[10px] text-purple-300 block">Đang Chăm Sóc</span>
+                        <strong id="modalUserInFunnel" class="text-sm font-mono text-white">0</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/25">
+                        <span class="text-[10px] text-emerald-300 block">Đã Kết Trái 🍎</span>
+                        <strong id="modalUserWonLeads" class="text-sm font-mono text-emerald-400">0</strong>
+                    </div>
+                    <div class="p-2 rounded-lg bg-amber-950/30 border border-amber-500/25">
+                        <span class="text-[10px] text-amber-300 block">Bài Game Duyệt</span>
+                        <strong id="modalUserGamePosts" class="text-sm font-mono text-yellow-300">0</strong>
+                    </div>
+                </div>
+
+                <!-- Thống kê chi trả thưởng -->
+                <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
+                    <div>
+                        <span class="text-[10px] text-slate-400 block">Tổng Quả Ngọt (Hoa hồng):</span>
+                        <strong id="modalUserTotalReward" class="font-mono text-yellow-300 text-sm">0 đ</strong>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[10px] text-slate-400 block">Còn phải chi:</span>
+                        <strong id="modalUserRemainingReward" class="font-mono text-emerald-400 text-sm">0 đ</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nút hành động: Vào xem giao diện của người này (Impersonation) -->
+            <div class="pt-1 flex flex-col sm:flex-row items-center gap-2">
+                <button type="button" onclick="closeAdminUserDetailModal()" class="w-full sm:w-1/3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-semibold text-xs active:scale-95 transition-all cursor-pointer">
+                    Đóng
+                </button>
+                <button type="button" id="btnModalLoginAsUser" onclick="adminLoginAsCurrentModalUser()" class="w-full sm:w-2/3 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 hover:from-amber-400 hover:to-yellow-300 text-black font-extrabold text-xs shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer">
+                    <i class="fa-solid fa-arrow-right-to-bracket text-sm"></i>
+                    <span>🚀 Vào Xem Giao Diện Của Người Này</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL XÁC THỰC MẬT KHẨU ADMIN (KHI CHƯA ĐĂNG NHẬP ADMIN) -->
+    <div id="adminAuthModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-xs w-full p-5 rounded-2xl shadow-2xl text-center">
+            <div id="adminAuthModalIconAdmin" class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg mx-auto mb-2">
+                <i class="fa-solid fa-tree"></i>
+            </div>
+            <h3 id="adminAuthModalTitleAdmin" class="font-heading font-bold text-base text-white mb-1">Xác Thực Kiểm Lâm</h3>
+            <p id="adminAuthModalDescAdmin" class="text-[11px] text-slate-400 mb-3">Nhập mật khẩu Kiểm Lâm để vào vườn ươm</p>
+            <form id="adminAuthForm" class="space-y-3">
+                <div class="relative">
+                    <input type="password" id="adminPinInput" placeholder="Mật khẩu (12345678)" required 
+                        class="form-input-luxury py-2.5 px-3 pr-9 text-center text-sm font-mono tracking-widest text-white">
+                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', this)" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-amber-300 p-1">
+                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                    </button>
+                </div>
+                <div id="adminAuthError" class="text-xs text-rose-400 hidden bg-rose-500/10 p-1.5 rounded-lg border border-rose-500/20 font-medium">Mật khẩu sai! Vui lòng nhập đúng 12345678</div>
+                <div class="flex gap-2 pt-1">
+                    <a href="index.html" class="w-1/2 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700 active:scale-95 flex items-center justify-center">Về Web</a>
+                    <button type="submit" class="w-1/2 btn-gold py-2 rounded-xl text-xs font-bold active:scale-95 shadow-md">Đăng Nhập</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         THANH BAR BÊN DƯỚI (BOTTOM NAVIGATION BAR CHO KIỂM LÂM / QUẢN TRỊ VIÊN)
+         Chuẩn phong cách iOS tương ứng thanh bar của Cộng Tác Viên
+         ========================================================================== -->
+    <nav id="adminBottomBar" class="ios-bottom-bar">
+        <!-- 1. Cài Đặt (Screen 11 / Set up - tương ứng Trang Chủ của CTV) -->
+        <button type="button" onclick="switchAdminMainTab('setup')" id="adminNavBtn_setup" class="ios-tab-item admin-bottom-item active" title="Cài Đặt / Thiết Lập Hệ Thống">
+            <div class="relative inline-flex items-center justify-center">
+                <i class="fa-solid fa-gear"></i>
+                <span id="badgeBottomPendingSetup" class="hidden absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-rose-500 text-white font-black text-[8px]">0</span>
+            </div>
+            <span id="adminBottomLabel_setup" class="tab-label">Cài Đặt</span>
+        </button>
+
+        <!-- 2. Gieo Hạt (Screen 7 - tương ứng Gieo Hạt của CTV) -->
+        <button type="button" onclick="switchAdminMainTab('leads')" id="adminNavBtn_leads" class="ios-tab-item admin-bottom-item" title="Quản Lý Hạt Giống & Tiến Trình">
+            <i class="fa-solid fa-seedling text-amber-400"></i>
+            <span id="adminBottomLabel_leads" class="tab-label">Gieo Hạt</span>
+        </button>
+
+        <!-- 3. Mini Game (Screen 8 - tương ứng Mini Game của CTV) -->
+        <button type="button" onclick="switchAdminMainTab('minigame')" id="adminNavBtn_minigame" class="ios-tab-item admin-bottom-item" title="Duyệt Mini Games">
+            <div class="relative inline-flex items-center justify-center">
+                <span class="emoji-icon">🍌</span>
+                <span id="badgeBottomPendingMiniGame" class="hidden absolute -top-1 -right-2 px-1.5 py-0.2 rounded-full bg-rose-500 text-white font-black text-[8px]">0</span>
+            </div>
+            <span class="tab-label">Mini Game</span>
+        </button>
+
+        <!-- 4. Xếp Hạng (Screen 9 - tương ứng Xếp Hạng của CTV) -->
+        <button type="button" onclick="switchAdminMainTab('leaderboard')" id="adminNavBtn_leaderboard" class="ios-tab-item admin-bottom-item" title="Bảng Vinh Danh">
+            <i class="fa-solid fa-trophy text-yellow-400"></i>
+            <span id="adminBottomLabel_leaderboard" class="tab-label">Xếp Hạng</span>
+        </button>
+
+        <!-- 5. Tôi (Screen 10 - tương ứng Tôi của CTV) -->
+        <button type="button" onclick="switchAdminMainTab('kpi')" id="adminNavBtn_kpi" class="ios-tab-item admin-bottom-item" title="KPI & Báo Cáo Hiệu Suất">
+            <i class="fa-solid fa-chart-pie text-cyan-400"></i>
+            <span class="tab-label">Tôi</span>
+        </button>
+    </nav>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

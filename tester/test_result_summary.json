@@ -1,0 +1,227 @@
+{
+  "timestamp": "2026-10-08T18:09:29.479375",
+  "passed": 32,
+  "failed": 0,
+  "total": 32,
+  "persona": {
+    "id": "USR-TEST-LAN",
+    "name": "Nguyễn Thị Mai Lan",
+    "identifier": "0912345678",
+    "password": "123456",
+    "authType": "phone",
+    "role": "Cộng tác viên tuyển sinh",
+    "systemRole": "collaborator",
+    "bankInfo": "Vietcombank - 0071009988776 - Nguyen Thi Mai Lan",
+    "status": "PENDING",
+    "miniGameApproved": false,
+    "bananas": 0
+  },
+  "totalLeads": 4,
+  "totalUsers": 1,
+  "logs": [
+    {
+      "status": "SECTION",
+      "message": "NGÀY 1: CTV MAI LAN ĐĂNG KÝ, THAM GIA MINI GAME & NỘP DATA ĐẦU TIÊN"
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 1.1: Đăng ký thành viên CTV mới"
+    },
+    {
+      "status": "PASS",
+      "message": "Tài khoản mới đăng ký phải ở trạng thái PENDING (chờ duyệt)."
+    },
+    {
+      "status": "PASS",
+      "message": "Vai trò hệ thống mặc định là collaborator (Cộng tác viên)."
+    },
+    {
+      "status": "PASS",
+      "message": "Số chuối ban đầu bằng 0."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 1.2: Admin kiểm duyệt & phê duyệt tài khoản"
+    },
+    {
+      "status": "PASS",
+      "message": "Admin đã duyệt tài khoản thành APPROVED (đủ quyền đăng nhập và nộp data)."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 1.3: CTV nộp link bài đăng Facebook giới thiệu khóa học"
+    },
+    {
+      "status": "PASS",
+      "message": "Link nộp ban đầu ở trạng thái PENDING chờ kiểm duyệt."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 1.4: Admin duyệt bài mini game và tặng 1 Chuối 🍌"
+    },
+    {
+      "status": "PASS",
+      "message": "Bài đăng đã được duyệt."
+    },
+    {
+      "status": "PASS",
+      "message": "Số dư của CTV Mai Lan đã tăng lên 1 Chuối 🍌."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 1.5: Nộp Data Khách 1 (Lê Thị Ngọc Mai - Bàn giao CV Hướng nghiệp)"
+    },
+    {
+      "status": "PASS",
+      "message": "Khách chọn hình thức bàn giao có trạng thái ban đầu là 'DATA' (Data mới)."
+    },
+    {
+      "status": "PASS",
+      "message": "Mức thưởng 50% cho hình thức bàn giao khóa Classic là 250.000đ."
+    },
+    {
+      "status": "PASS",
+      "message": "Data bàn giao được gán cho Chuyên viên Hướng nghiệp."
+    },
+    {
+      "status": "SECTION",
+      "message": "NGÀY 2: NỘP 2 DATA (CÓ DATA TỰ CHỐT & BẢO VỆ PHÂN QUYỀN TRẠNG THÁI)"
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 2.1: Nộp Data Khách 2 (Trần Thu Hà - TỰ CHỐT 100% THƯỞNG)"
+    },
+    {
+      "status": "PASS",
+      "message": "QUY TẮC: Data Tự Chốt phải có trạng thái ban đầu là 'CARE' (Chăm Sóc)."
+    },
+    {
+      "status": "PASS",
+      "message": "Mức thưởng 100% tự chốt cho Combo Ưu Đãi là 4.000.000đ."
+    },
+    {
+      "status": "PASS",
+      "message": "Đã lưu lịch hẹn checkin shop ngày 08/10 lúc 14:00."
+    },
+    {
+      "status": "PASS",
+      "message": "Ghi chú tiến độ tự động gắn lịch hẹn checkin tại shop."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 2.2: Nộp Data Khách 3 (Phạm Hồng Nhung - Bàn giao CV)"
+    },
+    {
+      "status": "PASS",
+      "message": "Data bàn giao có trạng thái ban đầu là DATA."
+    },
+    {
+      "status": "PASS",
+      "message": "Mức thưởng 50% khóa Thiết Kế là 500.000đ."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 2.3: Kiểm thử phân quyền thao tác trạng thái của Chuyên viên"
+    },
+    {
+      "status": "PASS",
+      "message": "Chuyên viên được phép cập nhật tiến trình lên trên: DATA -> CARE."
+    },
+    {
+      "status": "PASS",
+      "message": "BẢO MẬT PHÂN QUYỀN: Chuyên viên KHÔNG ĐƯỢC điều chuyển trạng thái dưới mục 'Chăm Sóc' (Chỉ Admin mới chỉnh trạng thái ban đầu DATA)!"
+    },
+    {
+      "status": "PASS",
+      "message": "BẢO MẬT PHÂN QUYỀN: Chuyên viên KHÔNG ĐƯỢC tự ý hủy data (Chỉ Admin mới có quyền)."
+    },
+    {
+      "status": "SECTION",
+      "message": "NGÀY 3: NỘP DATA THỨ 4, TIẾN TRÌNH CHECKIN -> TRAINING -> WON -> CHI TRẢ THƯỞNG"
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.1: Nộp Data Khách 4 (Hoàng Thảo My - TỰ CHỐT 100%)"
+    },
+    {
+      "status": "PASS",
+      "message": "Data tự chốt thứ 4 lập tức vào mục CARE & có lịch hẹn."
+    },
+    {
+      "status": "PASS",
+      "message": "Thưởng 100% tự chốt khóa Tinh Hoa là 1.000.000đ."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.2: Khách 2 (Trần Thu Hà) đến Học viện Checkin đúng lịch hẹn"
+    },
+    {
+      "status": "PASS",
+      "message": "Data 2 chuyển sang CHECKIN (Bước 3)."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.3: Khách 2 hoàn tất học phí và bước vào Training (Đang học thực hành)"
+    },
+    {
+      "status": "PASS",
+      "message": "Data 2 chuyển sang TRAINING (Bước 4)."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.4: Khách 2 hoàn thành khóa học -> WON (Chốt thành công / Đạt điều kiện thưởng)"
+    },
+    {
+      "status": "PASS",
+      "message": "Data 2 chuyển sang WON (Bước 5 - Đạt điều kiện thưởng)."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.5: Admin duyệt chi trả thưởng 4.000.000đ vào STK Vietcombank của Mai Lan"
+    },
+    {
+      "status": "PASS",
+      "message": "Data 2 chuyển sang trạng thái PAID (Đã chi trả)."
+    },
+    {
+      "status": "PASS",
+      "message": "Đã ghi nhận ngày thanh toán hoa hồng."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.6: Kiểm tra KPI cá nhân trên Dashboard CTV Mai Lan"
+    },
+    {
+      "status": "PASS",
+      "message": "Tổng số data trong 3 ngày của CTV Mai Lan = 4 (Thực tế: 4)."
+    },
+    {
+      "status": "PASS",
+      "message": "Số học viên chốt thành công = 1 (Thực tế: 1)."
+    },
+    {
+      "status": "PASS",
+      "message": "Tiền thưởng đã thực nhận = 4.000.000đ (Thực tế: 4,000,000đ)."
+    },
+    {
+      "status": "PASS",
+      "message": "⭐ Dự đoán tiền thưởng sắp nhận = 562,500đ (tính từ 2 data đang Chăm Sóc)."
+    },
+    {
+      "status": "SUBSECTION",
+      "message": "Bước 3.7: Kiểm tra tính lũy tiến của Phễu chuyển đổi"
+    },
+    {
+      "status": "PASS",
+      "message": "Tầng 1 (Data): 4 data (Thực tế: 4)."
+    },
+    {
+      "status": "PASS",
+      "message": "Tầng 2 (Chăm Sóc lũy tiến): 3 data (Thực tế: 3)."
+    },
+    {
+      "status": "SECTION",
+      "message": "XUẤT BÁO CÁO VÀ DỮ LIỆU TEST (TEST ARTIFACTS)"
+    }
+  ]
+}

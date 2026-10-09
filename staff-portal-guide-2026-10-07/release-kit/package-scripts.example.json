@@ -1,0 +1,8 @@
+{
+  "build:app": "vite build",
+  "build": "npm run verify && node scripts/build-release.mjs",
+  "release:bump": "node scripts/bump-version.mjs",
+  "build:release": "npm run build",
+  "release:check-backend": "node scripts/check-backend.mjs",
+  "release:verify": "node scripts/verify-release.mjs"
+}

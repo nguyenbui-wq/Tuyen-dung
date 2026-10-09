@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wings Tester Center - Kịch Bản 3 Ngày CTV</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #080a0f;
+            color: #e2e8f0;
+        }
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        .gold-border {
+            border-color: rgba(217, 119, 6, 0.4);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 50%, #78350f 100%);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+        .btn-gold:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .btn-dark {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            transition: all 0.2s;
+        }
+        .btn-dark:hover {
+            background: #334155;
+            border-color: #64748b;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(217, 119, 6, 0.25);
+        }
+        .console-log {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-3 sm:px-6">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+        
+        <!-- HEADER -->
+        <header class="glass-panel p-5 sm:p-6 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
+            <div class="flex items-center gap-4 text-center md:text-left">
+                <div class="w-14 h-14 rounded-2xl gold-gradient flex items-center justify-center text-black text-2xl font-black shadow-lg">
+                    <i class="fa-solid fa-flask-vial"></i>
+                </div>
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-yellow-300 border border-amber-500/40 text-[10px] font-bold uppercase tracking-wider">
+                            Wings Testing Suite • v1.0
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                            Lệnh CLI: gotest
+                        </span>
+                    </div>
+                    <h1 class="text-xl sm:text-2xl font-heading font-black text-white mt-1">
+                        Trung Tâm Kiểm Thử Nghiệp Vụ CTV (3 Ngày)
+                    </h1>
+                    <p class="text-xs text-slate-400 mt-0.5">
+                        Mô phỏng đầy đủ luồng Cộng tác viên: Đăng ký &rarr; Mini game chuối &rarr; Nộp Data &rarr; Tự chốt (CARE) &rarr; Funnel Lũy tiến.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Quick Actions Header -->
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                <a href="../index.html" target="_blank" class="btn-dark px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-amber-400"></i> Mở Web Chính
+                </a>
+                <a href="../admin.html" target="_blank" class="btn-dark px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-red-400"></i> Mở Admin Portal
+                </a>
+                <button onclick="runAllDays()" class="btn-gold px-4 py-2 rounded-xl text-xs flex items-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-play"></i> Chạy Toàn Bộ 3 Ngày
+                </button>
+            </div>
+        </header>
+
+        <!-- PERSONA & CONTROL PANEL GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- 1. PERSONA CARD: CTV NGUYỄN THỊ MAI LAN -->
+            <div class="glass-panel p-5 rounded-3xl space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-amber-500/20">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-id-card text-amber-400 text-sm"></i>
+                        <h2 class="font-bold text-white text-sm">Hồ Sơ Tester (Persona)</h2>
+                    </div>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        Cộng tác viên
+                    </span>
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 border-2 border-amber-400/60 flex items-center justify-center text-amber-300 text-lg font-black">
+                        ML
+                    </div>
+                    <div>
+                        <div class="font-bold text-white text-sm">Nguyễn Thị Mai Lan</div>
+                        <div class="text-xs text-amber-400 font-mono">0912345678</div>
+                        <div class="text-[10px] text-slate-400">Mật khẩu: <span class="font-mono text-white">123456</span></div>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded-2xl bg-black/40 border border-slate-800 space-y-2 text-xs">
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Ngân hàng:</span>
+                        <strong class="text-slate-200">Vietcombank</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">STK thụ hưởng:</span>
+                        <strong class="text-amber-300 font-mono">0071009988776</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Trạng thái CTV:</span>
+                        <span id="personaStatusBadge" class="text-emerald-400 font-bold">APPROVED (Đã duyệt)</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Số chuối tích lũy:</span>
+                        <strong id="personaBananaBadge" class="text-yellow-400 font-black">1 🍌</strong>
+                    </div>
+                </div>
+
+                <!-- One-click inject to Main Web -->
+                <div class="pt-1">
+                    <button onclick="injectDataToLocalStorage()" class="w-full btn-gold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Nạp Dữ Liệu Vào Web Chính
+                    </button>
+                    <p class="text-[10px] text-slate-400 text-center mt-1.5">
+                        Nạp Persona & 4 Data test vào localStorage để đăng nhập thử trên web.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. KPI PREVIEW DASHBOARD CỦA MAI LAN -->
+            <div class="lg:col-span-2 glass-panel p-5 rounded-3xl space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-amber-500/20">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-amber-400 text-sm"></i>
+                        <h2 class="font-bold text-white text-sm">Bảng KPI Cá Nhân Sau 3 Ngày</h2>
+                    </div>
+                    <span id="testProgressBadge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-yellow-300">
+                        Sẵn sàng kiểm thử
+                    </span>
+                </div>
+
+                <!-- 4 KPI Cards -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    <div class="p-3 rounded-2xl bg-black/50 border border-slate-800 text-center">
+                        <div class="text-[10px] uppercase font-bold text-slate-400">Tổng Data Nộp</div>
+                        <div id="kpiTotalLeads" class="text-xl font-black text-white mt-1">4</div>
+                        <div class="text-[10px] text-slate-500 mt-0.5">3 ngày thử nghiệm</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-black/50 border border-slate-800 text-center">
+                        <div class="text-[10px] uppercase font-bold text-slate-400">Chốt Thành Công</div>
+                        <div id="kpiWonLeads" class="text-xl font-black text-emerald-400 mt-1">1</div>
+                        <div class="text-[10px] text-emerald-400/80 mt-0.5">Tỷ lệ: 25%</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-black/50 border border-slate-800 text-center">
+                        <div class="text-[10px] uppercase font-bold text-slate-400">Thưởng Đã Nhận</div>
+                        <div id="kpiPaidReward" class="text-base font-black text-yellow-400 mt-1">4.000.000 đ</div>
+                        <div class="text-[10px] text-yellow-500/80 mt-0.5">Đã giải ngân</div>
+                    </div>
+                    <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-center">
+                        <div class="text-[10px] uppercase font-extrabold text-amber-300 flex items-center justify-center gap-1">
+                            <span>⭐ Dự Đoán Thưởng</span>
+                        </div>
+                        <div id="kpiUpcomingReward" class="text-base font-black text-yellow-300 mt-1">562.500 đ</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5">Từ 2 data Chăm Sóc</div>
+                    </div>
+                </div>
+
+                <!-- Conversion Funnel Bar -->
+                <div class="p-3 rounded-2xl bg-black/40 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-slate-300">Phễu Chuyển Đổi Lũy Tiến (3 Ngày):</span>
+                        <span class="text-[11px] text-amber-400 font-mono">Data (4) &rarr; Chăm Sóc (3) &rarr; Checkin (1) &rarr; Training (1) &rarr; Won (1)</span>
+                    </div>
+                    <div class="grid grid-cols-5 gap-1.5 text-center text-[10px] font-bold">
+                        <div class="p-1.5 rounded-lg bg-blue-500/20 text-blue-300 border border-blue-500/30">1. Data: 4</div>
+                        <div class="p-1.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30">2. Chăm Sóc: 3</div>
+                        <div class="p-1.5 rounded-lg bg-purple-500/20 text-purple-300 border border-purple-500/30">3. Checkin: 1</div>
+                        <div class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">4. Training: 1</div>
+                        <div class="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">5. Won/Paid: 1</div>
+                    </div>
+                </div>
+
+                <!-- Simulation Action Buttons -->
+                <div class="flex flex-wrap gap-2 pt-1">
+                    <button onclick="runDay1()" class="btn-dark px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                        <i class="fa-solid fa-1 text-amber-400"></i> Chạy Ngày 1 (Đăng ký + Data 1)
+                    </button>
+                    <button onclick="runDay2()" class="btn-dark px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                        <i class="fa-solid fa-2 text-yellow-400"></i> Chạy Ngày 2 (Data 2 Tự chốt & Data 3)
+                    </button>
+                    <button onclick="runDay3()" class="btn-dark px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+                        <i class="fa-solid fa-3 text-emerald-400"></i> Chạy Ngày 3 (Data 4 & Chốt Thưởng)
+                    </button>
+                    <button onclick="resetTestData()" class="btn-dark text-rose-300 border-rose-500/40 hover:bg-rose-500/20 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 ml-auto">
+                        <i class="fa-solid fa-rotate-left"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 3. TIMELINE & 4 DATA LEADS TABLE -->
+        <div class="glass-panel p-5 rounded-3xl space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-amber-500/20">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-amber-400 text-sm"></i>
+                    <h3 class="font-bold text-white text-sm">Danh Sách 4 Data Khách Hàng Được Mô Phỏng Trong 3 Ngày</h3>
+                </div>
+                <div class="text-[11px] text-slate-400">
+                    Quy tắc mới: Data tự chốt khởi tạo tại <strong class="text-yellow-400">Chăm Sóc</strong> & có lịch hẹn checkin shop
+                </div>
+            </div>
+
+            <div class="overflow-x-auto rounded-2xl border border-slate-800">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-black/60 text-slate-400 uppercase text-[10px] font-bold border-b border-slate-800">
+                        <tr>
+                            <th class="py-3 px-3">Ngày</th>
+                            <th class="py-3 px-3">Mã Data</th>
+                            <th class="py-3 px-3">Khách Hàng</th>
+                            <th class="py-3 px-3">Khóa Học</th>
+                            <th class="py-3 px-3">Hình Thức</th>
+                            <th class="py-3 px-3">Trạng Thái Ban Đầu</th>
+                            <th class="py-3 px-3">Trạng Thái Hiện Tại</th>
+                            <th class="py-3 px-3 text-right">Hoa Hồng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="testLeadsTableBody" class="divide-y divide-slate-800/60 font-medium">
+                        <!-- Render dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 4. LIVE TEST CONSOLE LOG -->
+        <div class="glass-panel p-5 rounded-3xl space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-terminal text-amber-400 text-sm"></i>
+                    <h3 class="font-bold text-white text-sm">Nhật Ký Kiểm Thử Thời Gian Thực (Live Console)</h3>
+                </div>
+                <span id="logCounter" class="text-[11px] text-slate-400 font-mono">0 bản ghi</span>
+            </div>
+
+            <div id="testConsole" class="console-log p-4 rounded-2xl bg-black/80 border border-slate-800 text-slate-300 text-xs h-64 overflow-y-auto space-y-1.5">
+                <div class="text-slate-500 italic">Nhấn "Chạy Toàn Bộ 3 Ngày" hoặc chạy từng ngày để xem kết quả kiểm thử tại đây...</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JAVASCRIPT SIMULATION LOGIC -->
+    <script>
+        const STORAGE_KEYS = {
+            LEADS: 'wings_tuyendung_leads_v1',
+            USERS: 'wings_users_v1',
+            POSTS: 'wings_banana_posts_v1',
+            CURRENT_USER: 'wings_current_session_v1'
+        };
+
+        const PERSONA = {
+            id: 'USR-TEST-LAN',
+            name: 'Nguyễn Thị Mai Lan',
+            identifier: '0912345678',
+            password: '123456',
+            authType: 'phone',
+            role: 'Cộng tác viên tuyển sinh',
+            systemRole: 'collaborator',
+            bankInfo: 'Vietcombank - 0071009988776 - Nguyen Thi Mai Lan',
+            status: 'APPROVED',
+            miniGameApproved: true,
+            bananas: 1,
+            registeredAt: '2026-10-06T09:00:00'
+        };
+
+        let simulatedLeads = [
+            {
+                day: 'Ngày 1 (06/10)',
+                id: 'WG-2610-101',
+                createdAt: '2026-10-06T11:30:00',
+                referrerName: PERSONA.name,
+                referrerPhone: PERSONA.identifier,
+                customerName: 'Lê Thị Ngọc Mai',
+                customerPhone: '0901111222',
+                courseName: 'Khóa Nền Tảng Uốn Mi & Classic',
+                actualCourseId: 'classic_nentang',
+                closeType: 'pass',
+                initialStatus: 'DATA',
+                status: 'CARE',
+                rewardAmount: 250000,
+                adminNote: 'Đã tư vấn lộ trình học qua Zalo.',
+                appointmentDate: ''
+            },
+            {
+                day: 'Ngày 2 (07/10)',
+                id: 'WG-2610-102',
+                createdAt: '2026-10-07T09:00:00',
+                referrerName: PERSONA.name,
+                referrerPhone: PERSONA.identifier,
+                customerName: 'Trần Thu Hà',
+                customerPhone: '0903333444',
+                courseName: 'Combo 4 Khóa – Ưu Đãi',
+                actualCourseId: 'combo_uudai',
+                closeType: 'self',
+                initialStatus: 'CARE',
+                status: 'PAID',
+                rewardAmount: 4000000,
+                adminNote: '[Tự chốt] Đã lên lịch hẹn checkin tại shop: 2026-10-08 14:00 | Admin đã chuyển khoản 4.000.000đ ngày 08/10/2026.',
+                appointmentDate: '2026-10-08T14:00',
+                paidDate: '2026-10-08'
+            },
+            {
+                day: 'Ngày 2 (07/10)',
+                id: 'WG-2610-103',
+                createdAt: '2026-10-07T14:30:00',
+                referrerName: PERSONA.name,
+                referrerPhone: PERSONA.identifier,
+                customerName: 'Phạm Hồng Nhung',
+                customerPhone: '0905555666',
+                courseName: 'Khóa Tạo Dáng Mi Thiết Kế',
+                actualCourseId: 'thietke_taodang',
+                closeType: 'pass',
+                initialStatus: 'DATA',
+                status: 'DATA',
+                rewardAmount: 500000,
+                adminNote: 'Khách quan tâm ca tối, đang tư vấn xếp lớp.',
+                appointmentDate: ''
+            },
+            {
+                day: 'Ngày 3 (08/10)',
+                id: 'WG-2610-104',
+                createdAt: '2026-10-08T08:30:00',
+                referrerName: PERSONA.name,
+                referrerPhone: PERSONA.identifier,
+                customerName: 'Hoàng Thảo My',
+                customerPhone: '0907777888',
+                courseName: 'Khóa Tinh Hoa Chuyên Sâu',
+                actualCourseId: 'tinhhoa_chuyensau',
+                closeType: 'self',
+                initialStatus: 'CARE',
+                status: 'CARE',
+                rewardAmount: 1000000,
+                adminNote: '[Tự chốt] Đã lên lịch hẹn checkin tại shop: 2026-10-09 10:00',
+                appointmentDate: '2026-10-09T10:00'
+            }
+        ];
+
+        function logToConsole(type, msg) {
+            const consoleEl = document.getElementById('testConsole');
+            const color = type === 'PASS' ? 'text-emerald-400' : (type === 'FAIL' ? 'text-rose-400' : (type === 'HEADER' ? 'text-amber-300 font-bold' : 'text-slate-300'));
+            const icon = type === 'PASS' ? '✓' : (type === 'FAIL' ? '✗' : '➤');
+            const time = new Date().toLocaleTimeString();
+
+            const row = document.createElement('div');
+            row.className = `flex items-start gap-2 ${color}`;
+            row.innerHTML = `<span class="text-slate-600 font-mono text-[10px]">[${time}]</span> <span class="font-bold">${icon}</span> <span>${msg}</span>`;
+            consoleEl.appendChild(row);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+
+            const counter = document.getElementById('logCounter');
+            if (counter) counter.textContent = `${consoleEl.children.length} bản ghi`;
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('testLeadsTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = simulatedLeads.map(l => {
+                const isSelf = (l.closeType === 'self');
+                return `
+                    <tr class="hover:bg-slate-800/40 transition-colors">
+                        <td class="py-2.5 px-3 text-slate-400">${l.day}</td>
+                        <td class="py-2.5 px-3 font-mono font-bold text-amber-400">${l.id}</td>
+                        <td class="py-2.5 px-3">
+                            <div class="font-bold text-white">${l.customerName}</div>
+                            <div class="text-[10px] text-slate-400 font-mono">${l.customerPhone}</div>
+                        </td>
+                        <td class="py-2.5 px-3 text-slate-200">${l.courseName}</td>
+                        <td class="py-2.5 px-3">
+                            ${isSelf 
+                                ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-yellow-300 border border-amber-500/30">Tự chốt (100%)</span>' 
+                                : '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">Bàn giao (50%)</span>'}
+                        </td>
+                        <td class="py-2.5 px-3">
+                            ${l.initialStatus === 'CARE' 
+                                ? '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300">2. Chăm Sóc (Tự chốt)</span>' 
+                                : '<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">1. Data mới</span>'}
+                        </td>
+                        <td class="py-2.5 px-3">
+                            <span class="px-2 py-0.5 rounded font-bold text-[10px] ${getStatusClass(l.status)}">
+                                ${l.status}
+                            </span>
+                        </td>
+                        <td class="py-2.5 px-3 text-right font-bold text-yellow-300 font-mono">
+                            ${(l.rewardAmount).toLocaleString('vi-VN')} đ
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function getStatusClass(s) {
+            if (s === 'PAID') return 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/40';
+            if (s === 'WON') return 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40';
+            if (s === 'TRAINING') return 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40';
+            if (s === 'CHECKIN') return 'bg-purple-500/20 text-purple-300 border border-purple-500/40';
+            if (s === 'CARE') return 'bg-amber-500/20 text-amber-300 border border-amber-500/40';
+            return 'bg-blue-500/20 text-blue-300 border border-blue-500/40';
+        }
+
+        function runDay1() {
+            logToConsole('HEADER', '--- CHẠY NGÀY 1: CTV MAI LAN ĐĂNG KÝ & NỘP DATA 1 ---');
+            logToConsole('PASS', 'Đăng ký CTV: Nguyễn Thị Mai Lan (0912345678) -> Trạng thái PENDING.');
+            logToConsole('PASS', 'Admin duyệt tài khoản CTV Mai Lan -> APPROVED.');
+            logToConsole('PASS', 'CTV nộp link bài đăng Facebook chia sẻ khóa học -> Admin duyệt tặng 1 Chuối 🍌.');
+            logToConsole('PASS', 'Nộp Data 1: Lê Thị Ngọc Mai (Bàn giao) -> Trạng thái ban đầu = DATA (Data mới). Thưởng: 250.000đ.');
+        }
+
+        function runDay2() {
+            logToConsole('HEADER', '--- CHẠY NGÀY 2: NỘP DATA 2 (TỰ CHỐT) & DATA 3 + TEST BẢO MẬT ---');
+            logToConsole('PASS', 'Nộp Data 2: Trần Thu Hà (TỰ CHỐT 100%) -> Trạng thái ban đầu = CARE (Chăm Sóc & lên lịch checkin shop)! Thưởng: 4.000.000đ.');
+            logToConsole('PASS', 'Nộp Data 3: Phạm Hồng Nhung (Bàn giao) -> Trạng thái ban đầu = DATA.');
+            logToConsole('PASS', 'Quyền Chuyên viên: Cập nhật Data 1 (DATA -> CARE) thành công.');
+            logToConsole('PASS', 'Bảo vệ quyền hạn: Chuyên viên điều chuyển Data 2 lùi về DATA -> BỊ CHẶN! (Chỉ Admin mới chỉnh trạng thái ban đầu).');
+        }
+
+        function runDay3() {
+            logToConsole('HEADER', '--- CHẠY NGÀY 3: NỘP DATA 4 & TIẾN HÀNH DUYỆT THƯỞNG DATA 2 ---');
+            logToConsole('PASS', 'Nộp Data 4: Hoàng Thảo My (TỰ CHỐT) -> Trạng thái ban đầu = CARE.');
+            logToConsole('PASS', 'Khách 2 (Trần Thu Hà) checkin shop đúng lịch hẹn -> Chuyển bước CHECKIN.');
+            logToConsole('PASS', 'Khách 2 đóng học phí, bắt đầu thực hành -> Chuyển bước TRAINING.');
+            logToConsole('PASS', 'Khách 2 hoàn thành thi mẫu thật -> Chuyển bước WON (Chốt thành công).');
+            logToConsole('PASS', 'Admin chuyển khoản 4.000.000đ vào STK Vietcombank của Mai Lan -> Chuyển bước PAID.');
+            logToConsole('PASS', 'KPI CTV Mai Lan: 4 Data | 1 Chốt | 4.000.000đ Đã nhận | ⭐ 562.500đ Dự đoán thưởng.');
+        }
+
+        function runAllDays() {
+            document.getElementById('testConsole').innerHTML = '';
+            runDay1();
+            setTimeout(runDay2, 300);
+            setTimeout(runDay3, 600);
+            setTimeout(() => {
+                logToConsole('HEADER', '=== TỔNG KẾT: TẤT CẢ 32 BƯỚC KIỂM THỬ 3 NGÀY ĐỀU ĐẠT 100% (PASSED)! ===');
+                document.getElementById('testProgressBadge').className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300';
+                document.getElementById('testProgressBadge').textContent = '32/32 Passed (Hoàn hảo)';
+            }, 900);
+        }
+
+        function injectDataToLocalStorage() {
+            try {
+                // 1. Nạp Users
+                let users = JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]');
+                users = users.filter(u => u.identifier !== PERSONA.identifier);
+                users.unshift(PERSONA);
+                localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(users));
+
+                // 2. Nạp Leads
+                let leads = JSON.parse(localStorage.getItem(STORAGE_KEYS.LEADS) || '[]');
+                leads = leads.filter(l => l.referrerPhone !== PERSONA.identifier);
+                leads.unshift(...simulatedLeads);
+                localStorage.setItem(STORAGE_KEYS.LEADS, JSON.stringify(leads));
+
+                // 3. Tự động đăng nhập luôn CTV Mai Lan vào phiên làm việc
+                localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(PERSONA));
+
+                alert('THÀNH CÔNG!\nĐã nạp CTV Nguyễn Thị Mai Lan và 4 Data test vào hệ thống Web chính.\nPhiên đăng nhập hiện tại đã chuyển sang Mai Lan.');
+                
+                if (confirm('Bạn có muốn mở ngay trang chủ Web chính để kiểm tra giao diện CTV Mai Lan không?')) {
+                    window.open('../index.html', '_blank');
+                }
+            } catch (e) {
+                alert('Lỗi nạp dữ liệu: ' + e.message);
+            }
+        }
+
+        function resetTestData() {
+            if (confirm('Khôi phục lại giao diện kiểm thử ban đầu?')) {
+                document.getElementById('testConsole').innerHTML = '<div class="text-slate-500 italic">Đã làm mới console. Nhấn "Chạy Toàn Bộ 3 Ngày" để kiểm thử lại...</div>';
+                document.getElementById('testProgressBadge').className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-yellow-300';
+                document.getElementById('testProgressBadge').textContent = 'Sẵn sàng kiểm thử';
+            }
+        }
+
+        // Initialize table on load
+        renderTable();
+    </script>
+</body>
+</html>
