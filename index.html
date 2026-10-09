@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport tối ưu 100% cho iPhone (Ngăn chặn auto-zoom, hỗ trợ tai thỏ notch và dynamic island) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>Wings Beauty & Academy | Tuyển Dụng & Mini Game Chuối 🍌</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Playfair+Display:wght@600;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wings: {
+                            gold: '#d4af37',
+                            lightgold: '#fef08a',
+                            darkgold: '#854d0e',
+                            amber: '#f59e0b',
+                            dark: '#0a0c10',
+                            card: '#12161f',
+                            border: 'rgba(212, 175, 55, 0.3)'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
+                        heading: ['"Montserrat"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome 6 CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Custom Mobile-First Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#090b0e] text-slate-200 antialiased min-h-screen flex flex-col select-none">
+
+    <!-- Top Announcement Ribbon (Gọn gàng trên màn hình iPhone) -->
+    <div class="ribbon-banner py-1.5 px-3 text-center text-[11px] sm:text-xs font-bold text-yellow-200 flex items-center justify-center gap-1.5 shadow-sm">
+        <i class="fa-solid fa-bullhorn text-yellow-300 animate-bounce text-[10px]"></i>
+        <span class="truncate">THÁNG 10: TẠM NGƯNG THƯỞNG MSL • ÁP DỤNG 5 HV ĐẦU TIÊN</span>
+    </div>
+
+    <!-- Header Navigation (Sleek Compact Top Bar chuẩn iPhone) -->
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-[#090b0e]/95 border-b border-amber-500/25 shadow-md w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl w-full mx-auto px-2.5 sm:px-6 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2">
+            <!-- Brand Logo -->
+            <a href="javascript:void(0)" onclick="navigateToScreen('screen-home')" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+                <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-300 flex items-center justify-center text-black font-extrabold text-sm sm:text-lg shadow-[0_0_12px_rgba(245,158,11,0.5)]">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <div>
+                    <span class="font-heading font-extrabold text-sm sm:text-base tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-500">
+                        WINGS
+                    </span>
+                    <span class="hidden sm:block text-[8px] tracking-[0.2em] text-amber-200/80 uppercase font-semibold -mt-1">
+                        BEAUTY & ACADEMY
+                    </span>
+                </div>
+            </a>
+
+            <!-- Header Actions for Mobile (Scroll ngang mượt mà, không bao giờ đẩy vỡ chiều rộng màn hình) -->
+            <div class="flex items-center gap-1 sm:gap-1.5 flex-nowrap overflow-x-auto scrollbar-none py-1 max-w-[calc(100vw-110px)] sm:max-w-none shrink-0">
+                <!-- NÚT CHUYỂN ĐỔI CHẾ ĐỘ: VƯỜN ƯƠM CẢM XÚC ⇄ BẢN THÔ TIÊU CHUẨN -->
+                <button type="button" id="btnToggleThemeMode" onclick="toggleWingsThemeMode()" 
+                    class="relative px-1.5 sm:px-2.5 py-1 sm:py-1.5 rounded-lg border text-[11px] font-bold flex items-center gap-1 min-h-[30px] sm:min-h-[34px] active:scale-95 transition-all shadow-sm cursor-pointer select-none bg-emerald-950/40 hover:bg-emerald-900/60 border-emerald-500/50 text-emerald-300 shrink-0"
+                    title="Chuyển đổi: Thế giới cảm xúc Vườn Ươm Wings ⇄ Phiên bản thô tiêu chuẩn">
+                    <span id="themeModeIcon" class="text-xs">🌱</span>
+                    <span id="themeModeLabel" class="text-[10px] sm:text-[11px] font-bold hidden xs:inline sm:inline">Vườn Ươm</span>
+                    <i class="fa-solid fa-arrows-rotate text-[8px] sm:text-[9px] text-amber-400 opacity-80 ml-0.5"></i>
+                </button>
+
+                <!-- NÚT WIKI CẨM NANG -->
+                <a href="javascript:void(0)" onclick="smoothScrollToWiki(event)" class="bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/40 text-[10px] sm:text-[11px] font-bold py-1 px-2 sm:py-1.5 sm:px-2.5 rounded-lg flex items-center gap-1 min-h-[30px] sm:min-h-[34px] active:scale-95 transition-all shadow-sm shrink-0" title="Tra cứu Wiki: Bảng Thưởng, Thể Lệ Game, Nội Dung Khóa Học">
+                    <i class="fa-solid fa-book-bookmark text-amber-400 text-xs"></i>
+                    <span>Wiki</span>
+                </a>
+
+                <!-- NÚT BẢNG XẾP HẠNG (Chỉ hiện trên desktop/tablet để tránh trùng thanh bar dưới) -->
+                <a href="javascript:void(0)" onclick="navigateToScreen('screen-leaderboard')" id="btnHeaderLeaderboard" class="hidden md:flex bg-yellow-500/15 hover:bg-yellow-500/25 text-yellow-300 border border-yellow-500/40 text-[11px] font-bold py-1.5 px-2.5 rounded-lg items-center gap-1 min-h-[34px] active:scale-95 transition-all shadow-sm shrink-0" title="Bảng xếp hạng đua top">
+                    <i class="fa-solid fa-trophy text-yellow-400 text-xs"></i>
+                    <span>Xếp Hạng</span>
+                </a>
+
+                <!-- GUEST ACTIONS -->
+                <div id="guestNavActions" class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+                    <button id="btnOpenLoginModal" class="btn-gold text-[10px] sm:text-[11px] font-bold py-1 px-2.5 sm:py-1.5 sm:px-3 rounded-lg flex items-center gap-1 min-h-[30px] sm:min-h-[34px] active:scale-95 shadow-sm whitespace-nowrap">
+                        <i class="fa-solid fa-right-to-bracket text-[9px] sm:text-[10px]"></i>
+                        <span>Đăng Nhập</span>
+                    </button>
+                    <button id="btnOpenRegisterModal" class="btn-gold-outline text-[10px] sm:text-[11px] font-bold py-1 px-2 sm:py-1.5 sm:px-2.5 rounded-lg flex items-center gap-1 min-h-[30px] sm:min-h-[34px] active:scale-95 whitespace-nowrap">
+                        <span>Đăng Ký</span>
+                    </button>
+                </div>
+
+                <!-- MEMBER ACTIONS -->
+                <div id="memberNavActions" class="hidden items-center gap-1 sm:gap-1.5 shrink-0">
+                    <!-- Notification Bell for Member/CTV -->
+                    <button type="button" id="btnOpenNotificationModal" onclick="openNotificationsModal()" class="relative p-1 sm:p-1.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/35 text-amber-300 active:scale-95 text-xs min-h-[30px] sm:min-h-[32px] flex items-center justify-center transition-all shrink-0" title="Thông báo data và tiến trình duyệt thưởng">
+                        <i class="fa-solid fa-bell text-xs sm:text-sm"></i>
+                        <span id="unreadNotifBadge" class="hidden absolute -top-1 -right-1 min-w-[15px] h-3.5 px-0.5 bg-rose-600 text-white text-[8px] font-black rounded-full flex items-center justify-center shadow-lg border border-black animate-pulse">0</span>
+                    </button>
+
+                    <a href="javascript:void(0)" onclick="navigateToScreen('screen-mini-game')" class="banana-badge px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full flex items-center gap-1 text-[10px] sm:text-[11px] min-h-[28px] sm:min-h-[30px] shrink-0">
+                        <span class="text-xs">🍌</span>
+                        <span id="memberBananaCountHeader" class="font-extrabold font-mono">0</span>
+                    </a>
+
+                    <button type="button" id="btnOpenUserProfileModal" class="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 border border-amber-500/35 hover:border-amber-400 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-xl min-h-[28px] sm:min-h-[32px] cursor-pointer transition-all active:scale-95 shadow-sm shrink-0" title="Bấm để xem và sửa thông tin cá nhân, cập nhật ảnh đại diện">
+                        <img id="memberAvatarHeader" src="" class="hidden w-4 h-4 sm:w-5 sm:h-5 rounded-full object-cover border border-amber-400 shadow-sm" alt="Avatar">
+                        <i id="memberDefaultIconHeader" class="fa-solid fa-circle-user text-amber-400 text-xs"></i>
+                        <span id="memberNameHeader" class="text-[10px] sm:text-[11px] font-bold text-white max-w-[65px] sm:max-w-[120px] truncate">User</span>
+                        <i class="fa-solid fa-pen-to-square text-[8px] sm:text-[9px] text-amber-400/80 ml-0.5"></i>
+                    </button>
+
+                    <button id="btnUserLogout" title="Đăng xuất" class="p-1 sm:p-1.5 rounded-lg bg-slate-800 text-slate-400 active:scale-95 text-xs min-h-[28px] shrink-0">
+                        <i class="fa-solid fa-power-off text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Admin Button (Dedicated Standalone Admin Portal - Chế độ Kiểm Lâm / Admin) -->
+                <a href="admin.html" id="btnOpenAdminAuth" class="bg-purple-950/60 hover:bg-purple-900/60 text-amber-300 border border-amber-500/40 text-[10px] sm:text-[11px] font-bold py-1 px-1.5 sm:py-1.5 sm:px-2 rounded-lg flex items-center gap-1 min-h-[28px] sm:min-h-[32px] active:scale-95 shrink-0" title="Khu vực Kiểm Lâm & Báo Cáo Hiệu Suất Vườn Ươm">
+                    <i id="adminNavIcon" class="fa-solid fa-tree text-[10px]"></i>
+                    <span id="adminNavLabel" class="hidden sm:inline">Kiểm Lâm</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- BANNER ĐĂNG NHẬP DƯỚI DANH NGHĨA (IMPERSONATION BANNER) -->
+    <div id="impersonationBanner" class="hidden sticky top-16 z-30 bg-gradient-to-r from-purple-950 via-indigo-950 to-amber-950 text-white px-3.5 py-2.5 border-b border-amber-400/50 shadow-xl backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2.5 text-xs">
+            <div class="flex items-center gap-2">
+                <span class="px-2 py-0.5 rounded-full bg-amber-400 text-black font-black text-[10px] uppercase tracking-wider animate-pulse flex items-center gap-1 shadow">
+                    <span>👁️</span> Chế Độ Xem Trải Nghiệm
+                </span>
+                <span class="text-slate-200">
+                    Đang xem dưới danh nghĩa: <strong id="impersonationUserName" class="text-amber-300 font-extrabold text-sm">--</strong> (<span id="impersonationUserRole" class="text-purple-300 font-semibold text-xs">--</span>)
+                </span>
+            </div>
+            <button type="button" onclick="exitImpersonation()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-black font-extrabold text-xs flex items-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Thoát Chế Độ Xem & Quay Lại Quản Trị</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main id="mainLandingSection" class="flex-grow">
+        
+        <!-- ==========================================================================
+             SCREEN 1: GIAO DIỆN BAN ĐẦU - ĐĂNG NHẬP & ĐĂNG KÝ (CHO KHÁCH / CHƯA ĐĂNG NHẬP)
+             ========================================================================== -->
+        <section id="screen-initial-auth" class="py-5 bg-gradient-to-b from-[#090b0e] via-[#10141f] to-[#090b0e] border-b border-amber-500/20">
+            <div class="max-w-2xl mx-auto px-3 sm:px-4">
+                <!-- CONTAINER 1: GIAO DIỆN ĐĂNG NHẬP & ĐĂNG KÝ BAN ĐẦU (CHUẨN POSTER CRM - TELESALES PORTAL) -->
+                <div id="ctvGuestCallout" class="w-full max-w-sm sm:max-w-md mx-auto p-6 sm:p-8 rounded-3xl bg-[#0B132B] border border-slate-700/60 shadow-[0_12px_45px_rgba(0,0,0,0.7)] text-center text-white relative transition-all">
+                    
+                    <!-- Emblem Vàng Bo Tròn Chữ W -->
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#C59B27] flex items-center justify-center font-bold text-2xl sm:text-3xl text-black shadow-[0_0_25px_rgba(197,155,39,0.35)] mx-auto mb-3.5 border border-amber-300/40 select-none">
+                        <span class="font-extrabold tracking-tighter">W</span>
+                    </div>
+
+                    <!-- Tên Thương Hiệu -->
+                    <h1 class="font-heading font-black text-xl sm:text-2xl text-[#E5B853] tracking-[0.2em] uppercase leading-tight mb-5">
+                        WINGS ACADEMY
+                    </h1>
+
+                    <!-- CHẾ ĐỘ 1: GOOGLE 1-TAP / SIGN-IN CARD (Mặc định chuẩn theo ảnh mẫu) -->
+                    <div id="initialAuthMainView" class="space-y-3">
+                        <div id="googleSignInBtnCard" onclick="handleInitialGoogleLogin()" class="bg-white rounded-xl p-2.5 sm:p-3 border border-slate-200/90 shadow-md flex items-center justify-between cursor-pointer hover:bg-slate-100 active:scale-[0.98] transition-all select-none group" title="Bấm để đăng nhập nhanh với tài khoản Google">
+                            <div class="flex items-center gap-2.5 min-w-0">
+                                <div class="w-8 h-8 rounded-full overflow-hidden border border-slate-300 flex-shrink-0 bg-slate-100 flex items-center justify-center shadow-inner">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Nguyên Bùi" class="w-full h-full object-cover">
+                                </div>
+                                <div class="text-left min-w-0">
+                                    <div class="text-xs sm:text-[13px] font-semibold text-slate-800 truncate group-hover:text-black">Sign in as Nguyên</div>
+                                    <div class="text-[11px] sm:text-xs text-slate-500 font-mono truncate">nguyen.bui@wingslashes.com</div>
+                                </div>
+                            </div>
+                            <div class="flex-shrink-0 ml-2">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Action links -->
+                        <div class="pt-1 space-y-2">
+                            <button type="button" onclick="switchInitialAuthView('password')" class="text-xs sm:text-sm text-sky-400 hover:text-sky-300 underline underline-offset-4 font-normal transition-colors">
+                                Hoặc đăng nhập bằng tài khoản & mật khẩu
+                            </button>
+                            <div class="text-[11px] text-slate-400">
+                                Chưa có tài khoản? <button type="button" onclick="switchInitialAuthView('register')" class="text-amber-400 font-bold hover:underline ml-0.5">Đăng Ký Tham Gia</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHẾ ĐỘ 2: ĐĂNG NHẬP BẰNG TÀI KHOẢN & MẬT KHẨU (INLINE COMPACT) -->
+                    <div id="initialAuthPasswordView" class="hidden space-y-3 text-left">
+                        <form id="initialPasswordLoginForm" class="space-y-2.5 text-xs">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Số điện thoại hoặc Gmail <span class="text-rose-400">*</span></label>
+                                <input type="text" id="inlineLoginIdentifier" required placeholder="0903123456 hoặc email@gmail.com" class="form-input-luxury py-2 px-3 text-xs font-mono text-white w-full">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mật khẩu <span class="text-rose-400">*</span></label>
+                                <div class="relative">
+                                    <input type="password" id="inlineLoginPassword" required placeholder="Nhập mật khẩu" class="form-input-luxury py-2 px-3 pr-9 text-xs font-mono text-white w-full">
+                                    <button type="button" onclick="togglePasswordVisibility('inlineLoginPassword', this)" class="absolute right-2.5 top-2 text-slate-400 hover:text-amber-300 p-1">
+                                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="inlineLoginError" class="hidden text-[11px] text-rose-400 bg-rose-500/10 p-2 rounded-lg border border-rose-500/20 text-center font-medium"></div>
+                            <button type="submit" class="btn-gold py-2.5 rounded-xl font-bold text-xs w-full shadow-md active:scale-95 flex items-center justify-center gap-1.5 mt-2">
+                                <i class="fa-solid fa-right-to-bracket text-xs"></i> Đăng Nhập Hệ Thống
+                            </button>
+                        </form>
+                        <div class="text-center pt-1 space-y-1">
+                            <button type="button" onclick="switchInitialAuthView('main')" class="text-xs text-sky-400 hover:text-sky-300 underline underline-offset-4">
+                                ← Quay lại đăng nhập nhanh với Google
+                            </button>
+                            <div class="text-[11px] text-slate-400">
+                                Chưa có tài khoản? <button type="button" onclick="switchInitialAuthView('register')" class="text-amber-400 font-bold hover:underline ml-0.5">Đăng Ký Tham Gia</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CHẾ ĐỘ 3: FORM ĐĂNG KÝ THAM GIA BAN ĐẦU (INLINE COMPACT) -->
+                    <div id="initialAuthRegisterView" class="hidden space-y-3 text-left">
+                        <form id="initialRegisterForm" class="space-y-2.5 text-xs">
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Họ và tên của bạn <span class="text-rose-400">*</span></label>
+                                <input type="text" id="inlineRegName" required placeholder="Nguyễn Văn A" class="form-input-luxury py-2 px-3 text-xs text-white w-full">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Số điện thoại hoặc Gmail <span class="text-rose-400">*</span></label>
+                                <input type="text" id="inlineRegIdentifier" required placeholder="0903123456 hoặc email@gmail.com" class="form-input-luxury py-2 px-3 text-xs font-mono text-white w-full">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mật khẩu tài khoản <span class="text-rose-400">*</span></label>
+                                <div class="relative">
+                                    <input type="password" id="inlineRegPassword" required minlength="6" placeholder="Tối thiểu 6 ký tự" class="form-input-luxury py-2 px-3 pr-9 text-xs font-mono text-white w-full">
+                                    <button type="button" onclick="togglePasswordVisibility('inlineRegPassword', this)" class="absolute right-2.5 top-2 text-slate-400 hover:text-amber-300 p-1">
+                                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="inlineRegError" class="hidden text-[11px] text-rose-400 bg-rose-500/10 p-2 rounded-lg border border-rose-500/20 text-center font-medium"></div>
+                            <button type="submit" class="btn-gold py-2.5 rounded-xl font-bold text-xs w-full shadow-md active:scale-95 flex items-center justify-center gap-1.5 mt-2">
+                                <i class="fa-solid fa-user-plus text-xs"></i> Đăng Ký Tài Khoản Wings
+                            </button>
+                        </form>
+                        <div class="text-center pt-1 space-y-1">
+                            <button type="button" onclick="switchInitialAuthView('main')" class="text-xs text-sky-400 hover:text-sky-300 underline underline-offset-4">
+                                ← Quay lại đăng nhập nhanh với Google
+                            </button>
+                            <div class="text-[11px] text-slate-400">
+                                Đã có tài khoản? <button type="button" onclick="switchInitialAuthView('password')" class="text-amber-400 font-bold hover:underline ml-0.5">Đăng nhập ngay</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             CÁC PHÂN HỆ DÀNH CHO THÀNH VIÊN ĐÃ ĐĂNG NHẬP (SCREENS 2 - 6)
+             ========================================================================== -->
+        <div id="memberScreensContainer">
+
+            <!-- ==========================================================================
+                 SCREEN 2: TRANG CHỦ (TAB "TRANG CHỦ")
+                 Chương trình hiện hữu (Hình 1) + Wiki Tuyển Sinh Wings (Hình 2)
+                 ========================================================================== -->
+            <div id="screen-home" class="portal-screen">
+                <!-- ==========================================================================
+             SECTION 1: HERO & THỂ LỆ (TRANG CHỦ)
+             ========================================================================== -->
+        <section id="the-le" class="pt-5 pb-8 border-b border-amber-500/15">
+            <div class="max-w-xl mx-auto px-3.5 sm:px-4 text-center">
+                
+                <!-- Tag badge: Vườn Ươm Wings -->
+                <div id="badgeHeroTheme" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 text-[10px] font-bold uppercase tracking-wider mb-2.5">
+                    <span>🌳 Vườn Ươm Wings</span>
+                    <span class="text-amber-300">• Tuyển Sinh Tháng 10</span>
+                </div>
+
+                <!-- Triết lý & Câu chuyện cảm xúc -->
+                <div id="bannerQuotePhilosophy" class="mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-950/40 via-yellow-950/30 to-emerald-950/30 border border-amber-500/30 shadow-md">
+                    <p class="font-serif italic text-amber-200 text-xs sm:text-sm leading-relaxed">
+                        “Vì lợi ích mười năm thì phải trồng cây,<br class="hidden sm:inline"> vì lợi ích trăm năm thì phải trồng người.”
+                    </p>
+                    <div class="text-[10px] text-slate-400 mt-1 uppercase tracking-widest font-semibold">
+                        — Thế Giới Cảm Xúc & Vườn Ươm Wings —
+                    </div>
+                </div>
+
+                <!-- Slogan Vườn Ươm -->
+                <h1 id="titleHeroTheme" class="font-heading font-black text-2xl sm:text-4xl uppercase tracking-tight text-white mb-2 leading-tight">
+                    TRAO HẠT GIỐNG CƠ HỘI <br>
+                    <span class="gold-foil-text drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+                        GẶT THÀNH QUẢ VUN TRỒNG
+                    </span>
+                </h1>
+
+                <p id="descHeroTheme" class="text-xs sm:text-sm text-slate-300 mb-4 leading-relaxed font-light">
+                    Mỗi data là một <strong class="text-amber-300">hạt giống cơ hội</strong> gửi gắm ước mơ. Hãy cùng <strong class="text-emerald-300">Bà Tiên Xanh</strong> vun trồng và gặt hái thành quả lên đến <strong class="text-yellow-400 font-bold">7.000.000đ</strong> cùng Mini Game <strong class="text-yellow-300">Chuối 🍌</strong>!
+                </p>
+
+                <!-- BẢN ĐỒ THẾ GIỚI CẢM XÚC CỦA WINGS (STORY CARD) -->
+                <div id="storyPhilosophyBox" class="mb-4 p-3.5 rounded-2xl bg-[#0e141f] border border-amber-500/35 text-left shadow-lg space-y-2">
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-1.5">
+                        <span id="storyBoxTitle" class="text-xs font-bold text-yellow-300 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-seedling text-emerald-400"></i> Ý Nghĩa Hành Trình Vun Trồng
+                        </span>
+                        <span id="storyBoxSubtitle" class="text-[10px] text-slate-400">Vườn Ươm Wings</span>
+                    </div>
+
+                    <div id="storyBoxGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-300">
+                        <div class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-base">🌰</span>
+                            <div>
+                                <strong class="text-amber-300">Hạt giống cơ hội:</strong>
+                                <span class="text-slate-300 block text-[10px] leading-tight">Mỗi người đang có mong muốn học nghề, đổi nghề hoặc tìm hướng đi mới.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-base">🌱</span>
+                            <div>
+                                <strong class="text-emerald-300">Người gieo hạt (Bạn):</strong>
+                                <span class="text-slate-300 block text-[10px] leading-tight">Người đầu tiên nhìn thấy tiềm năng và mang cơ hội đến với Wings.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-base">🧚</span>
+                            <div>
+                                <strong class="text-purple-300">Bà tiên xanh:</strong>
+                                <span class="text-slate-300 block text-[10px] leading-tight">Tiếp nhận hạt giống, dùng sự tận tâm và kiến thức để nuôi dưỡng cơ hội.</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-2 p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-base">🍎</span>
+                            <div>
+                                <strong class="text-yellow-300">Thành quả vun trồng:</strong>
+                                <span class="text-slate-300 block text-[10px] leading-tight">Sự ghi nhận xứng đáng cho quả ngọt bạn đã chung tay tạo nên.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5 Bước thu gọn -->
+                    <div id="storyBoxSteps" class="pt-1 text-[10px] text-slate-400 flex items-center justify-between gap-1 overflow-x-auto">
+                        <span class="text-blue-300 font-bold whitespace-nowrap">🤲 Gieo hạt</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="text-amber-300 font-bold whitespace-nowrap">💧 Tưới mát</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="text-purple-300 font-bold whitespace-nowrap">🌱 Nảy mầm</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="text-cyan-300 font-bold whitespace-nowrap">🌿 Đâm chồi</span>
+                        <span class="text-slate-600">➔</span>
+                        <span class="text-emerald-400 font-bold whitespace-nowrap">🍎 Kết trái</span>
+                    </div>
+                </div>
+
+                <!-- Crucial Conditions Notice Box for iPhone -->
+                <div class="mb-4 p-3.5 rounded-2xl bg-amber-950/40 border border-amber-500/40 text-left flex items-start gap-3 shadow-lg">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/50 flex-shrink-0 flex items-center justify-center text-amber-400 text-sm mt-0.5">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+                    <div class="text-[11px] text-slate-200">
+                        <div class="font-bold text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-exclamation"></i> ĐIỀU KIỆN NHẬN THƯỞNG:
+                        </div>
+                        <ul class="list-disc list-inside space-y-0.5 text-slate-300">
+                            <li><strong class="text-white">Data hợp lệ:</strong> Mỗi ứng viên được tính cho người chơi đưa thông tin sớm nhất.</li>
+                            <li><strong class="text-white">Thời điểm duyệt thưởng:</strong> Sau khi học viên hoàn thành khóa học.</li>
+                            <li><strong class="text-white">Hình thức nhận tiền:</strong> Nhận vào hệ thống lương thưởng của công ty theo tháng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2 Option Cards for iPhone (100% vs 50%) -->
+                <div class="grid grid-cols-2 gap-2.5 mb-4 text-left">
+                    <div class="gold-card p-3 rounded-xl border-amber-500/30">
+                        <span class="text-[9px] font-bold text-amber-400 uppercase tracking-wider block">Lựa chọn 1</span>
+                        <div id="heroOpt1Title" class="text-xs font-bold text-white mt-0.5">🌟 TỰ VUN TRỒNG</div>
+                        <div id="heroOpt1Rate" class="text-xl font-black text-amber-400 my-1">100%</div>
+                        <p id="heroOpt1Desc" class="text-[10px] text-slate-400 leading-tight">Bạn trực tiếp tư vấn, gieo hạt và chăm sóc đến ngày kết trái.</p>
+                    </div>
+
+                    <div class="gold-card p-3 rounded-xl border-emerald-500/30">
+                        <span class="text-[9px] font-bold text-emerald-400 uppercase tracking-wider block">Lựa chọn 2</span>
+                        <div id="heroOpt2Title" class="text-xs font-bold text-white mt-0.5">🌰 TRAO HẠT GIỐNG</div>
+                        <div id="heroOpt2Rate" class="text-xl font-black text-emerald-400 my-1">50%</div>
+                        <p id="heroOpt2Desc" class="text-[10px] text-slate-400 leading-tight">Bà tiên xanh đồng hành tư vấn, tưới mát và vun trồng.</p>
+                    </div>
+                </div>
+
+                <!-- 1-Tap CTA for iPhone: ƯU TIÊN NỘP DATA -->
+                <div class="space-y-2 mb-2">
+                    <button type="button" id="btnHeroCta" onclick="navigateToScreen('screen-lead-form')" class="btn-gold w-full py-3.5 rounded-xl text-xs sm:text-sm font-extrabold shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2 active:scale-95">
+                        <i class="fa-solid fa-seedling text-black text-base"></i>
+                        <span>🌰 TRAO HẠT GIỐNG CƠ HỘI (ƯU TIÊN)</span>
+                    </button>
+                    <div class="flex items-center gap-2">
+                        <button type="button" onclick="navigateToScreen('screen-mini-game')" class="btn-gold-outline flex-1 py-2.5 rounded-xl text-xs font-bold active:scale-95">
+                            <span class="text-xs">🍌</span> Mini Game Chuối
+                        </button>
+                        <button id="btnViewOriginalPoster" class="btn-gold-outline py-2.5 px-3.5 rounded-xl text-xs font-semibold active:scale-95">
+                            <i class="fa-regular fa-image text-xs mr-1"></i> Poster
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+                <!-- ==========================================================================
+             SECTION WIKI: CẨM NANG TỔNG QUAN WINGS
+             (Bảng Thưởng • Thể Lệ Mini Game • Nội Dung Chi Tiết Các Khóa Học)
+             ========================================================================== -->
+        <section id="wiki" class="py-8 bg-gradient-to-b from-[#0c0f14] via-[#121620] to-[#0c0f14] border-b border-amber-500/20">
+            <div class="max-w-2xl mx-auto px-3 sm:px-4">
+                
+                <!-- Tiêu đề Section Wiki -->
+                <div class="text-center mb-5">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/40 text-amber-300 text-[10px] font-bold uppercase tracking-wider mb-2">
+                        <i class="fa-solid fa-book-bookmark text-yellow-400 text-xs"></i>
+                        <span>Tra Cứu Cẩm Nang Toàn Diện</span>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-heading font-black text-white uppercase tracking-tight">
+                        WIKI TUYỂN SINH WINGS 📖
+                    </h2>
+                    <p class="text-slate-400 text-xs mt-1 max-w-md mx-auto">
+                        Thông tin tổng quan về Bảng Thưởng, Thể Lệ Mini Game Săn Chuối & Nội Dung Chi Tiết Các Khóa Học.
+                    </p>
+                </div>
+
+                <!-- iOS Segmented Control (3 Tabs) -->
+                <div class="bg-black/60 p-1 rounded-2xl border border-amber-500/30 flex items-center mb-5 shadow-lg">
+                    <button type="button" onclick="switchWikiTab('reward')" id="wikiTabBtn_reward" class="wiki-tab-btn active flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-black shadow-md">
+                        <i class="fa-solid fa-money-bill-wave text-stone-950 text-xs"></i>
+                        <span>Bảng Thưởng</span>
+                    </button>
+                    <button type="button" onclick="switchWikiTab('game')" id="wikiTabBtn_game" class="wiki-tab-btn flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 text-slate-400 hover:text-white">
+                        <span>🍌</span>
+                        <span>Thể Lệ Game</span>
+                    </button>
+                    <button type="button" onclick="switchWikiTab('courses')" id="wikiTabBtn_courses" class="wiki-tab-btn flex-1 py-2 px-1.5 rounded-xl text-xs font-bold transition-all text-center flex items-center justify-center gap-1.5 text-slate-400 hover:text-white">
+                        <i class="fa-solid fa-graduation-cap text-amber-400 text-xs"></i>
+                        <span>Khóa Học</span>
+                    </button>
+                </div>
+
+                <!-- TAB 1: BẢNG THƯỞNG & CƠ CHẾ HOA HỒNG (CHUẨN POSTER GỐC) -->
+                <div id="wikiContent_reward" class="wiki-content-pane space-y-4">
+
+                    <!-- KHỐI 1: QUYỀN LỢI CỦA BẠN (CHUẨN THEO POSTER) -->
+                    <div class="rounded-3xl bg-[#fdf8eb] border-2 border-amber-400 p-3 sm:p-4 shadow-xl">
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black border border-amber-400 text-white text-[11px] font-black uppercase tracking-wider mb-2.5 shadow-md">
+                            <i class="fa-solid fa-gift text-yellow-400"></i> QUYỀN LỢI CỦA BẠN
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2 sm:gap-3">
+                            <!-- Cột 1: Tự chốt -->
+                            <div class="rounded-2xl bg-white/95 border border-amber-300/80 p-2.5 sm:p-3 text-center shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-8 h-8 rounded-full bg-black text-amber-300 flex items-center justify-center text-sm mx-auto mb-1 border border-amber-400 shadow">
+                                        <i class="fa-solid fa-user"></i>
+                                    </div>
+                                    <div class="font-heading font-black text-[11px] sm:text-xs uppercase text-stone-900 tracking-wide">TỰ CHỐT</div>
+                                    <div class="font-heading font-black text-xl sm:text-2xl text-stone-900 my-0.5 tracking-tight leading-none">100%</div>
+                                    <div class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-800">MỨC THƯỞNG</div>
+                                </div>
+                                <p class="text-[9px] sm:text-[10px] text-stone-600 mt-1 leading-tight">Bạn trực tiếp tư vấn và chốt thành công. Bổ sung lịch hẹn ngày lên & đóng học phí khi nộp data.</p>
+                            </div>
+
+                            <!-- Cột 2: Đưa Data -->
+                            <div class="rounded-2xl bg-white/95 border border-amber-300/80 p-2.5 sm:p-3 text-center shadow-sm flex flex-col justify-between">
+                                <div>
+                                    <div class="w-8 h-8 rounded-full bg-black text-amber-300 flex items-center justify-center text-sm mx-auto mb-1 border border-amber-400 shadow">
+                                        <i class="fa-solid fa-users"></i>
+                                    </div>
+                                    <div class="font-heading font-black text-[10px] sm:text-xs uppercase text-stone-900 tracking-wide">ĐƯA DATA ➔ CV CHỐT</div>
+                                    <div class="font-heading font-black text-xl sm:text-2xl text-stone-900 my-0.5 tracking-tight leading-none">50%</div>
+                                    <div class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider text-amber-800">MỨC THƯỞNG</div>
+                                </div>
+                                <p class="text-[9px] sm:text-[10px] text-stone-600 mt-1 leading-tight">Cung cấp thông tin khách, chuyên viên hướng nghiệp tư vấn và chốt giúp bạn.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KHỐI 2: BẢNG THƯỞNG THEO KHÓA HỌC (CHUẨN THEO POSTER, GỌN GÀNG, VỪA KHÍT iPHONE - ĐÚNG HÌNH media_1791384152254.png) -->
+                    <div class="rounded-3xl bg-[#fdf8eb] border-2 border-amber-400 p-3 sm:p-4 shadow-xl">
+                        <div class="flex items-center justify-between gap-2 mb-2.5 flex-wrap">
+                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black border border-amber-400 text-white text-[11px] font-black uppercase tracking-wider shadow-md">
+                                <i class="fa-solid fa-gift text-yellow-400"></i> BẢNG THƯỞNG THEO KHÓA HỌC
+                            </div>
+                            <div class="text-[11px] text-stone-700 font-semibold flex items-center gap-1">
+                                <span class="text-stone-500">Kỳ:</span>
+                                <strong id="campaignNameDisplay" class="text-stone-900 hidden sm:inline">Bảng Thưởng Tuyển Sinh</strong>
+                                <span id="campaignPeriodDisplay" class="font-mono bg-amber-200/90 text-amber-950 px-2 py-0.5 rounded text-[10px] font-extrabold shadow-sm">01/10/2026 - 31/10/2026</span>
+                            </div>
+                        </div>
+
+                        <!-- Bảng rút gọn cực kỳ rõ ràng, không bị tràn ngang trên điện thoại -->
+                        <div class="rounded-xl overflow-hidden border border-amber-300/80 shadow-sm">
+                            <table class="w-full text-left text-xs">
+                                <thead>
+                                    <tr class="bg-black text-white text-[10px] sm:text-[11px] font-black uppercase tracking-wider">
+                                        <th class="py-2.5 px-2 sm:px-3">Khóa Học</th>
+                                        <th class="py-2.5 px-1 sm:px-2 text-center">Học Phí</th>
+                                        <th class="py-2.5 px-1 sm:px-2 text-center text-yellow-300">Thưởng Tự Chốt</th>
+                                        <th class="py-2.5 px-1 sm:px-2 text-center text-emerald-400">Thưởng Đưa Data</th>
+                                        <th class="py-2.5 px-2 text-right">Chọn</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rewardTableBody" class="divide-y divide-amber-200/60">
+                                    <!-- Dynamic rendering by js/app.js -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-2.5 pt-2 border-t border-amber-200/80 flex items-center justify-between text-[11px]">
+                            <button type="button" onclick="openPosterModal()" class="text-amber-900 hover:text-black font-bold flex items-center gap-1 underline text-[11px] active:scale-95">
+                                <i class="fa-solid fa-image"></i> Xem Poster Gốc Tháng 10
+                            </button>
+                            <span class="text-[10px] text-stone-500 italic">💡 Bấm "Chọn" để nộp data nhanh</span>
+                        </div>
+                    </div>
+
+                    <!-- KHỐI 3: MÁY TÍNH THƯỞNG NHANH CHO iPHONE -->
+                    <div class="gold-card p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#12161f] to-[#0e1118]">
+                        <div class="text-center mb-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-calculator text-[10px]"></i> Tính Thưởng Nhanh
+                            </span>
+                            <h3 class="text-sm font-bold text-white mt-1">Bạn sẽ nhận được bao nhiêu tiền?</h3>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Khóa học dự kiến:</label>
+                                <select id="calcCourse" class="course-select-options form-input-luxury py-2.5 px-3 text-xs">
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Hình thức chốt:</label>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <label class="touch-chip flex items-center justify-center gap-1.5 p-2 rounded-xl border border-amber-500/30 bg-black/40 cursor-pointer">
+                                        <input type="radio" name="calcRole" value="self" class="accent-amber-500">
+                                        <span class="text-xs font-semibold text-white">Tự chốt</span>
+                                    </label>
+                                    <label class="touch-chip flex items-center justify-center gap-1.5 p-2 rounded-xl border border-amber-500/30 bg-black/40 cursor-pointer">
+                                        <input type="radio" name="calcRole" value="pass" checked class="accent-amber-500">
+                                        <span class="text-xs font-semibold text-white">Nhờ ACA chốt</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Result Display -->
+                            <div class="p-3.5 rounded-xl bg-black/70 border border-amber-500/40 text-center">
+                                <div id="calcSelectedPayout"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KHỐI 4: ĐIỀU KIỆN & QUY ĐỊNH CHI TRẢ HOA HỒNG (Ẩn trong giao diện ban đầu khi chưa đăng nhập) -->
+                    <div id="wikiTermsAndRulesBox" class="hidden p-3.5 rounded-2xl bg-black/50 border border-amber-500/25 space-y-2 text-xs">
+                        <div class="font-bold text-white flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                            <span>Điều Kiện & Quy Định Chi Trả Hoa Hồng:</span>
+                        </div>
+                        <ul class="space-y-1.5 text-[11px] text-slate-300 list-disc list-inside">
+                            <li><strong class="text-white">Data hợp lệ:</strong> Mỗi ứng viên được tính cho người chơi đưa thông tin sớm nhất.</li>
+                            <li><strong class="text-white">Thời điểm duyệt thưởng:</strong> Sau khi học viên hoàn thành khóa học.</li>
+                            <li><strong class="text-white">Hình thức nhận tiền:</strong> Nhận vào hệ thống lương thưởng của công ty theo tháng.</li>
+                            <li><strong class="text-white">Không giới hạn:</strong> Giới thiệu càng nhiều học viên, thu nhập tiền thưởng càng cao, không có mức trần!</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- TAB 2: THỂ LỆ MINI GAME SĂN CHUỐI -->
+                <div id="wikiContent_game" class="wiki-content-pane space-y-4 hidden">
+                    <!-- Ý nghĩa Ví Chuối -->
+                    <div class="p-3.5 rounded-2xl bg-yellow-950/25 border border-yellow-500/35 space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-2xl">🍌</span>
+                            <div>
+                                <h4 class="font-heading font-black text-xs sm:text-sm text-yellow-300 uppercase">Ý Nghĩa Điểm Thưởng Chuối Wings</h4>
+                                <span class="text-[10px] text-slate-300">Điểm uy tín & tri ân cộng tác viên tích cực</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-300 leading-relaxed">
+                            <strong class="text-yellow-300">Chuối 🍌</strong> là điểm thưởng tích lũy độc quyền của Học viện Wings. Thành viên có thể tích lũy chuối thông qua các hoạt động lan tỏa hình ảnh, nộp link bài đăng/video để thăng hạng tài khoản và quy đổi thành các phần quà giá trị, voucher khóa học hoặc tiền thưởng định kỳ.
+                        </p>
+                    </div>
+
+                    <!-- Quy trình 2 bước tham gia -->
+                    <div class="space-y-2.5">
+                        <div class="font-bold text-xs text-white uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-route text-amber-400"></i>
+                            <span>Quy Trình 2 Bước Tham Gia Mini Game:</span>
+                        </div>
+
+                        <!-- Bước 1 -->
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="inline-flex items-center gap-1 text-[11px] font-black uppercase text-amber-300 bg-amber-500/15 px-2 py-0.5 rounded-md border border-amber-500/30">
+                                    Bước 1: Mở Quyền Tham Gia
+                                </span>
+                                <span class="text-[10px] text-slate-400 font-mono">Duyệt ảnh chuối</span>
+                            </div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">
+                                Để đảm bảo tính nghiêm túc và công bằng, người chơi cần chuyển số Chuối theo lệ phí quy định đến <strong class="text-yellow-300">Mã ví Admin: WINGS-BANANA-ADMIN-8888</strong> (hoặc liên hệ Hotline Hướng nghiệp Wings). Sau đó tải ảnh giao dịch đính kèm vào hệ thống.
+                            </p>
+                            <div class="p-2 rounded-xl bg-amber-950/40 border border-amber-500/20 text-[10px] text-amber-200">
+                                <i class="fa-solid fa-bell text-amber-400 mr-1"></i>
+                                Khi được Admin duyệt, bạn <strong>không cần phải đăng ký lại nữa</strong>, hệ thống tự động mở giao diện nộp link video/bài đăng!
+                            </div>
+                        </div>
+
+                        <!-- Bước 2 -->
+                        <div class="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="inline-flex items-center gap-1 text-[11px] font-black uppercase text-yellow-300 bg-yellow-500/15 px-2 py-0.5 rounded-md border border-yellow-500/30">
+                                    Bước 2: Nộp Link Nhận +1 Chuối
+                                </span>
+                                <span class="text-[10px] text-yellow-400 font-bold">+1 🍌 / bài</span>
+                            </div>
+                            <p class="text-[11px] text-slate-300 leading-relaxed">
+                                Sau khi được duyệt chơi, thành viên đăng bài viết hoặc video ngắn (TikTok, Reels, Shorts...) chia sẻ thông tin tuyển sinh Wings, sau đó dán link vào ô nộp bài. Mỗi bài viết/video hợp lệ được Admin duyệt sẽ <strong class="text-yellow-300">cộng ngay +1 🍌 vào ví của bạn</strong>.
+                            </p>
+                            <ul class="text-[10px] text-slate-400 space-y-1 list-disc list-inside">
+                                <li>Nền tảng hỗ trợ: Facebook, TikTok, Instagram Reels, YouTube Shorts, Threads...</li>
+                                <li>Bài đăng phải để chế độ <strong>Công khai (Public)</strong> để Admin có thể xem và duyệt.</li>
+                                <li>Không giới hạn số lượng bài nộp mỗi ngày.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Nút CTA -->
+                    <div class="pt-1 text-center">
+                        <a href="#mini-game" class="btn-gold py-2.5 px-4 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 shadow-md active:scale-95">
+                            <span>Vào Khu Vực Mini Game</span>
+                            <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TAB 3: NỘI DUNG CHI TIẾT CÁC KHÓA HỌC (ĐỒNG BỘ ĐỘNG TỪ BẢNG THƯỞNG / ADMIN) -->
+                <div id="wikiContent_courses" class="wiki-content-pane space-y-3.5 hidden">
+                    <div id="wikiCoursesListContainer" class="space-y-4">
+                        <!-- Khóa học sẽ được render tự động từ DataManager.getCourses() qua hàm renderWikiCourses() -->
+                    </div>
+                </div>
+
+                <!-- NÚT KÊU GỌI HÀNH ĐỘNG (CTA) ĐĂNG KÝ THAM GIA -->
+                <div class="mt-6 p-4 rounded-3xl bg-gradient-to-r from-amber-950/40 via-black to-amber-950/40 border border-amber-500/40 text-center space-y-2.5 shadow-xl">
+                    <h4 class="font-heading font-black text-sm text-yellow-300 uppercase">
+                        🚀 Sẵn Sàng Đồng Hành Cùng Wings Beauty Academy?
+                    </h4>
+                    <p class="text-xs text-slate-300 max-w-md mx-auto">
+                        Đăng ký tham gia ngay để nhận hoa hồng lên đến <strong class="text-yellow-400">7.000.000đ</strong>/học viên và tích lũy <strong class="text-yellow-300">Chuối 🍌</strong> đổi quà giá trị!
+                    </p>
+                    <button type="button" onclick="scrollToAuthOrOpenRegister()" class="btn-gold py-2.5 px-6 rounded-xl font-bold text-xs shadow-lg active:scale-95 inline-flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-plus text-xs"></i> Đăng Ký Tham Gia Ngay
+                    </button>
+                </div>
+            </div>
+        </section>
+            </div>
+
+            <!-- ==========================================================================
+                 SCREEN 3: NỘP DATA KHÁCH HÀNG (TAB "NỘP DATA") (HÌNH 3)
+                 ========================================================================== -->
+            <div id="screen-lead-form" class="portal-screen hidden">
+                <!-- ==========================================================================
+             SECTION 3: FORM BÀN GIAO DATA KHÁCH HÀNG (ƯU TIÊN NỘP DATA)
+             ========================================================================== -->
+        <section id="form-dang-ky" class="py-8 border-b border-amber-500/10">
+            <div class="max-w-xl mx-auto px-4">
+                
+                <div class="text-center mb-6">
+                    <span id="leadFormBadge" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider mb-1">
+                        <i class="fa-solid fa-seedling text-[10px]"></i> Vườn Ươm Wings • Nơi Gieo Mầm Cơ Hội
+                    </span>
+                    <h2 id="leadFormTitle" class="text-xl sm:text-2xl font-heading font-black text-white uppercase">
+                        🌰 Trao Hạt Giống Cơ Hội
+                    </h2>
+                    <p id="leadFormSubtitle" class="text-slate-400 text-xs mt-1">
+                        Gửi gắm ước mơ của người học để Bà Tiên Xanh chăm sóc, tưới mát và đồng hành!
+                    </p>
+                </div>
+
+                <div class="gold-card p-4 sm:p-6 rounded-3xl shadow-xl">
+                    <form id="leadSubmissionForm" class="space-y-5">
+
+                        <!-- I. NGƯỜI GIỚI THIỆU (TỰ ĐỘNG NHẬN DIỆN KHI ĐÃ ĐĂNG NHẬP) -->
+                        <!-- A. Trạng thái ĐÃ ĐĂNG NHẬP: Ẩn toàn bộ form nhập cá nhân, chỉ hiện thẻ nhận diện ✓ -->
+                        <div id="loggedInReferrerBox" class="hidden p-3.5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-yellow-950/25 to-black/60 border border-amber-500/40 space-y-2.5 shadow-lg">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2.5">
+                                    <img id="loggedInUserAvatarDisplay" src="" class="hidden w-10 h-10 rounded-xl object-cover border border-amber-400/80 shadow-[0_0_12px_rgba(245,158,11,0.5)]" alt="Avatar">
+                                    <div id="loggedInUserDefaultIcon" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-yellow-300 text-black flex items-center justify-center font-black text-base shadow-[0_0_12px_rgba(245,158,11,0.5)]">
+                                        <i class="fa-solid fa-seedling"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-[10px] uppercase font-bold text-emerald-400 tracking-wider flex items-center gap-1.5">
+                                            <span>🌱 Người Gieo Hạt</span>
+                                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">
+                                                <i class="fa-solid fa-circle-check"></i> Đã Xác Thực
+                                            </span>
+                                        </div>
+                                        <div class="text-sm font-bold text-white flex items-center gap-1.5" id="loggedInUserNameDisplay">
+                                            User Name
+                                        </div>
+                                        <div class="text-[11px] text-slate-300 font-mono" id="loggedInUserIdentifierDisplay">
+                                            0903123456
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="openUserProfileModal()" class="px-2.5 py-1.5 rounded-xl bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-[10px] font-bold flex items-center gap-1 active:scale-95 transition-all shadow-sm flex-shrink-0" title="Đổi ảnh đại diện & sửa thông tin">
+                                    <i class="fa-solid fa-pen-to-square text-[10px]"></i> Sửa Hồ Sơ
+                                </button>
+                            </div>
+                            <div class="text-[10px] text-emerald-400 font-medium flex items-center gap-1 bg-emerald-950/30 p-2 rounded-lg border border-emerald-500/30">
+                                <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                                <span>Đã nhận diện Người Gieo Hạt! Bạn <strong>không cần nhập lại thông tin cá nhân</strong>. Hãy trao hạt giống cơ hội bên dưới.</span>
+                            </div>
+                        </div>
+
+                        <!-- B. Trạng thái CHƯA ĐĂNG NHẬP (Khách): Nhắc đăng nhập 1 chạm & hiển thị ô điền -->
+                        <div id="guestReferrerBox" class="p-3.5 rounded-2xl bg-black/40 border border-amber-500/20 space-y-3">
+                            <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-between gap-2">
+                                <div class="text-[11px] text-slate-200">
+                                    <i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i>
+                                    Bạn đã có tài khoản Người Gieo Hạt? <strong class="text-amber-300">Đăng nhập</strong> để tự động điền thông tin!
+                                </div>
+                                <button type="button" onclick="document.getElementById('btnOpenLoginModal')?.click()" class="btn-gold py-1.5 px-3 rounded-lg text-[11px] font-bold whitespace-nowrap active:scale-95 shadow">
+                                    Đăng Nhập
+                                </button>
+                            </div>
+
+                            <div class="font-bold text-amber-400 text-xs uppercase flex items-center gap-1.5">
+                                <i class="fa-solid fa-id-badge text-sm"></i>
+                                <span id="leadFormSection1Title">I. Thông Tin Người Gieo Hạt (Nhận Thành Quả)</span>
+                            </div>
+
+                            <div class="space-y-2.5">
+                                <div>
+                                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">
+                                        Họ và Tên Bạn <span class="text-rose-400">*</span>
+                                    </label>
+                                    <input type="text" id="referrerName" placeholder="Họ và tên bạn" 
+                                        class="form-input-luxury py-2.5 px-3 text-sm">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">
+                                        Số Điện Thoại / Gmail Của Bạn <span class="text-rose-400">*</span>
+                                    </label>
+                                    <input type="text" id="referrerPhone" placeholder="SĐT hoặc Gmail nhận tiền thưởng" 
+                                        inputmode="tel" class="form-input-luxury py-2.5 px-3 text-sm font-mono">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ẩn chức vụ/vai trò mặc định -->
+                        <input type="hidden" id="referrerRole" value="Nhân sự / CTV">
+
+                        <!-- II. 4 THÔNG TIN VỀ HẠT GIỐNG CƠ HỘI (TOUCH CHIPS) -->
+                        <div class="p-3.5 rounded-2xl bg-black/40 border border-amber-500/20 space-y-4">
+                            <div class="font-bold text-amber-400 text-xs uppercase flex items-center gap-1.5">
+                                <i id="leadFormSection2Icon" class="fa-solid fa-seedling text-emerald-400 text-sm"></i>
+                                <span id="leadFormSection2Title">II. 4 Thông Tin Về Hạt Giống Cơ Hội</span>
+                            </div>
+
+                            <!-- 1. Hạt giống là ai -->
+                            <div class="p-3 rounded-xl bg-[#141822] border border-slate-800 space-y-2">
+                                <label class="block font-bold text-white text-xs flex items-center gap-1.5">
+                                    <span class="w-5 h-5 rounded-full bg-amber-500 text-black text-[10px] font-black flex items-center justify-center">1</span>
+                                    <span>Hạt giống là ai? (Họ tên & SĐT/Zalo) <span class="text-rose-400">*</span></span>
+                                </label>
+                                <input type="text" id="customerName" required placeholder="Họ tên người học (VD: Nguyễn Bích Ngọc)" 
+                                    class="form-input-luxury py-2.5 px-3 text-sm">
+                                <input type="tel" id="customerPhone" required placeholder="Số điện thoại / Zalo người học" 
+                                    inputmode="tel" class="form-input-luxury py-2.5 px-3 text-sm font-mono">
+                            </div>
+
+                            <!-- 2. Mong muốn phát triển -->
+                            <div class="p-3 rounded-xl bg-[#141822] border border-slate-800 space-y-2">
+                                <label class="block font-bold text-white text-xs flex items-center gap-1.5">
+                                    <span class="w-5 h-5 rounded-full bg-amber-500 text-black text-[10px] font-black flex items-center justify-center">2</span>
+                                    <span>Hạt giống mong muốn phát triển thế nào? (Mục tiêu học nghề)</span>
+                                </label>
+                                <div class="grid grid-cols-2 gap-2 touch-chip-group">
+                                    <label class="touch-chip active">
+                                        <input type="radio" name="customerTarget" value="Làm nghề" checked class="hidden">
+                                        <span>💼 Làm nghề</span>
+                                    </label>
+                                    <label class="touch-chip">
+                                        <input type="radio" name="customerTarget" value="Mở tiệm" class="hidden">
+                                        <span>🏪 Mở tiệm</span>
+                                    </label>
+                                    <label class="touch-chip">
+                                        <input type="radio" name="customerTarget" value="Nâng cao" class="hidden">
+                                        <span>⭐ Nâng cao</span>
+                                    </label>
+                                    <label class="touch-chip">
+                                        <input type="radio" name="customerTarget" value="Trải nghiệm" class="hidden">
+                                        <span>✨ Trải nghiệm</span>
+                                    </label>
+                                </div>
+                                <input type="text" id="customerTargetDetail" placeholder="Ghi chú chi tiết mục tiêu của người học..." 
+                                    class="form-input-luxury py-2 px-3 text-xs mt-1">
+                            </div>
+
+                            <!-- 3. Giai đoạn quyết định -->
+                            <div class="p-3 rounded-xl bg-[#141822] border border-slate-800 space-y-2">
+                                <label class="block font-bold text-white text-xs flex items-center gap-1.5">
+                                    <span class="w-5 h-5 rounded-full bg-amber-500 text-black text-[10px] font-black flex items-center justify-center">3</span>
+                                    <span>Hạt giống đang ở giai đoạn nào trong quyết định?</span>
+                                </label>
+                                <div class="grid grid-cols-3 gap-1.5 touch-chip-group">
+                                    <label class="touch-chip active p-2">
+                                        <input type="radio" name="customerStage" value="Đang tìm hiểu" checked class="hidden">
+                                        <span class="text-[11px]">Tìm hiểu</span>
+                                    </label>
+                                    <label class="touch-chip p-2">
+                                        <input type="radio" name="customerStage" value="Muốn học sớm" class="hidden">
+                                        <span class="text-[11px]">Học sớm</span>
+                                    </label>
+                                    <label class="touch-chip p-2">
+                                        <input type="radio" name="customerStage" value="Đã xác định" class="hidden">
+                                        <span class="text-[11px]">Đã chốt</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- 4. Tiếp thêm động lực / Tháo gỡ nỗi lo -->
+                            <div class="p-3 rounded-xl bg-[#141822] border border-slate-800 space-y-1.5">
+                                <label class="block font-bold text-white text-xs flex items-center gap-1.5">
+                                    <span class="w-5 h-5 rounded-full bg-amber-500 text-black text-[10px] font-black flex items-center justify-center">4</span>
+                                    <span>Điểm tiếp thêm động lực / Tháo gỡ lo lắng cho học viên:</span>
+                                </label>
+                                <textarea id="customerPainPoint" rows="2" placeholder="Ví dụ: Lo lắng chưa có khiếu thẩm mỹ, sợ khó học, cần hỗ trợ mẫu thực hành hoặc đồ nghề..." 
+                                    class="form-input-luxury py-2 px-3 text-xs"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- III. KHÓA HỌC & HÌNH THỨC -->
+                        <div class="p-3.5 rounded-2xl bg-black/40 border border-amber-500/20 space-y-3">
+                            <div>
+                                <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Khóa Học Quan Tâm:</label>
+                                <select id="interestCourse" class="course-select-options form-input-luxury py-2.5 px-3 text-xs">
+                                </select>
+                            </div>
+
+                            <div>
+                                <label id="leadFormSection3Title" class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Lựa Chọn Hành Trình Vun Trồng:</label>
+                                <div class="space-y-1.5 touch-chip-group" id="closeTypeChipGroup">
+                                    <label class="touch-chip active text-left justify-start">
+                                        <input type="radio" name="closeType" value="pass" checked class="hidden">
+                                        <span id="leadRadioPassSpan" class="text-xs">🧚 Trao hạt giống cho Bà Tiên Xanh chăm sóc - <strong>50% Quả Ngọt</strong></span>
+                                    </label>
+                                    <label class="touch-chip text-left justify-start">
+                                        <input type="radio" name="closeType" value="self" class="hidden">
+                                        <span id="leadRadioSelfSpan" class="text-xs">🌟 Tôi tự mình tư vấn, chăm sóc đến ngày kết trái - <strong>100% Quả Ngọt</strong></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- KẾ HOẠCH LÊN HỌC VIỆN & ĐÓNG HỌC PHÍ DÀNH CHO "TỰ CHỐT" (ĐỘI ACA LÊN KẾ HOẠCH) -->
+                            <div id="selfClosePlanningSection" class="hidden p-3.5 rounded-2xl bg-gradient-to-b from-[#251907] to-[#121622] border-2 border-amber-400/60 space-y-3 shadow-xl transition-all">
+                                <div class="flex items-center gap-2 text-yellow-300 font-extrabold text-xs uppercase border-b border-amber-500/30 pb-2">
+                                    <i class="fa-solid fa-calendar-check text-base text-yellow-400 animate-pulse"></i>
+                                    <span>Kế Hoạch Khách Lên & Đóng Học Phí (Đội ACA)</span>
+                                </div>
+                                
+                                <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-slate-300 leading-relaxed">
+                                    <i class="fa-solid fa-circle-info text-amber-400 mr-1"></i>
+                                    Vì bạn chọn <strong class="text-yellow-300">Tự Vun Trồng (100% Quả Ngọt)</strong>, vui lòng cung cấp lịch hẹn để <strong class="text-amber-300">đội ngũ ACA</strong> chuẩn bị phòng học, tài liệu, giảng viên và tiếp đón học viên chu đáo nhất!
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-amber-300 uppercase mb-1">
+                                            <i class="fa-regular fa-calendar-days mr-1"></i> Lịch Hẹn Ngày Lên Học Viện <span class="text-rose-400">*</span>
+                                        </label>
+                                        <input type="datetime-local" id="appointmentDate" 
+                                            class="form-input-luxury py-2 px-3 text-xs font-semibold text-white">
+                                        <span class="text-[10px] text-slate-400 mt-0.5 block">Ngày & giờ hẹn học viên có mặt tại Wings</span>
+                                    </div>
+
+                                    <div>
+                                        <label class="block text-[11px] font-bold text-amber-300 uppercase mb-1">
+                                            <i class="fa-solid fa-money-bill-wave mr-1"></i> Ngày Hẹn Đóng Học Phí <span class="text-rose-400">*</span>
+                                        </label>
+                                        <input type="date" id="tuitionPaymentDate" 
+                                            class="form-input-luxury py-2 px-3 text-xs font-semibold text-white">
+                                        <span class="text-[10px] text-slate-400 mt-0.5 block">Ngày dự kiến đóng cọc hoặc thanh toán</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                                        Ghi Chú Đóng Học Phí & Kế Hoạch (Để Đội ACA Lên Lịch):
+                                    </label>
+                                    <input type="text" id="tuitionPaymentNote" 
+                                        placeholder="VD: Đã cọc 2 triệu chuyển khoản / Khách thanh toán tại quầy khi lên lớp..." 
+                                        class="form-input-luxury py-2 px-3 text-xs">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="btn-gold py-3.5 rounded-xl text-sm font-bold w-full shadow-2xl active:scale-95 flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-seedling text-base"></i>
+                                <span>🌰 TRAO HẠT GIỐNG & ĐĂNG KÝ GẶT THÀNH QUẢ</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+            </div>
+
+            <!-- ==========================================================================
+                 SCREEN 4: MINI GAME SĂN CHUỐI (TAB "MINI GAME") (HÌNH 4)
+                 ========================================================================== -->
+            <div id="screen-mini-game" class="portal-screen hidden">
+                <!-- ==========================================================================
+             SECTION 4: MINI GAME CHUỐI 🍌 (GATEKEEPER & NỘP LINK)
+             ========================================================================== -->
+        <section id="mini-game" class="py-8 bg-gradient-to-b from-[#0c0f14] via-[#10131a] to-[#0c0f14] border-b border-amber-500/20">
+            <div class="max-w-xl mx-auto px-4">
+                
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-yellow-500/20 border border-yellow-400/40 text-yellow-300 text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                        <span>🍌</span> Mini Game Tuyển Dụng
+                    </div>
+                    <h2 id="miniGameSectionTitle" class="text-xl sm:text-2xl font-heading font-black text-white uppercase">
+                        Đăng Ký & Tham Gia Mini Game Nhận Chuối 🍌
+                    </h2>
+                    <p id="miniGameSectionSubtitle" class="text-slate-400 text-xs mt-1">
+                        Chuyển chuối đến ví Admin và tải ảnh xác nhận để Admin duyệt. Sau khi duyệt, nộp link bài đăng/video để nhận <strong class="text-yellow-400 font-bold">+1 🍌 cho mỗi bài hợp lệ!</strong>
+                    </p>
+                </div>
+
+                <!-- Wallet & Fee Status on iPhone -->
+                <div class="space-y-3 mb-5">
+                    <!-- Box 1: Ví Chuối -->
+                    <div id="bananaWalletSummaryBox"></div>
+
+                    <!-- Box 2: Hộp Lệ Phí (Tự động biến thành Trạng thái hoạt động khi đã duyệt) -->
+                    <div id="miniGameFeeBox" class="p-3.5 rounded-2xl bg-black/60 border border-amber-500/30 text-xs flex flex-col justify-between">
+                        <div>
+                            <div class="text-[10px] font-bold uppercase tracking-wider text-amber-300 mb-1 flex items-center gap-1">
+                                <i class="fa-solid fa-gavel"></i> Lệ Phí Tham Gia
+                            </div>
+                            <div class="text-xs font-bold text-white mb-0.5">
+                                Cần chuyển: <span id="bananaRuleRequiredFee" class="text-yellow-400 text-sm font-black">3 🍌</span> đến ví Admin
+                            </div>
+                            <p id="bananaRuleDescription" class="text-slate-400 text-[11px] leading-relaxed">
+                                Đính kèm ảnh xác nhận chuyển chuối để Admin duyệt mở quyền chơi.
+                            </p>
+                        </div>
+                        <div class="pt-2 border-t border-slate-800 text-[11px] text-yellow-300/80">
+                            Thưởng mỗi bài hợp lệ: <strong id="bananaRulePerLink" class="text-white">1 🍌</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DYNAMIC GATEKEEPER CONTAINER (Form nộp ảnh chuối / Chờ duyệt / Form nộp link bài) -->
+                <div id="miniGameDynamicContainer" class="mb-6">
+                </div>
+
+                <!-- Lịch sử nộp link của thành viên -->
+                <div class="gold-card p-4 rounded-2xl">
+                    <h3 class="font-heading font-bold text-white text-xs sm:text-sm mb-3 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-clock-rotate-left text-amber-400 text-xs"></i>
+                            Lịch Sử Nộp Link Của Bạn
+                        </span>
+                        <span class="text-[10px] text-slate-400 font-normal">Thời gian thực</span>
+                    </h3>
+                    <div id="myBananaPostsHistory" class="space-y-2">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+            </div>
+
+            <!-- ==========================================================================
+                 SCREEN 5: BẢNG XẾP HẠNG ĐUA TOP (TAB "XẾP HẠNG") (HÌNH 5)
+                 ========================================================================== -->
+            <div id="screen-leaderboard" class="portal-screen hidden">
+                <!-- ==========================================================================
+             SECTION: BẢNG XẾP HẠNG ĐUA TOP (NGÀY / TUẦN / THÁNG)
+             ========================================================================== -->
+        <section id="bang-xep-hang" class="py-6 sm:py-8 bg-gradient-to-b from-[#0c0f14] via-[#10141f] to-[#0c0f14] border-b border-amber-500/20 w-full">
+            <div class="max-w-xl w-full mx-auto px-3 sm:px-4">
+                
+                <!-- Header & Tiêu đề -->
+                <div class="text-center mb-4 sm:mb-5">
+                    <div id="publicLbBadge" class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-yellow-500/20 border border-yellow-400/40 text-yellow-300 text-[10px] font-bold uppercase tracking-wider mb-1.5">
+                        <i class="fa-solid fa-seedling text-emerald-400"></i> VƯỜN ƯƠM WINGS • BẢNG VINH DANH
+                    </div>
+                    <h2 id="publicLbTitle" class="text-xl sm:text-2xl font-heading font-black text-white uppercase">
+                        BẢNG VINH DANH NGƯỜI GIEO HẠT
+                    </h2>
+                    <p id="publicLbSubtitle" class="text-slate-400 text-xs mt-1">
+                        Tôn vinh những Người Gieo Hạt & Thợ Săn Chuối mang lại nhiều quả ngọt nhất Wings
+                    </p>
+                </div>
+
+                <!-- Bộ chọn Chương Trình / Chiến Dịch Tuyển Sinh -->
+                <div class="mb-3 p-2.5 rounded-2xl bg-black/60 border border-amber-500/25 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 shadow-md w-full">
+                    <label for="selectPublicLbCampaign" class="text-xs text-amber-300 font-bold flex items-center gap-1.5 whitespace-nowrap">
+                        <i class="fa-solid fa-bullhorn text-amber-400"></i> Chương Trình:
+                    </label>
+                    <select id="selectPublicLbCampaign" onchange="changePublicLbCampaign(this.value)" class="form-input-luxury py-1.5 px-3 text-xs text-yellow-300 bg-slate-900 border border-amber-500/30 rounded-xl w-full sm:w-auto font-medium">
+                        <option value="ALL">🌟 Tất Cả Các Chương Trình</option>
+                    </select>
+                </div>
+
+                <!-- Bộ lọc: Ngày - Tuần - Tháng - Năm & Chuyển Kỳ (< 10/2026 >) -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 mb-4 p-2 rounded-2xl bg-black/60 border border-slate-800 w-full">
+                    
+                    <!-- Tabs: Tháng - Tuần - Ngày - Năm -->
+                    <div class="grid grid-cols-4 gap-1 rounded-xl bg-slate-900 p-1 border border-slate-800 text-xs w-full sm:w-auto">
+                        <button type="button" onclick="setPublicLbTimeFilter('month')" id="btnPublicLbMonth" class="px-2 py-1.5 rounded-lg filter-btn-active transition-all font-bold text-xs flex items-center justify-center gap-1">
+                            <i class="fa-regular fa-calendar-days text-[10px]"></i> Tháng
+                        </button>
+                        <button type="button" onclick="setPublicLbTimeFilter('week')" id="btnPublicLbWeek" class="px-2 py-1.5 rounded-lg filter-btn-inactive transition-all font-bold text-xs flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-calendar-week text-[10px]"></i> Tuần
+                        </button>
+                        <button type="button" onclick="setPublicLbTimeFilter('day')" id="btnPublicLbDay" class="px-2 py-1.5 rounded-lg filter-btn-inactive transition-all font-bold text-xs flex items-center justify-center gap-1">
+                            <i class="fa-regular fa-calendar text-[10px]"></i> Ngày
+                        </button>
+                        <button type="button" onclick="setPublicLbTimeFilter('year')" id="btnPublicLbYear" class="px-2 py-1.5 rounded-lg filter-btn-inactive transition-all font-bold text-xs flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-calendar text-[10px]"></i> Năm
+                        </button>
+                    </div>
+
+                    <!-- Period Navigator: < 10/2026 > -->
+                    <div class="flex items-center justify-center gap-1 bg-slate-900 px-3 py-1.5 rounded-xl border border-slate-800 text-xs w-full sm:w-auto">
+                        <button type="button" onclick="shiftPublicLbPeriod(-1)" class="p-1 hover:text-amber-300 text-slate-400">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        </button>
+                        <span id="publicLbPeriodLabel" class="font-bold text-yellow-300 font-mono px-3">10/2026</span>
+                        <button type="button" onclick="shiftPublicLbPeriod(1)" class="p-1 hover:text-amber-300 text-slate-400">
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Phân loại Đua Top: [🌱 Người Gieo Hạt (Đưa Data)] [🍌 Vua Săn Chuối] -->
+                <div class="grid grid-cols-2 gap-2 mb-5 w-full">
+                    <button type="button" onclick="switchPublicLbCategory('data')" id="btnPublicLbData" class="py-2.5 px-2 sm:px-3 rounded-xl filter-btn-active font-bold text-xs flex items-center justify-center gap-1.5 shadow-md">
+                        <span id="btnPublicLbDataIcon">🌱</span>
+                        <span id="btnPublicLbDataLabel" class="truncate">Người Gieo Hạt</span>
+                    </button>
+                    <button type="button" onclick="switchPublicLbCategory('banana')" id="btnPublicLbBanana" class="py-2.5 px-2 sm:px-3 rounded-xl filter-btn-inactive font-bold text-xs flex items-center justify-center gap-1.5 shadow-md">
+                        <span id="btnPublicLbBananaIcon">🍌</span>
+                        <span id="btnPublicLbBananaLabel" class="truncate">Vua Săn Chuối</span>
+                    </button>
+                </div>
+
+                <!-- PODIUM TOP 3 (1 🥇, 2 🥈, 3 🥉) -->
+                <div id="publicLbPodium" class="mb-5 w-full">
+                    <!-- Rendered by JS -->
+                </div>
+
+                <!-- BẢNG DANH SÁCH CHI TIẾT (XẾP HẠNG TẤT CẢ) -->
+                <div class="gold-card rounded-2xl overflow-hidden shadow-xl border border-amber-500/25 w-full">
+                    <div class="p-3 bg-black/60 border-b border-amber-500/20 flex items-center justify-between text-xs">
+                        <span id="publicLbTableTitle" class="font-bold text-yellow-300 flex items-center gap-1 truncate">
+                            <i class="fa-solid fa-ranking-star"></i> Bảng Tổng Sắp Thành Tích
+                        </span>
+                        <span id="publicLbCounterBadge" class="text-[10px] text-slate-400 font-mono shrink-0 ml-2">0 người tham gia</span>
+                    </div>
+                    <div class="w-full overflow-x-auto" style="-webkit-overflow-scrolling: touch;">
+                        <table class="w-full text-left custom-table text-xs whitespace-nowrap sm:whitespace-normal">
+                            <thead id="publicLbTableHeader" class="bg-black/80 text-white text-[10px] uppercase font-bold border-b border-slate-800">
+                                <!-- Rendered by JS -->
+                            </thead>
+                            <tbody id="publicLbTableBody" class="divide-y divide-slate-800">
+                                <!-- Rendered by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+            </div>
+
+            <!-- ==========================================================================
+                 SCREEN 6: TRA CỨU & DASHBOARD TIẾN TRÌNH DATA (TAB "TRA CỨU")
+                 Dashboard cá nhân + Tiến trình 5-step + Mục tra cứu tiến độ/tiền thưởng
+                 ========================================================================== -->
+            
+            <!-- ==========================================================================
+                 SCREEN 6: DASHBOARD CÁ NHÂN & TIẾN TRÌNH DATA (TAB "TÔI")
+                 Dashboard cá nhân + Tiến trình 5-step + Mục tra cứu tiến độ/tiền thưởng
+                 ========================================================================== -->
+            <div id="screen-search-dashboard" class="portal-screen hidden">
+                <!-- CTV LOGGED IN DASHBOARD (Profile, 4 KPI, Phễu, Tiến Trình 5-Step) -->
+                <div class="py-5 bg-gradient-to-b from-[#090b0e] via-[#10141f] to-[#090b0e] border-b border-amber-500/20">
+                    <div class="max-w-2xl mx-auto px-3 sm:px-4">
+                        <!-- CONTAINER 2: CTV LOGGED IN DASHBOARD (Hiển thị khi CTV đăng nhập) -->
+                <div id="ctvLoggedInContainer" class="hidden space-y-3.5">
+                    <!-- CTV Profile Header Card -->
+                    <div class="p-3.5 sm:p-4 rounded-3xl bg-gradient-to-r from-[#171c28] via-[#121620] to-[#171c28] border border-amber-500/35 shadow-xl flex items-center justify-between gap-2.5">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="relative flex-shrink-0">
+                                <img id="ctvAvatarDisplay" src="" alt="Avatar" class="w-12 h-12 rounded-full object-cover border-2 border-amber-400 shadow-md hidden">
+                                <div id="ctvAvatarDefault" class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-600 to-yellow-400 flex items-center justify-center text-black font-extrabold text-lg shadow-md">
+                                    <i class="fa-solid fa-user-tie"></i>
+                                </div>
+                                <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-black rounded-full" title="Đang hoạt động"></span>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h2 id="ctvNameDisplay" class="font-heading font-black text-white text-sm sm:text-base truncate">Trần Thị Thu Thảo</h2>
+                                    <span id="ctvRoleBadgeDisplay" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                                        💼 CTV Tuyển Sinh
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5 truncate">
+                                    <span id="ctvPhoneDisplay" class="font-mono text-slate-300">0903123456</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-1.5 flex-shrink-0">
+                            <!-- Bell Button on Dashboard -->
+                            <button type="button" onclick="openNotificationsModal()" class="relative p-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-sm active:scale-95 transition-all" title="Xem thông báo cập nhật data">
+                                <i class="fa-solid fa-bell"></i>
+                                <span id="ctvNotifCounterBadge" class="hidden absolute -top-1 -right-1 min-w-[16px] h-4 px-1 bg-rose-600 text-white text-[9px] font-black rounded-full flex items-center justify-center shadow-lg border border-black animate-pulse">0</span>
+                            </button>
+                            <!-- Profile Edit Button -->
+                            <button type="button" onclick="document.getElementById('btnOpenUserProfileModal')?.click()" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm active:scale-95 transition-all" title="Chỉnh sửa thông tin cá nhân & đổi mật khẩu">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 METRIC CARDS -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <!-- KPI 1: Tổng Hạt Giống -->
+                        <div class="gold-card p-3 rounded-2xl border-slate-700/60 bg-[#0e121a]">
+                            <div class="flex items-center justify-between text-slate-400 text-[10px] font-semibold uppercase tracking-wider mb-1">
+                                <span id="ctvKpiTitleTotal">Tổng Hạt Giống</span>
+                                <i class="fa-solid fa-seedling text-emerald-400 text-xs"></i>
+                            </div>
+                            <div id="ctvKpiTotalLeads" class="text-xl sm:text-2xl font-black text-white font-mono">0</div>
+                            <div id="ctvKpiSubLeads" class="text-[10px] text-slate-400 mt-1 truncate">0 đang vun trồng</div>
+                        </div>
+
+                        <!-- KPI 2: Đã Kết Trái -->
+                        <div class="gold-card p-3 rounded-2xl border-emerald-500/40 bg-[#0e121a]">
+                            <div class="flex items-center justify-between text-slate-400 text-[10px] font-semibold uppercase tracking-wider mb-1">
+                                <span id="ctvKpiTitleWon">Đã Kết Trái 🍎</span>
+                                <i class="fa-solid fa-apple-whole text-emerald-400 text-xs"></i>
+                            </div>
+                            <div id="ctvKpiWonLeads" class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">0</div>
+                            <div id="ctvKpiWinRate" class="text-[10px] text-emerald-300/80 mt-1 truncate">Tỷ lệ: 0%</div>
+                        </div>
+
+                        <!-- KPI 3: Quả Ngọt Đã Hái -->
+                        <div class="gold-card p-3 rounded-2xl border-amber-500/40 bg-[#0e121a]">
+                            <div class="flex items-center justify-between text-slate-400 text-[10px] font-semibold uppercase tracking-wider mb-1">
+                                <span id="ctvKpiTitlePaid">Quả Ngọt Đã Hái</span>
+                                <i class="fa-solid fa-coins text-amber-400 text-xs"></i>
+                            </div>
+                            <div id="ctvKpiPaidReward" class="text-lg sm:text-xl font-black text-yellow-300 font-mono truncate">0 đ</div>
+                            <div id="ctvKpiPaidSub" class="text-[10px] text-amber-400/80 mt-1 truncate">Đã chuyển vào STK</div>
+                        </div>
+
+                        <!-- KPI 4: ⭐ DỰ ĐOÁN QUẢ NGỌT SẮP GẶT -->
+                        <div class="gold-card p-3 rounded-2xl border-yellow-400/80 bg-gradient-to-br from-amber-950/40 via-[#151922] to-amber-900/30 relative overflow-hidden shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                            <div class="absolute -right-2 -bottom-2 text-4xl opacity-10 text-yellow-300 select-none">
+                                <i class="fa-solid fa-sack-dollar"></i>
+                            </div>
+                            <div class="flex items-center justify-between text-yellow-300 text-[10px] font-extrabold uppercase tracking-wider mb-1">
+                                <span id="ctvKpiTitleUpcoming" class="flex items-center gap-1">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-yellow-400"></i> Quả Ngọt Sắp Gặt
+                                </span>
+                                <span class="text-[9px] px-1 py-0.2 rounded bg-amber-500/25 text-yellow-300 border border-amber-500/30 font-bold">Ước tính</span>
+                            </div>
+                            <div id="ctvKpiUpcomingReward" class="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-200 to-yellow-400 font-mono truncate">0 đ</div>
+                            <div id="ctvKpiUpcomingSub" class="text-[10px] text-yellow-200/80 mt-1 truncate" title="Dựa trên xác suất học viên">
+                                Từ vườn ươm đang chăm sóc
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Phễu Dự Đoán Chi Tiết (Pipeline breakdown) -->
+                    <div id="ctvPipelineBreakdownBox" class="p-2.5 rounded-2xl bg-black/50 border border-amber-500/20 text-xs flex flex-wrap items-center justify-between gap-2">
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span id="ctvPipelineBreakdownTitle" class="text-[11px] text-slate-300 font-medium">Vườn ươm đang vươn mình:</span>
+                            <span id="ctvPipelineTrainingPill" class="px-2 py-0.5 rounded-lg bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-[10px] font-semibold">0 🌿 Đâm chồi</span>
+                            <span id="ctvPipelineCheckinPill" class="px-2 py-0.5 rounded-lg bg-purple-950/60 border border-purple-500/40 text-purple-300 text-[10px] font-semibold">0 🌱 Nảy mầm</span>
+                            <span id="ctvPipelineCarePill" class="px-2 py-0.5 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300 text-[10px] font-semibold">0 💧 Tưới mát</span>
+                        </div>
+                        <div class="text-[11px] text-yellow-300 font-mono font-bold">
+                            <span id="ctvPipelinePotentialLabel">Tiềm năng quả ngọt:</span> <span id="ctvPipelineGrossTotal">0 đ</span>
+                        </div>
+                    </div>
+
+                    <!-- PHẦN QUAN TRỌNG: THEO DÕI HÀNH TRÌNH VUN TRỒNG TỪNG HẠT GIỐNG (5-STEP STEPPER) -->
+                    <div class="gold-card p-3.5 sm:p-4 rounded-3xl space-y-3">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-amber-500/20">
+                            <div>
+                                <h3 class="font-heading font-black text-white text-xs sm:text-sm flex items-center gap-2">
+                                    <i id="ctvStepperSectionIcon" class="fa-solid fa-seedling text-amber-400 text-sm"></i>
+                                    <span id="ctvStepperSectionTitle">HÀNH TRÌNH VUN TRỒNG TỪNG HẠT GIỐNG</span>
+                                    <span id="ctvLeadsCountBadge" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-yellow-300 border border-amber-500/30 text-[10px] font-mono">0 hạt giống</span>
+                                </h3>
+                                <p id="ctvStepperSectionSubtitle" class="text-[11px] text-slate-400 mt-0.5">
+                                    Theo dõi sát sao từng bước tiếp nhận, tưới mát, nảy mầm, đâm chồi và kết trái ngọt
+                                </p>
+                            </div>
+
+                            <!-- Nút nộp thêm data nhanh -->
+                            <button type="button" onclick="navigateToScreen('screen-lead-form')" class="btn-gold py-1.5 px-3 rounded-xl text-xs font-bold active:scale-95 shadow flex items-center justify-center gap-1 self-start sm:self-auto">
+                                <i class="fa-solid fa-seedling text-[10px]"></i>
+                                <span id="ctvBtnGieoThem">Gieo Thêm Hạt Giống</span>
+                            </button>
+                        </div>
+
+                        <!-- Tabs lọc trạng thái data của CTV -->
+                        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+                            <button type="button" onclick="filterCtvLeadsTab('ALL')" id="ctvTabBtn_ALL" class="px-3 py-1.5 rounded-xl filter-btn-active font-bold text-xs whitespace-nowrap active:scale-95 transition-all">
+                                Tất Cả (<span id="ctvTabCount_ALL">0</span>)
+                            </button>
+                            <button type="button" onclick="filterCtvLeadsTab('CARE')" id="ctvTabBtn_CARE" class="px-3 py-1.5 rounded-xl filter-btn-inactive font-bold text-xs whitespace-nowrap active:scale-95 transition-all">
+                                <span id="ctvTabLabel_CARE">💧 Tưới Mát</span> (<span id="ctvTabCount_CARE">0</span>)
+                            </button>
+                            <button type="button" onclick="filterCtvLeadsTab('CHECKIN')" id="ctvTabBtn_CHECKIN" class="px-3 py-1.5 rounded-xl filter-btn-inactive font-bold text-xs whitespace-nowrap active:scale-95 transition-all">
+                                <span id="ctvTabLabel_CHECKIN">🌱 Nảy Mầm</span> (<span id="ctvTabCount_CHECKIN">0</span>)
+                            </button>
+                            <button type="button" onclick="filterCtvLeadsTab('TRAINING')" id="ctvTabBtn_TRAINING" class="px-3 py-1.5 rounded-xl filter-btn-inactive font-bold text-xs whitespace-nowrap active:scale-95 transition-all">
+                                <span id="ctvTabLabel_TRAINING">🌿 Đâm Chồi</span> (<span id="ctvTabCount_TRAINING">0</span>)
+                            </button>
+                            <button type="button" onclick="filterCtvLeadsTab('WON')" id="ctvTabBtn_WON" class="px-3 py-1.5 rounded-xl filter-btn-inactive font-bold text-xs whitespace-nowrap active:scale-95 transition-all">
+                                <span id="ctvTabLabel_WON">🍎 Kết Trái</span> (<span id="ctvTabCount_WON">0</span>)
+                            </button>
+                        </div>
+
+                        <!-- Danh sách card các data kèm thanh tiến trình 5 bước trực quan -->
+                        <div id="ctvLeadsListContainer" class="space-y-3 pt-1">
+                            <!-- Dynamic rendered by JS -->
+                        </div>
+                    </div>
+
+                </div>
+                    </div>
+                </div>
+
+                <!-- SECTION TRA CỨU TIẾN ĐỘ & TIỀN THƯỞNG -->
+                <!-- ==========================================================================
+             SECTION 5: TRA CỨU TIẾN ĐỘ CÁ NHÂN (MOBILE CARDS)
+             ========================================================================== -->
+        <section id="tra-cuu" class="py-8 bg-[#0c0f14] border-b border-amber-500/10">
+            <div class="max-w-xl mx-auto px-4">
+                
+                <div class="text-center mb-6">
+                    <span class="text-amber-400 font-bold text-[10px] uppercase tracking-widest block mb-1">Minh bạch 100%</span>
+                    <h2 class="text-xl sm:text-2xl font-heading font-black text-white uppercase">
+                        Tra Cứu Tiến Độ & Tiền Thưởng
+                    </h2>
+                    <p class="text-slate-400 text-xs mt-1">
+                        Nhập số điện thoại hoặc Gmail để kiểm tra khách đã chốt & tiền thưởng
+                    </p>
+                </div>
+
+                <div class="flex gap-2 mb-6">
+                    <div class="relative flex-grow">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-amber-500 text-xs"></i>
+                        <input type="text" id="searchReferrerPhone" placeholder="Nhập SĐT hoặc Gmail của bạn..." 
+                            inputmode="tel" class="form-input-luxury py-2.5 pl-9 pr-3 text-sm">
+                    </div>
+                    <button id="btnSearchReferrer" class="btn-gold px-4 py-2.5 rounded-xl font-bold text-xs active:scale-95">
+                        Tra Cứu
+                    </button>
+                </div>
+
+                <div id="trackingEmptyState" class="hidden"></div>
+
+                <div id="trackingResultsContainer" class="hidden space-y-4">
+                    <!-- KPI Cards for Mobile -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="gold-card p-3 rounded-xl text-center">
+                            <div class="text-[10px] uppercase text-slate-400">Đã Gửi</div>
+                            <div id="statTotalSent" class="text-xl font-black text-white mt-0.5">0</div>
+                        </div>
+                        <div class="gold-card p-3 rounded-xl text-center">
+                            <div class="text-[10px] uppercase text-slate-400">Đã Chốt</div>
+                            <div id="statWonCount" class="text-xl font-black text-emerald-400 mt-0.5">0</div>
+                        </div>
+                        <div class="gold-card p-3 rounded-xl text-center">
+                            <div class="text-[10px] uppercase text-slate-400">Chờ Duyệt/Chi</div>
+                            <div id="statPendingReward" class="text-sm font-black text-amber-400 mt-0.5">0 đ</div>
+                        </div>
+                        <div class="gold-card p-3 rounded-xl text-center">
+                            <div class="text-[10px] uppercase text-slate-400">Đã Nhận Về</div>
+                            <div id="statTotalEarned" class="text-sm font-black text-yellow-300 mt-0.5">0 đ</div>
+                        </div>
+                    </div>
+
+                    <!-- Cards Container for Mobile Leads -->
+                    <div id="trackingCardsContainer" class="space-y-2.5">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+            </div>
+
+            <!-- ==========================================================================
+                 SCREEN 7: BẢNG QUẢN TRỊ VIÊN (TOÀN QUYỀN) - KÍCH HOẠT QUA NÚT ADMIN TRÊN HEADER
+                 Quản Trị & Duyệt (Duyệt Data, Duyệt Thành Viên, Duyệt Chuối, Duyệt Link Bài, Bảng Thưởng, Cấu Hình, Phân Quyền)
+                 ========================================================================== -->
+            <div id="screen-admin" class="portal-screen hidden">
+                <section id="adminDashboardSection" class="hidden py-8 bg-[#080a0d] border-t-2 border-amber-500">
+        <div class="max-w-4xl mx-auto px-4">
+            
+            <div class="flex items-center justify-between pb-4 border-b border-amber-500/20 mb-4">
+                <div>
+                    <span id="adminPanelBadge" class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider block">🌲 Kiểm Lâm Panel</span>
+                    <h2 id="adminPanelTitle" class="text-lg font-heading font-black text-white">Kiểm Lâm & Duyệt Vườn Ươm</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="admin.html" class="px-2.5 py-1.5 rounded-lg bg-purple-950/60 hover:bg-purple-900 border border-purple-500/40 text-purple-300 text-[11px] font-bold flex items-center gap-1 shadow-sm" title="Mở trang quản trị chuyên sâu">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        <span class="hidden sm:inline">Toàn Màn Hình</span>
+                    </a>
+                    <button id="btnExportExcel" class="btn-gold-outline py-1.5 px-2.5 rounded-lg text-[11px] font-bold">
+                        <i class="fa-solid fa-file-excel text-emerald-400 mr-1"></i> Excel
+                    </button>
+                    <button id="btnAdminLogout" class="bg-rose-500/20 text-rose-300 py-1.5 px-2.5 rounded-lg text-[11px] font-bold">
+                        Thoát
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Buttons Horizontal Scrollable on Mobile -->
+            <div class="flex items-center gap-1.5 overflow-x-auto pb-3 mb-6 scrollbar-none">
+                <button data-tab="leads" class="admin-tab-btn active py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0">
+                    Duyệt Data
+                </button>
+                <button data-tab="users" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0 relative">
+                    Duyệt Thành Viên
+                    <span id="badgePendingUsersCount" class="hidden px-1.5 py-0.2 rounded-full bg-rose-500 text-white font-bold text-[9px]">0</span>
+                </button>
+                <button data-tab="game_regs" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0 relative">
+                    Duyệt Ảnh Chuối 🍌
+                    <span id="badgePendingGameRegsCount" class="hidden px-1.5 py-0.2 rounded-full bg-amber-400 text-black font-extrabold text-[9px]">0</span>
+                </button>
+                <button data-tab="banana_posts" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0 relative">
+                    Duyệt Link Bài
+                    <span id="badgePendingPostsCount" class="hidden px-1.5 py-0.2 rounded-full bg-yellow-500 text-black font-bold text-[9px]">0</span>
+                </button>
+                <button data-tab="courses" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0">
+                    Bảng Thưởng Khóa Học
+                </button>
+                <button data-tab="banana_config" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0">
+                    Cấu Hình
+                </button>
+                <button data-tab="permissions" id="adminTabBtn_permissions" class="admin-tab-btn py-2 px-3.5 rounded-xl text-xs whitespace-nowrap flex-shrink-0 flex items-center gap-1.5 border border-purple-500/40 text-purple-300">
+                    <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                    <span>Phân Quyền</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: LEADS -->
+            <div id="tabContent_leads" class="admin-tab-content space-y-4">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                    <div class="gold-card p-2.5 rounded-xl">
+                        <div class="text-[10px] text-slate-400">Tổng Data</div>
+                        <div id="kpiTotalLeads" class="text-lg font-bold text-white">0</div>
+                    </div>
+                    <div class="gold-card p-2.5 rounded-xl">
+                        <div class="text-[10px] text-slate-400">Chốt Được</div>
+                        <div id="kpiWonLeads" class="text-lg font-bold text-emerald-400">0</div>
+                    </div>
+                    <div class="gold-card p-2.5 rounded-xl">
+                        <div class="text-[10px] text-slate-400">Chờ Duyệt Thưởng</div>
+                        <div id="kpiPendingReward" class="text-xs font-bold text-amber-400 mt-1">0 đ</div>
+                    </div>
+                    <div class="gold-card p-2.5 rounded-xl">
+                        <div class="text-[10px] text-slate-400">Đã Chi Trả</div>
+                        <div id="kpiPaidReward" class="text-xs font-bold text-yellow-300 mt-1">0 đ</div>
+                    </div>
+                </div>
+
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Mã</th>
+                                <th class="py-2.5 px-3">Người GT</th>
+                                <th class="py-2.5 px-3">Khách</th>
+                                <th class="py-2.5 px-3">Thưởng</th>
+                                <th class="py-2.5 px-3">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Xử Lý</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminLeadsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <!-- Referrer Summary -->
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <div class="p-3 border-b border-amber-500/20 font-bold text-xs text-white">Tổng hợp theo người giới thiệu</div>
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Người GT</th>
+                                <th class="py-2.5 px-3">Tổng Thưởng</th>
+                                <th class="py-2.5 px-3 text-emerald-400">Còn Phải Chi</th>
+                                <th class="py-2.5 px-3 text-right">Chi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminReferrerSummaryTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: USERS -->
+            <div id="tabContent_users" class="admin-tab-content hidden space-y-3">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Họ Tên</th>
+                                <th class="py-2.5 px-3">SĐT/Gmail</th>
+                                <th class="py-2.5 px-3 text-center">Chuối</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Duyệt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminUsersTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 3: GAME REGS (ẢNH CHUỐI) -->
+            <div id="tabContent_game_regs" class="admin-tab-content hidden space-y-3">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Thành Viên</th>
+                                <th class="py-2.5 px-3">Ảnh Chuối</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Duyệt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminGameRegsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 4: BANANA POSTS -->
+            <div id="tabContent_banana_posts" class="admin-tab-content hidden space-y-3">
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Thành Viên</th>
+                                <th class="py-2.5 px-3">Link Bài</th>
+                                <th class="py-2.5 px-3 text-center">Trạng Thái</th>
+                                <th class="py-2.5 px-3 text-right">Duyệt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminBananaPostsTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 5: BANANA CONFIG -->
+            <div id="tabContent_banana_config" class="admin-tab-content hidden">
+                <div class="gold-card p-4 rounded-2xl shadow-xl">
+                    <form id="adminBananaConfigForm" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block font-bold text-amber-300 mb-1">Mã Ví Chuối Admin:</label>
+                            <input type="text" id="cfgAdminWalletAddress" required class="form-input-luxury py-2 px-3 font-mono font-bold text-yellow-300">
+                        </div>
+                        <div>
+                            <label class="block font-bold text-amber-300 mb-1">Người Nhận Phí:</label>
+                            <input type="text" id="cfgAdminWalletOwner" required class="form-input-luxury py-2 px-3">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block font-bold text-amber-300 mb-1">Lệ Phí Tham Gia (🍌):</label>
+                                <input type="number" id="cfgRequiredBananas" min="0" required class="form-input-luxury py-2 px-3 font-bold text-yellow-300">
+                            </div>
+                            <div>
+                                <label class="block font-bold text-amber-300 mb-1">Thưởng / Link (🍌):</label>
+                                <input type="number" id="cfgBananasPerLink" min="1" required class="form-input-luxury py-2 px-3 font-bold text-yellow-300">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Mô Tả & Hướng Dẫn:</label>
+                            <textarea id="cfgProgramDesc" rows="2" class="form-input-luxury py-2 px-3"></textarea>
+                        </div>
+                        <div>
+                            <label class="block font-semibold text-slate-300 mb-1">Tiêu Chuẩn Bài Đăng:</label>
+                            <textarea id="cfgGuidelines" rows="3" class="form-input-luxury py-2 px-3 font-mono text-[11px]"></textarea>
+                        </div>
+                        <button type="submit" class="btn-gold py-2.5 rounded-xl font-bold w-full active:scale-95">
+                            Lưu Cấu Hình
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 6: COURSES & REWARD SETTINGS (QUY ĐỊNH BỞI ADMIN) -->
+            <div id="tabContent_courses" class="admin-tab-content hidden space-y-4">
+                
+                <!-- PHẦN 1: QUẢN LÝ MẪU BẢNG THƯỞNG & THỜI GIAN DIỄN RA -->
+                <div class="gold-card p-4 rounded-2xl border border-amber-500/30 space-y-3 shadow-lg">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-500/20">
+                        <div>
+                            <span class="text-[10px] uppercase font-bold text-amber-300 tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-layer-group text-yellow-400"></i> Quản Lý Mẫu Bảng Thưởng & Kỳ Áp Dụng
+                            </span>
+                            <h4 class="font-heading font-black text-sm text-white mt-0.5">
+                                Lưu Mẫu Theo Thời Gian & Nhân Bản Điều Chỉnh
+                            </h4>
+                        </div>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <button type="button" onclick="openDuplicateCampaignModal()" class="btn-gold py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 active:scale-95 shadow">
+                                <i class="fa-solid fa-copy text-xs"></i>
+                                <span>Nhân Bản Mẫu Này</span>
+                            </button>
+                            <button type="button" onclick="openEditCampaignMetaModal()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold active:scale-95 border border-slate-700">
+                                <i class="fa-solid fa-pen text-[10px] mr-1"></i> Sửa Kỳ
+                            </button>
+                            <button type="button" id="btnActivateCampaign" onclick="adminActivateCurrentCampaign()" class="hidden px-2.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-black border border-emerald-500/40 text-xs font-bold active:scale-95">
+                                <i class="fa-solid fa-check text-[10px] mr-1"></i> Kích Hoạt
+                            </button>
+                            <button type="button" onclick="adminDeleteCurrentCampaign()" class="px-2 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/40 text-rose-300 border border-rose-500/40 text-xs active:scale-95" title="Xóa mẫu này">
+                                <i class="fa-solid fa-trash text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selector chọn mẫu bảng thưởng & Xem trạng thái -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 items-center">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Mẫu Bảng Thưởng Đang Xem:</label>
+                            <select id="adminCampaignSelect" class="form-input-luxury py-2 px-3 text-xs font-semibold text-yellow-300"></select>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-black/50 border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <div class="text-[10px] text-slate-400">Thời Gian Diễn Ra:</div>
+                                <div id="adminCampDatesDisplay" class="text-xs font-mono font-bold text-white mt-0.5">--</div>
+                            </div>
+                            <div id="adminCampStatusBadge"></div>
+                        </div>
+                    </div>
+
+                    <!-- Ghi chú chính sách của mẫu -->
+                    <div id="adminCampNoteBox" class="p-2 rounded-xl bg-amber-950/20 border border-amber-500/20 text-[11px] text-amber-200/90 flex items-start gap-1.5">
+                        <i class="fa-solid fa-circle-info text-amber-400 mt-0.5 text-xs flex-shrink-0"></i>
+                        <span id="adminCampNoteDisplay">Chính sách thưởng theo khóa học Wings Academy</span>
+                    </div>
+                </div>
+
+                <!-- PHẦN 2: DANH SÁCH KHÓA HỌC THUỘC MẪU NÀY -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-black/40 p-3.5 rounded-2xl border border-amber-500/20">
+                    <div>
+                        <h4 class="font-heading font-bold text-xs sm:text-sm text-yellow-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-graduation-cap text-amber-400"></i> Danh Sách Khóa Học Trong Mẫu Này
+                        </h4>
+                        <p class="text-[10px] text-slate-400 mt-0.5">
+                            Quy định % hoa hồng (Tự chốt & Nhờ ACA), học phí niêm yết & học bổng tài trợ.
+                        </p>
+                    </div>
+                    <button type="button" onclick="openAddCourseModal()" class="btn-gold py-2 px-3.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 whitespace-nowrap self-start sm:self-auto active:scale-95 shadow-md">
+                        <i class="fa-solid fa-plus text-[10px]"></i> Thêm Khóa Mới
+                    </button>
+                </div>
+
+                <!-- Courses List Table -->
+                <div class="gold-card rounded-2xl overflow-x-auto shadow-xl">
+                    <table class="w-full text-left custom-table text-xs">
+                        <thead>
+                            <tr>
+                                <th class="py-2.5 px-3">Khóa Học & Ảnh</th>
+                                <th class="py-2.5 px-3">Học Phí / Giá Ưu Đãi</th>
+                                <th class="py-2.5 px-3">Học Bổng</th>
+                                <th class="py-2.5 px-3 text-center">Hiển Thị Wiki</th>
+                                <th class="py-2.5 px-3 text-center">Tự Chốt (%)</th>
+                                <th class="py-2.5 px-3 text-center">Nhờ ACA (%)</th>
+                                <th class="py-2.5 px-3 text-right">Thao Tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminCoursesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 7: BẢNG PHÂN QUYỀN HỆ THỐNG (CHỈ DÀNH CHO ADMIN) -->
+            <div id="tabContent_permissions" class="admin-tab-content space-y-4 hidden">
+                <div class="gold-card p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-[#121620] via-[#0f121a] to-[#0a0d14] border border-amber-500/30 shadow-xl">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-500/20 mb-4">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/40 text-[10px] font-black uppercase tracking-wider">
+                                    <i class="fa-solid fa-lock text-[9px] mr-1"></i> Dành Riêng Quản Trị Viên
+                                </span>
+                                <span class="text-slate-400 text-xs">• Cấu hình phân quyền động</span>
+                            </div>
+                            <h3 class="font-heading font-black text-white text-base sm:text-lg mt-1 flex items-center gap-2">
+                                <i class="fa-solid fa-shield-halved text-amber-400"></i>
+                                BẢNG PHÂN QUYỀN TRUY CẬP HỆ THỐNG
+                            </h3>
+                            <p class="text-xs text-slate-300 mt-0.5 leading-relaxed">
+                                Tích chọn checkbox để bật/tắt quyền hạn cho từng bộ phận. Chỉ <strong class="text-amber-300">Quản trị viên</strong> mới có quyền điều chỉnh bảng này.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2 self-start sm:self-auto">
+                            <button type="button" id="btnResetPermissionsDefault" onclick="resetPermissionsMatrixToDefault()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold active:scale-95 transition-all">
+                                <i class="fa-solid fa-rotate-left mr-1"></i> Mặc Định
+                            </button>
+                            <button type="button" id="btnSavePermissionsMatrix" onclick="savePermissionsMatrixFromUI()" class="btn-gold py-2 px-4 rounded-xl text-xs font-bold shadow-lg flex items-center gap-1.5 active:scale-95">
+                                <i class="fa-solid fa-floppy-disk text-xs"></i>
+                                <span>Lưu Cấu Hình</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bảng Ma Trận Phân Quyền Dạng Tích Chọn (Checkboxes) -->
+                    <div class="rounded-2xl overflow-x-auto border border-amber-500/30 shadow-2xl bg-black/60">
+                        <table class="w-full text-left text-xs">
+                            <thead>
+                                <tr class="bg-black text-white text-[11px] font-bold uppercase tracking-wider border-b border-amber-500/30">
+                                    <th class="py-3 px-4 min-w-[220px]">
+                                        <div class="flex items-center gap-1.5">
+                                            <i class="fa-solid fa-list-check text-amber-400"></i>
+                                            <span>Quyền Hạn / Nghiệp Vụ</span>
+                                        </div>
+                                    </th>
+                                    <th class="py-3 px-3 text-center bg-red-950/30 border-l border-amber-500/20 min-w-[130px]">
+                                        <div class="text-red-300 font-extrabold flex items-center justify-center gap-1">
+                                            <span>👑 Quản Trị Viên</span>
+                                        </div>
+                                        <div class="text-[9px] text-slate-400 font-normal lowercase">(toàn quyền)</div>
+                                    </th>
+                                    <th class="py-3 px-3 text-center bg-purple-950/30 border-l border-amber-500/20 min-w-[170px]">
+                                        <div class="text-purple-300 font-extrabold flex items-center justify-center gap-1">
+                                            <span>🛡️ Chuyên Viên Hướng Nghiệp</span>
+                                        </div>
+                                        <div class="text-[9px] text-purple-200/80 font-normal">(tích chọn cấp quyền)</div>
+                                    </th>
+                                    <th class="py-3 px-3 text-center bg-slate-900/60 border-l border-amber-500/20 min-w-[140px]">
+                                        <div class="text-blue-300 font-extrabold flex items-center justify-center gap-1">
+                                            <span>💼 Cộng Tác Viên</span>
+                                        </div>
+                                        <div class="text-[9px] text-slate-500 font-normal">(không duyệt gì hết)</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="permissionsMatrixTableBody" class="divide-y divide-slate-800">
+                                <!-- Dynamic rows rendered by js/admin.js -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Ghi chú giải thích chi tiết vai trò -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3">
+                        <div class="p-3 rounded-xl bg-red-950/20 border border-red-500/30 text-[11px] space-y-1">
+                            <div class="font-bold text-red-300 flex items-center gap-1.5">
+                                <span>👑 Quản Trị Viên (Admin)</span>
+                            </div>
+                            <p class="text-slate-300 leading-tight">
+                                Quyền cao nhất hệ thống. Quản lý duyệt tất cả dữ liệu, chỉnh sửa mọi cấu hình và là người duy nhất chỉnh sửa bảng phân quyền này.
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-purple-950/20 border border-purple-500/30 text-[11px] space-y-1">
+                            <div class="font-bold text-purple-300 flex items-center gap-1.5">
+                                <span>🛡️ Chuyên Viên Hướng Nghiệp (ACA)</span>
+                            </div>
+                            <p class="text-slate-300 leading-tight">
+                                Mặc định: Duyệt bài & Duyệt thành viên. Được Admin linh hoạt tích chọn thêm/bớt quyền duyệt Data hoặc cấu hình.
+                            </p>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-700/50 text-[11px] space-y-1">
+                            <div class="font-bold text-slate-300 flex items-center gap-1.5">
+                                <span>💼 Cộng Tác Viên Tuyển Sinh</span>
+                            </div>
+                            <p class="text-slate-400 leading-tight">
+                                Chỉ nộp Data khách hàng, nộp bài nhận Chuối và tra cứu số dư/hoa hồng cá nhân. Không có quyền duyệt.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+            </div>
+
+        </div> <!-- /memberScreensContainer -->
+        </main>
+
+    <!-- ==========================================================================
+         iOS BOTTOM TAB BAR (Thanh Điều Hướng Đáy Màn Hình Chuẩn iPhone)
+         Chỉ hiển thị sau khi thành viên đăng nhập thành công
+         ========================================================================== -->
+    <nav class="ios-bottom-bar hidden" id="iosBottomNavBar">
+        <button type="button" class="ios-tab-item active" data-screen="screen-home" data-target="the-le" onclick="navigateToScreen('screen-home')">
+            <i class="fa-solid fa-house"></i>
+            <span class="tab-label">Trang Chủ</span>
+        </button>
+
+        <button type="button" class="ios-tab-item" data-screen="screen-lead-form" data-target="form-dang-ky" onclick="navigateToScreen('screen-lead-form')">
+            <i id="bottomNavTab2Icon" class="fa-solid fa-seedling text-amber-400"></i>
+            <span id="bottomNavTab2Label" class="tab-label font-bold text-yellow-300">Gieo Hạt</span>
+        </button>
+
+        <button type="button" class="ios-tab-item" data-screen="screen-mini-game" data-target="mini-game" onclick="navigateToScreen('screen-mini-game')">
+            <span class="emoji-icon">🍌</span>
+            <span class="tab-label">Mini Game</span>
+        </button>
+
+        <button type="button" class="ios-tab-item" data-screen="screen-leaderboard" data-target="bang-xep-hang" onclick="navigateToScreen('screen-leaderboard')">
+            <i class="fa-solid fa-trophy text-yellow-400"></i>
+            <span class="tab-label">Xếp Hạng</span>
+        </button>
+
+        <button type="button" class="ios-tab-item" data-screen="screen-search-dashboard" data-target="tra-cuu" onclick="navigateToScreen('screen-search-dashboard')">
+            <i class="fa-solid fa-user"></i>
+            <span class="tab-label">Tôi</span>
+        </button>
+    </nav>
+
+    <!-- ==========================================================================
+         iOS BOTTOM SHEET MODALS
+         ========================================================================== -->
+
+    <!-- MODAL PHÓNG TO XEM ẢNH CHUỐI -->
+    <div id="proofZoomModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl relative flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/30 mb-2">
+                <h4 id="proofZoomTitle" class="font-bold text-xs text-yellow-300 truncate">Ảnh Bằng Chứng Chuối</h4>
+                <button id="btnCloseProofZoomModal" class="text-slate-400 p-1">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+            <div class="text-center bg-black/60 rounded-xl p-1 flex items-center justify-center">
+                <img id="proofZoomImage" src="" alt="Ảnh phóng to" class="max-h-[70vh] w-auto max-w-full rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL THÔNG BÁO TIẾN TRÌNH DATA (iOS Bottom Sheet) -->
+    <div id="ctvNotificationsModal" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-black/85 backdrop-blur-sm p-0 sm:p-4">
+        <div class="gold-card ios-sheet-card w-full max-w-lg mx-auto p-4 sm:p-5 rounded-t-3xl sm:rounded-3xl shadow-2xl relative flex flex-col max-h-[88vh]">
+            <div class="sheet-handle sm:hidden"></div>
+            <div class="flex items-center justify-between pb-3 border-b border-amber-500/25 mb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm shadow">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-black text-white text-sm sm:text-base">Thông Báo Tiến Trình Data</h3>
+                        <p class="text-[10px] text-slate-400">Cập nhật khi data được tiếp nhận, checkin, training & duyệt thưởng</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="markAllNotificationsAsRead()" class="text-[11px] text-amber-300 hover:text-white font-semibold underline active:scale-95">
+                        Đã đọc hết
+                    </button>
+                    <button type="button" onclick="closeNotificationsModal()" class="text-slate-400 hover:text-white p-1">
+                        <i class="fa-solid fa-xmark text-lg"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notification List -->
+            <div id="ctvNotificationsList" class="overflow-y-auto space-y-2 flex-1 pr-1 text-xs">
+                <!-- Dynamic items rendered by JS -->
+            </div>
+
+            <div class="pt-3 border-t border-slate-800 text-center">
+                <button type="button" onclick="closeNotificationsModal()" class="w-full py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 active:scale-95">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ĐĂNG KÝ (iOS Bottom Sheet) -->
+    <div id="userRegisterModal" class="fixed inset-0 z-50 hidden items-end bg-black/85 backdrop-blur-sm">
+        <div class="gold-card ios-sheet-card w-full p-5 max-w-lg mx-auto shadow-2xl relative overflow-y-auto">
+            <div class="sheet-handle"></div>
+            <button class="close-user-auth-modal absolute right-4 top-4 text-slate-400 p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <h3 class="font-heading font-bold text-lg text-white">Đăng Ký Thành Viên</h3>
+                <p class="text-xs text-slate-400">Dùng SĐT hoặc Gmail để tham gia giới thiệu & nhận Chuối 🍌</p>
+            </div>
+
+            <form id="userRegisterForm" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Họ và Tên Bạn <span class="text-rose-400">*</span></label>
+                    <input type="text" id="regName" required placeholder="Họ và tên bạn" class="form-input-luxury py-2.5 px-3 text-sm">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">SĐT hoặc Gmail (Định danh) <span class="text-rose-400">*</span></label>
+                    <input type="text" id="regIdentifier" required placeholder="Số điện thoại hoặc Gmail" inputmode="tel" class="form-input-luxury py-2.5 px-3 text-sm font-mono">
+                </div>
+
+                <!-- MẬT KHẨU ĐĂNG KÝ -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Mật Khẩu <span class="text-rose-400">*</span></label>
+                        <div class="relative">
+                            <input type="password" id="regPassword" required placeholder="Tối thiểu 6 ký tự" minlength="6" class="form-input-luxury py-2 px-3 pr-8 text-xs font-mono">
+                            <button type="button" onclick="togglePasswordVisibility('regPassword', this)" class="absolute right-2 top-2 text-slate-400 hover:text-amber-300 p-0.5">
+                                <i class="fa-solid fa-eye-slash text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Nhập Lại Mật Khẩu <span class="text-rose-400">*</span></label>
+                        <div class="relative">
+                            <input type="password" id="regPasswordConfirm" required placeholder="Xác nhận mật khẩu" minlength="6" class="form-input-luxury py-2 px-3 pr-8 text-xs font-mono">
+                            <button type="button" onclick="togglePasswordVisibility('regPasswordConfirm', this)" class="absolute right-2 top-2 text-slate-400 hover:text-amber-300 p-0.5">
+                                <i class="fa-solid fa-eye-slash text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Vai Trò:</label>
+                    <select id="regRole" class="form-input-luxury py-2 px-3 text-xs">
+                        <option value="Học viên cũ">Học viên cũ Wings</option>
+                        <option value="Nhân viên Wings">Nhân viên Wings</option>
+                        <option value="Cộng tác viên">Cộng tác viên tuyển sinh</option>
+                        <option value="Khác">Đối tác / Khác</option>
+                    </select>
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" class="btn-gold py-3 rounded-xl font-bold text-sm w-full shadow-lg active:scale-95 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-user-plus text-xs"></i>
+                        <span>Gửi Đăng Ký Chờ Admin Duyệt</span>
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-3 text-center text-xs text-slate-400">
+                Đã có tài khoản? <button type="button" id="btnSwitchToLogin" class="text-amber-400 font-bold ml-1 hover:underline">Đăng Nhập</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ĐĂNG NHẬP (iOS Bottom Sheet) -->
+    <div id="userLoginModal" class="fixed inset-0 z-50 hidden items-end bg-black/85 backdrop-blur-sm">
+        <div class="gold-card ios-sheet-card w-full p-5 max-w-sm mx-auto shadow-2xl relative">
+            <div class="sheet-handle"></div>
+            <button class="close-user-auth-modal absolute right-4 top-4 text-slate-400 p-1">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <h3 class="font-heading font-bold text-lg text-white">Đăng Nhập Wings</h3>
+                <p class="text-xs text-slate-400">Nhập SĐT hoặc Gmail kèm Mật khẩu</p>
+            </div>
+
+            <form id="userLoginForm" class="space-y-3">
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Số điện thoại hoặc Gmail <span class="text-rose-400">*</span></label>
+                    <input type="text" id="loginIdentifier" required placeholder="0903123456 hoặc email@gmail.com" 
+                        inputmode="tel" class="form-input-luxury py-2.5 px-3 text-sm font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Mật Khẩu <span class="text-rose-400">*</span></label>
+                    <div class="relative">
+                        <input type="password" id="loginPassword" required placeholder="Nhập mật khẩu" 
+                            class="form-input-luxury py-2.5 px-3 pr-9 text-sm font-mono">
+                        <button type="button" onclick="togglePasswordVisibility('loginPassword', this)" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-amber-300 p-1">
+                            <i class="fa-solid fa-eye-slash text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="loginErrorMsg" class="hidden text-xs text-rose-400 bg-rose-500/10 p-2 rounded-lg border border-rose-500/20 text-center font-medium">
+                </div>
+
+                <!-- Gợi ý tài khoản demo -->
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800 text-[11px] text-slate-400 text-center">
+                    Tài khoản demo: <strong class="text-amber-300 font-mono">0903123456</strong> / Mật khẩu: <strong class="text-yellow-300 font-mono">123456</strong>
+                </div>
+
+                <button type="submit" class="btn-gold py-3 rounded-xl font-bold text-sm w-full shadow-lg active:scale-95 flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                    <span>Đăng Nhập Vào Hệ Thống</span>
+                </button>
+            </form>
+
+            <div class="mt-3 text-center text-xs text-slate-400">
+                Chưa đăng ký? <button type="button" id="btnSwitchToRegister" class="text-amber-400 font-bold ml-1 hover:underline">Đăng Ký Ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HỒ SƠ CÁ NHÂN & CẬP NHẬT ẢNH ĐẠI DIỆN (iOS Bottom Sheet) -->
+    <div id="userProfileModal" class="fixed inset-0 z-50 hidden items-end bg-black/85 backdrop-blur-sm">
+        <div class="gold-card ios-sheet-card w-full p-5 max-w-md mx-auto shadow-2xl relative overflow-y-auto max-h-[92vh]">
+            <div class="sheet-handle"></div>
+            <button type="button" onclick="closeUserProfileModal()" class="absolute right-4 top-4 text-slate-400 p-1 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="text-center mb-4">
+                <h3 class="font-heading font-bold text-lg text-white flex items-center justify-center gap-1.5">
+                    <i class="fa-solid fa-id-card text-amber-400"></i> Hồ Sơ Thành Viên Wings
+                </h3>
+                <p class="text-xs text-slate-400">Cập nhật ảnh đại diện, thông tin cá nhân và mật khẩu tài khoản</p>
+            </div>
+
+            <!-- PHẦN ẢNH ĐẠI DIỆN (AVATAR) -->
+            <div class="flex flex-col items-center justify-center mb-4 pb-4 border-b border-amber-500/20">
+                <div class="relative group mb-3">
+                    <div class="w-24 h-24 rounded-full border-2 border-amber-400/90 p-0.5 shadow-[0_0_16px_rgba(245,158,11,0.35)] bg-slate-900 flex items-center justify-center overflow-hidden">
+                        <img id="profileAvatarPreview" src="" alt="Avatar" class="w-full h-full rounded-full object-cover hidden">
+                        <div id="profileAvatarFallback" class="w-full h-full rounded-full bg-gradient-to-tr from-amber-600/30 to-yellow-500/20 flex flex-col items-center justify-center text-amber-400">
+                            <i class="fa-solid fa-circle-user text-4xl"></i>
+                            <span class="text-[9px] font-bold mt-1 text-slate-300">Chưa có ảnh</span>
+                        </div>
+                    </div>
+                    <!-- Camera Button Overlay -->
+                    <button type="button" onclick="document.getElementById('avatarFileInput')?.click()" class="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-amber-500 hover:bg-amber-400 text-black flex items-center justify-center shadow-lg transition-transform active:scale-90" title="Tải ảnh mới từ thiết bị">
+                        <i class="fa-solid fa-camera text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Input chọn ảnh từ máy hoặc chụp camera -->
+                <input type="file" id="avatarFileInput" accept="image/*" class="hidden">
+
+                <!-- Các nút hành động ảnh -->
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="document.getElementById('avatarFileInput')?.click()" class="btn-gold py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 active:scale-95 shadow">
+                        <i class="fa-solid fa-cloud-arrow-up text-[11px]"></i> Tải Ảnh Từ Máy / Chụp
+                    </button>
+                    <button type="button" id="btnRemoveAvatar" class="px-2.5 py-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-rose-400 text-xs font-semibold active:scale-95">
+                        <i class="fa-solid fa-trash text-[11px] mr-1"></i> Xóa Ảnh
+                    </button>
+                </div>
+
+                <!-- Chọn nhanh Avatar mẫu -->
+                <div class="mt-3 text-center w-full">
+                    <span class="text-[10px] text-slate-400 block mb-1.5">Hoặc chọn nhanh avatar mẫu:</span>
+                    <div class="flex items-center justify-center gap-2" id="presetAvatarsList">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- PHẦN THÔNG TIN CÁ NHÂN -->
+            <form id="userProfileForm" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">
+                        Họ và Tên Bạn <span class="text-rose-400">*</span>
+                    </label>
+                    <input type="text" id="profileInputName" required placeholder="Họ và tên bạn" class="form-input-luxury py-2.5 px-3 text-sm text-white font-medium">
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] font-semibold uppercase text-slate-300">
+                            Số Điện Thoại / Gmail (Định danh)
+                        </label>
+                        <span class="text-[10px] text-emerald-400 font-bold flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> Đã Duyệt
+                        </span>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="profileInputIdentifier" readonly class="form-input-luxury py-2 px-3 text-xs font-mono text-slate-300 bg-slate-900/60 cursor-not-allowed">
+                        <i class="fa-solid fa-lock absolute right-3 top-2.5 text-slate-500 text-xs"></i>
+                    </div>
+                    <p class="text-[10px] text-slate-500 mt-1">SĐT/Gmail dùng để đăng nhập và định danh tài khoản.</p>
+                </div>
+
+                <!-- CẤP BẬC HỆ THỐNG & NÚT VÀO BẢNG ĐIỀU HÀNH -->
+                <div class="p-2.5 rounded-xl bg-black/60 border border-amber-500/30 flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] text-slate-400 uppercase font-semibold">Cấp Bậc Hệ Thống:</div>
+                        <div id="profileSystemRoleBadgeDisplay" class="mt-0.5">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/40">
+                                💼 Cộng Tác Viên
+                            </span>
+                        </div>
+                    </div>
+                    <div id="profileCounselorActionBox" class="hidden">
+                        <button type="button" id="btnOpenDashboardFromProfile" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-[11px] shadow-md flex items-center gap-1.5 active:scale-95 transition-all">
+                            <i class="fa-solid fa-shield-halved text-[10px]"></i>
+                            <span>Bảng Điều Hành</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold uppercase text-slate-300 mb-1">Danh Xưng / Nghề Nghiệp:</label>
+                    <select id="profileInputRole" class="form-input-luxury py-2 px-3 text-xs text-white">
+                        <option id="profileCounselorOption" value="Chuyên viên hướng nghiệp">Chuyên viên hướng nghiệp (ACA)</option>
+                        <option value="Học viên cũ">Học viên cũ Wings</option>
+                        <option value="Nhân viên Wings">Nhân viên Wings</option>
+                        <option value="Cộng tác viên">Cộng tác viên tuyển sinh</option>
+                        <option value="Đối tác / Khác">Đối tác / Khác</option>
+                    </select>
+                </div>
+
+                <!-- ĐỔI MẬT KHẨU TÀI KHOẢN -->
+                <div class="p-3 rounded-2xl bg-black/60 border border-amber-500/30 space-y-2.5">
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-1.5">
+                        <label class="text-[11px] font-semibold uppercase text-slate-200 flex items-center gap-1.5">
+                            <i class="fa-solid fa-key text-amber-400"></i> Mật Khẩu Tài Khoản
+                        </label>
+                        <span class="text-[10px] text-slate-400 italic">Để trống nếu không đổi</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-0.5">Mật Khẩu Mới:</label>
+                            <div class="relative">
+                                <input type="password" id="profileNewPassword" placeholder="Tối thiểu 6 ký tự" minlength="6" class="form-input-luxury py-2 px-2.5 pr-8 text-xs font-mono text-white">
+                                <button type="button" onclick="togglePasswordVisibility('profileNewPassword', this)" class="absolute right-2 top-2 text-slate-400 hover:text-amber-300 p-0.5">
+                                    <i class="fa-solid fa-eye-slash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-0.5">Xác Nhận Mật Khẩu:</label>
+                            <div class="relative">
+                                <input type="password" id="profileConfirmPassword" placeholder="Nhập lại mật khẩu mới" minlength="6" class="form-input-luxury py-2 px-2.5 pr-8 text-xs font-mono text-white">
+                                <button type="button" onclick="togglePasswordVisibility('profileConfirmPassword', this)" class="absolute right-2 top-2 text-slate-400 hover:text-amber-300 p-0.5">
+                                    <i class="fa-solid fa-eye-slash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[10px] text-slate-400">Bạn có thể tự đổi mật khẩu mới để tăng tính bảo mật cho tài khoản cá nhân.</p>
+                </div>
+
+                <!-- Thống kê nhanh ví & Mini Game -->
+                <div class="p-2.5 rounded-2xl bg-black/50 border border-amber-500/25 grid grid-cols-2 gap-2 text-center">
+                    <div class="p-1.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">Ví Chuối Hiện Có</div>
+                        <div class="text-sm font-extrabold text-yellow-300 mt-0.5 font-mono">
+                            🍌 <span id="profileBananaCount">0</span>
+                        </div>
+                    </div>
+                    <div class="p-1.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">Quyền Mini Game</div>
+                        <div id="profileMiniGameBadge" class="text-[10px] font-bold mt-0.5 text-slate-300">--</div>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeUserProfileModal()" class="w-1/3 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700 active:scale-95">
+                        Hủy
+                    </button>
+                    <button type="submit" class="w-2/3 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-lg flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i>
+                        <span>Lưu Thay Đổi</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CHỜ DUYỆT TÀI KHOẢN -->
+    <div id="regPendingApprovalModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-5 rounded-3xl text-center shadow-2xl">
+            <div class="w-12 h-12 rounded-full bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-amber-400 text-2xl mx-auto mb-2 animate-bounce">
+                <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+            <h3 class="text-lg font-heading font-black text-white mb-1">ĐÃ GỬI ĐĂNG KÝ!</h3>
+            <p class="text-slate-300 text-xs mb-3">
+                Tài khoản <strong id="pendingUserIdentifier" class="text-yellow-400 font-mono">--</strong> đang ở trạng thái <strong class="text-amber-300">CHỜ ADMIN DUYỆT</strong>.
+            </p>
+            <p class="text-[11px] text-slate-400 mb-4">Sau khi được duyệt, bạn chỉ cần bấm Đăng nhập để vào nộp data và tham gia Mini Game.</p>
+            <button onclick="document.getElementById('regPendingApprovalModal').classList.add('hidden')" class="btn-gold py-2.5 rounded-xl font-bold text-xs w-full active:scale-95">
+                Đã Hiểu
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL POSTER GỐC -->
+    <div id="posterModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-3">
+        <div class="relative max-w-md w-full bg-[#12161f] border border-amber-500/40 rounded-2xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col">
+            <div class="p-2.5 bg-black flex items-center justify-between border-b border-amber-500/30">
+                <span class="text-xs font-bold text-amber-300 uppercase">Poster Gốc Tháng 10</span>
+                <button id="btnClosePosterModal" class="text-slate-400 p-1">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto p-2 text-center">
+                <img src="assets/poster.jpg" alt="Poster Wings" class="w-full h-auto rounded-lg">
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL THÀNH CÔNG TRAO HẠT GIỐNG -->
+    <div id="submissionSuccessModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-5 rounded-3xl text-center shadow-2xl">
+            <div class="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-emerald-400 text-2xl mx-auto mb-2 animate-bounce">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+            <h3 class="text-lg font-heading font-black text-white mb-1">TRAO HẠT GIỐNG THÀNH CÔNG!</h3>
+            <p id="modalSuccessDesc" class="text-slate-300 text-xs mb-3">Đã gửi gắm hạt giống cơ hội đến Bà Tiên Xanh chăm sóc.</p>
+            <div class="p-3 rounded-xl bg-black/60 border border-amber-500/30 text-left text-xs space-y-1 mb-4">
+                <div>Mã hạt giống: <strong id="modalLeadId" class="text-amber-400 font-mono">--</strong></div>
+                <div>Học viên: <strong id="modalCustomerName" class="text-white">--</strong></div>
+                <div>Khóa học: <span id="modalCourse" class="text-slate-300">--</span></div>
+                <div>Hành trình: <span id="modalCloseType" class="text-amber-300 font-medium">--</span></div>
+                <div>Trạng thái: <span id="modalInitialStatus" class="font-bold">--</span></div>
+                <div>Quả ngọt dự kiến: <strong id="modalRewardEst" class="text-yellow-400 font-bold">--</strong></div>
+            </div>
+            <button onclick="closeSuccessModal()" class="btn-gold py-2.5 rounded-xl font-bold text-xs w-full active:scale-95 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-check"></i>
+                <span>Xác Nhận & Tiếp Tục</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN AUTH -->
+    <div id="adminAuthModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-xs w-full p-5 rounded-2xl shadow-2xl text-center">
+            <div id="adminAuthModalIcon" class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-400 text-lg mx-auto mb-2">
+                <i class="fa-solid fa-tree"></i>
+            </div>
+            <h3 id="adminAuthModalTitle" class="font-heading font-bold text-base text-white mb-1">Xác Thực Kiểm Lâm</h3>
+            <p id="adminAuthModalDesc" class="text-[11px] text-slate-400 mb-3">Nhập mật khẩu Kiểm Lâm để mở quyền quản lý & duyệt</p>
+            <form id="adminAuthForm" class="space-y-3">
+                <div class="relative">
+                    <input type="password" id="adminPinInput" placeholder="Mật khẩu (12345678)" required 
+                        class="form-input-luxury py-2.5 px-3 pr-9 text-center text-sm font-mono tracking-widest text-white">
+                    <button type="button" onclick="togglePasswordVisibility('adminPinInput', this)" class="absolute right-2.5 top-2.5 text-slate-400 hover:text-amber-300 p-1">
+                        <i class="fa-solid fa-eye-slash text-xs"></i>
+                    </button>
+                </div>
+                <div id="adminAuthError" class="text-xs text-rose-400 hidden bg-rose-500/10 p-1.5 rounded-lg border border-rose-500/20 font-medium">Mật khẩu sai! Vui lòng nhập đúng 12345678</div>
+                <div class="flex gap-2 pt-1">
+                    <button type="button" id="btnCloseAuthModal" class="w-1/2 py-2 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700 active:scale-95">Hủy</button>
+                    <button type="submit" class="w-1/2 btn-gold py-2 rounded-xl text-xs font-bold active:scale-95 shadow-md">Vào</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL XỬ LÝ LEAD ADMIN -->
+    <div id="adminEditModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 class="font-bold text-xs text-white">Xử Lý & Duyệt Thưởng: <span id="editLeadIdDisplay" class="text-amber-400 font-mono"></span></h4>
+                <button id="btnCloseEditModal" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminEditLeadForm" class="space-y-3 text-xs">
+                <div class="p-2 bg-black/40 rounded-lg text-[11px] space-y-0.5">
+                    <div>Khách: <strong id="editCustomerNameDisplay" class="text-white"></strong></div>
+                    <div>Người GT: <span id="editReferrerNameDisplay" class="text-amber-300"></span></div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Khóa Học Chốt:</label>
+                    <select id="editActualCourse" class="course-select-options form-input-luxury py-1.5 px-2 text-xs"></select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Hình Thức:</label>
+                    <select id="editActualCloseType" class="form-input-luxury py-1.5 px-2 text-xs">
+                        <option value="pass">Đưa Data (50% Thưởng)</option>
+                        <option value="self">Tự chốt (100% Thưởng)</option>
+                    </select>
+                </div>
+
+                <!-- KẾ HOẠCH ACA CHO ADMIN / ĐỘI ACA -->
+                <div id="editAcaPlanningSection" class="p-2.5 rounded-xl bg-yellow-950/20 border border-yellow-500/30 space-y-2">
+                    <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1">
+                        <i class="fa-solid fa-calendar-check text-yellow-400"></i> Kế Hoạch ACA (Lịch Hẹn & Học Phí):
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Lịch Hẹn Lên Học Viện:</label>
+                        <input type="datetime-local" id="editAppointmentDate" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ngày Đóng Học Phí:</label>
+                        <input type="date" id="editTuitionPaymentDate" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ghi Chú Kế Hoạch / Thanh Toán:</label>
+                        <input type="text" id="editTuitionPaymentNote" placeholder="Tình trạng cọc / thanh toán" class="form-input-luxury py-1.5 px-2 text-xs">
+                    </div>
+                </div>
+
+                <div class="p-2 rounded-lg bg-amber-950/30 border border-amber-500/40 flex items-center justify-between text-xs">
+                    <span>Mức thưởng:</span>
+                    <strong id="editRewardPreview" class="text-yellow-400 font-bold">0 đ</strong>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Trạng Thái (Phễu Lũy Tiến):</label>
+                    <select id="editStatus" class="form-input-luxury py-1.5 px-2 text-xs font-semibold">
+                        <option value="DATA">1. Data mới</option>
+                        <option value="CARE">2. Đang Chăm Sóc</option>
+                        <option value="CHECKIN">3. Đã Checkin học viện</option>
+                        <option value="TRAINING">4. Đang Training (Học nghề)</option>
+                        <option value="WON">5. Hoàn thành (Nhận thưởng)</option>
+                        <option value="PAID">✓ Đã chi trả thưởng</option>
+                        <option value="LOST">✕ Không thành công</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-semibold text-slate-300 mb-0.5">Ghi Chú Admin:</label>
+                    <textarea id="editAdminNote" rows="2" class="form-input-luxury py-1.5 px-2 text-xs"></textarea>
+                </div>
+
+                <button type="submit" class="btn-gold py-2 rounded-lg text-xs font-bold w-full active:scale-95">Lưu & Duyệt</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL XEM CHI TIẾT LEAD -->
+    <div id="leadDetailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-sm w-full p-4 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto text-xs space-y-3">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20">
+                <h4 class="font-bold text-white text-xs">Hồ Sơ: <span id="detailLeadId" class="text-amber-400 font-mono"></span></h4>
+                <button id="btnCloseDetailModal" class="text-slate-400 p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div>Người GT: <div id="detailReferrer" class="text-white mt-0.5"></div></div>
+            <div>Khách: <div id="detailCustomer" class="text-white mt-0.5"></div></div>
+            <div>Khóa học: <div id="detailCourse" class="text-amber-300 font-bold mt-0.5"></div></div>
+            <div>Hình thức: <div id="detailCloseType" class="text-slate-300 mt-0.5"></div></div>
+            
+            <!-- KẾ HOẠCH CHO ĐỘI ACA (HIỂN THỊ KHI TỰ CHỐT HOẶC CÓ LỊCH HẸN) -->
+            <div id="detailAcaPlanningBox" class="p-2.5 rounded-xl bg-yellow-950/30 border border-yellow-500/40 space-y-1 text-xs">
+                <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1.5">
+                    <i class="fa-solid fa-calendar-check text-yellow-400"></i> Kế Hoạch Đội ACA (Học Viện):
+                </div>
+                <div>Lịch hẹn lên: <strong id="detailAppointment" class="text-white"></strong></div>
+                <div>Ngày đóng học phí: <strong id="detailTuitionDate" class="text-amber-300 font-mono"></strong></div>
+                <div>Ghi chú thanh toán: <p id="detailTuitionNote" class="text-slate-300 italic text-[11px]"></p></div>
+            </div>
+
+            <div class="p-2.5 rounded-xl bg-amber-950/20 border border-amber-500/30 space-y-1.5">
+                <div class="font-bold text-amber-300 text-[11px]">4 Thông Tin Vàng:</div>
+                <div>Mục tiêu: <p id="detailTarget" class="text-white font-medium"></p></div>
+                <div>Giai đoạn: <p id="detailStage" class="text-amber-200 font-medium"></p></div>
+                <div>Điểm chốt: <p id="detailPainPoint" class="text-emerald-300"></p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL QUẢN LÝ / CHỈNH SỬA KHÓA HỌC (DO ADMIN QUY ĐỊNH) -->
+    <div id="courseEditModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-md w-full p-4 rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 id="courseModalTitle" class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> Thiết Lập Khóa Học & Mức Thưởng
+                </h4>
+                <button type="button" onclick="closeCourseEditModal()" class="text-slate-400 p-1 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminCourseForm" class="space-y-3 text-xs">
+                <input type="hidden" id="courseEditId" value="">
+
+                <!-- 1. CÔNG TẮC BẬT / TẮT HIỂN THỊ TRÊN WIKI -->
+                <div class="p-3 rounded-xl bg-amber-950/40 border border-amber-500/40 flex items-center justify-between shadow-inner">
+                    <div class="pr-2">
+                        <label for="courseInputShowOnWiki" class="text-xs font-bold text-amber-300 cursor-pointer flex items-center gap-1.5">
+                            <i class="fa-solid fa-book-open"></i> Hiển Thị Khóa Học Trên WIKI
+                        </label>
+                        <p class="text-[10px] text-slate-400 mt-0.5">Bật công tắc này để khóa học hiển thị ra mục Cẩm nang Wiki cho học viên & CTV</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+                        <input type="checkbox" id="courseInputShowOnWiki" class="sr-only peer" checked>
+                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-amber-500"></div>
+                    </label>
+                </div>
+
+                <!-- 2. HÌNH ẢNH BỘ MI ĐẠI DIỆN -->
+                <div class="p-3 rounded-xl bg-black/40 border border-amber-500/20 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-[11px] font-semibold text-slate-300 flex items-center gap-1">
+                            <i class="fa-solid fa-camera text-amber-400"></i> Hình Ảnh Bộ Mi Đại Diện:
+                        </label>
+                        <span class="text-[10px] text-slate-400">Hiển thị trong Wiki</span>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <!-- Thumbnail Preview -->
+                        <div class="w-16 h-16 rounded-xl border border-amber-500/40 overflow-hidden bg-stone-900 flex-shrink-0 relative shadow">
+                            <img id="courseImagePreview" src="" alt="Lash preview" class="w-full h-full object-cover hidden">
+                            <div id="courseImagePlaceholder" class="w-full h-full flex flex-col items-center justify-center text-slate-500 text-[10px]">
+                                <i class="fa-solid fa-eye text-base mb-0.5 text-amber-400/60"></i>
+                                <span>Ảnh mi</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 space-y-1.5">
+                            <input type="text" id="courseInputImage" placeholder="https://... (URL ảnh bộ mi đại diện)" class="form-input-luxury py-1.5 px-2.5 text-xs text-slate-200">
+                            <div class="flex items-center gap-2">
+                                <label class="px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[10px] font-bold cursor-pointer inline-flex items-center gap-1 active:scale-95 transition-all">
+                                    <i class="fa-solid fa-upload text-[9px]"></i> Tải ảnh từ máy
+                                    <input type="file" id="courseInputImageFile" accept="image/*" class="hidden">
+                                </label>
+                                <span class="text-[9px] text-slate-400">Mẫu nhanh:</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Quick Presets -->
+                    <div class="flex flex-wrap gap-1 pt-1">
+                        <button type="button" onclick="setQuickLashPreset('classic')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Classic</button>
+                        <button type="button" onclick="setQuickLashPreset('thienthan')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Thiên Thần</button>
+                        <button type="button" onclick="setQuickLashPreset('volume')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Volume Mega</button>
+                        <button type="button" onclick="setQuickLashPreset('thietke')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Thiết Kế Độc Bản</button>
+                        <button type="button" onclick="setQuickLashPreset('master')" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-amber-500/20 text-slate-300 hover:text-amber-300 text-[10px] border border-slate-700 transition-colors">Master VIP</button>
+                    </div>
+                </div>
+
+                <!-- 3. TÊN KHÓA HỌC -->
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Khóa Học <span class="text-rose-400">*</span></label>
+                    <input type="text" id="courseInputName" required placeholder="Ví dụ: Tinh Hoa, Volume & Mega, Combo 4 khóa..." class="form-input-luxury py-2 px-3 text-xs text-white font-bold">
+                </div>
+
+                <!-- 4. ĐỐI TƯỢNG HỌC VIÊN -->
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                        Đối Tượng Học Viên:
+                    </label>
+                    <textarea id="courseInputTargetAudience" rows="2" placeholder="Ví dụ: Người mới bắt đầu muốn tìm hiểu nghề nối mi, hoặc Thợ mi muốn nâng cao tay nghề..." class="form-input-luxury py-1.5 px-3 text-xs text-slate-200"></textarea>
+                </div>
+
+                <!-- 5. NỘI DUNG ĐÀO TẠO CÓ THỂ CHỈNH SỬA -->
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1 flex items-center justify-between">
+                        <span>Nội Dung Đào Tạo (Mỗi dòng một mục):</span>
+                        <span class="text-[10px] text-amber-400/80">Hiển thị dạng gạch đầu dòng</span>
+                    </label>
+                    <textarea id="courseInputCurriculum" rows="4" placeholder="Kỹ thuật nối mi Classic One-by-One chuẩn quốc tế&#10;Kỹ thuật tháo mi an toàn 100%&#10;Thực hành trên người mẫu thật kèm 1-1..." class="form-input-luxury py-2 px-3 text-xs text-slate-200 font-mono"></textarea>
+                </div>
+
+                <!-- 6. THỜI GIAN ĐÀO TẠO - SỐ LƯỢNG MẪU - CHI PHÍ MẪU -->
+                <div class="grid grid-cols-3 gap-2">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">⏱️ Thời Gian</label>
+                        <input type="text" id="courseInputDuration" placeholder="1 - 2 tuần" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">👁️ Số Lượng Mẫu</label>
+                        <input type="text" id="courseInputModelCount" placeholder="2 mẫu (1 canh + 1 thật)" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-300 mb-1">💵 Chi Phí Mẫu</label>
+                        <input type="text" id="courseInputModelCost" placeholder="Miễn phí / 150K" class="form-input-luxury py-1.5 px-2 text-xs text-white">
+                    </div>
+                </div>
+
+                <!-- 7. GIÁ NIÊM YẾT VÀ GIÁ ƯU ĐÃI -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Học Phí Niêm Yết (VNĐ) <span class="text-rose-400">*</span></label>
+                        <input type="number" id="courseInputTuition" required min="0" step="100000" placeholder="9900000" class="form-input-luxury py-2 px-3 text-xs font-mono text-white font-bold">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-amber-300 mb-1">Giá Ưu Đãi (VNĐ)</label>
+                        <input type="number" id="courseInputDiscountPrice" min="0" step="100000" placeholder="8900000" class="form-input-luxury py-2 px-3 text-xs font-mono text-yellow-300 font-bold">
+                    </div>
+                </div>
+
+                <!-- 8. HỌC BỔNG TÀI TRỢ & GHI CHÚ -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Học Bổng Tài Trợ (VNĐ)</label>
+                        <input type="number" id="courseInputScholarship" min="0" step="100000" value="0" placeholder="2000000" class="form-input-luxury py-2 px-3 text-xs font-mono text-emerald-300">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Học Bổng</label>
+                        <input type="text" id="courseInputScholarshipNote" placeholder="Tài trợ học bổng 2M..." class="form-input-luxury py-2 px-3 text-xs text-yellow-200">
+                    </div>
+                </div>
+
+                <!-- 9. ĐIỀU CHỈNH HOA HỒNG & TIỀN THƯỞNG (TỰ ĐỘNG TÍNH 2 CHIỀU: TIỀN <-> %) -->
+                <div class="p-3 rounded-xl bg-amber-950/30 border border-amber-500/40 space-y-2.5 shadow-inner">
+                    <div class="flex items-center justify-between border-b border-amber-500/20 pb-1.5">
+                        <div class="font-bold text-yellow-300 text-[11px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-coins text-amber-400"></i> Điều Chỉnh Tiền Thưởng & Hoa Hồng:
+                        </div>
+                        <span class="text-[9px] text-amber-300/80 bg-amber-500/20 px-1.5 py-0.5 rounded border border-amber-500/30">Tự đổi 2 chiều: Tiền ⇄ %</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <!-- Cột 1: Tự Chốt -->
+                        <div class="p-2.5 rounded-xl bg-black/60 border border-amber-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-yellow-300 text-[11px] flex items-center gap-1">
+                                    <i class="fa-solid fa-user-check text-amber-400 text-[10px]"></i> Tự Chốt:
+                                </span>
+                                <span id="badgeSelfSummary" class="text-[10px] text-amber-400 font-mono font-bold">--</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tiền Thưởng (VNĐ):</label>
+                                    <input type="number" id="courseInputRewardSelf" min="0" step="50000" placeholder="500000" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-yellow-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tỷ Lệ (%):</label>
+                                    <input type="number" id="courseInputSelfPercent" min="0" max="100" step="0.1" placeholder="20" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-amber-200">
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-slate-400 flex items-center justify-between pt-1 border-t border-amber-500/10">
+                                <span>Thực tế hiển thị:</span>
+                                <strong id="coursePreviewSelfReward" class="text-yellow-400 font-mono">0 đ</strong>
+                            </div>
+                        </div>
+
+                        <!-- Cột 2: Nhờ ACA Chốt -->
+                        <div class="p-2.5 rounded-xl bg-black/60 border border-emerald-500/30 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-emerald-300 text-[11px] flex items-center gap-1">
+                                    <i class="fa-solid fa-users text-emerald-400 text-[10px]"></i> Nhờ ACA Chốt:
+                                </span>
+                                <span id="badgeAcaSummary" class="text-[10px] text-emerald-400 font-mono font-bold">--</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tiền Thưởng (VNĐ):</label>
+                                    <input type="number" id="courseInputRewardPass" min="0" step="50000" placeholder="250000" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-emerald-300">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-300 font-semibold mb-0.5">Tỷ Lệ (%):</label>
+                                    <input type="number" id="courseInputAcaPercent" min="0" max="100" step="0.1" placeholder="10" class="form-input-luxury py-1.5 px-2 text-xs font-mono font-bold text-emerald-200">
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-slate-400 flex items-center justify-between pt-1 border-t border-emerald-500/10">
+                                <span>Thực tế hiển thị:</span>
+                                <strong id="coursePreviewAcaReward" class="text-emerald-400 font-mono">0 đ</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 10. HUY HIỆU & ICON -->
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Huy Hiệu (Badge)</label>
+                        <input type="text" id="courseInputBadge" placeholder="HOT COMBO / Chuyên sâu" class="form-input-luxury py-2 px-3 text-xs">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Biểu Tượng (Icon)</label>
+                        <select id="courseInputIcon" class="form-input-luxury py-2 px-2 text-xs">
+                            <option value="gem">💎 Gem (Cơ bản)</option>
+                            <option value="shield">🛡️ Shield (Nền tảng)</option>
+                            <option value="crown">👑 Crown (Tinh hoa)</option>
+                            <option value="award">🏆 Award (Combo)</option>
+                            <option value="star">⭐ Star (Cao cấp)</option>
+                            <option value="graduation-cap">🎓 Graduation Cap</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeCourseEditModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">
+                        Hủy
+                    </button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md">
+                        Lưu Khóa Học
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NHÂN BẢN CHIẾN DỊCH / MẪU BẢNG THƯỞNG -->
+    <div id="duplicateCampaignModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-md w-full p-4 rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-copy text-yellow-400"></i> Nhân Bản Mẫu Bảng Thưởng
+                </h4>
+                <button type="button" onclick="closeDuplicateCampaignModal()" class="text-slate-400 p-1 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminDuplicateCampaignForm" class="space-y-3 text-xs">
+                <div class="p-2.5 rounded-xl bg-amber-950/20 border border-amber-500/30 text-[11px]">
+                    <span class="text-slate-400 block mb-0.5">Nhân bản từ mẫu gốc:</span>
+                    <strong id="dupSourceCampName" class="text-yellow-300 font-bold">--</strong>
+                    <p class="text-[10px] text-slate-400 mt-1">Toàn bộ danh sách khóa học, học phí, mức hoa hồng sẽ được sao chép sang kỳ mới để bạn dễ dàng tinh chỉnh.</p>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Mẫu / Chiến Dịch Mới <span class="text-rose-400">*</span></label>
+                    <input type="text" id="dupInputName" required placeholder="Ví dụ: Bảng Thưởng Tuyển Sinh Tháng 11/2026" class="form-input-luxury py-2 px-3 text-xs text-white font-medium">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Bắt Đầu <span class="text-rose-400">*</span></label>
+                        <input type="date" id="dupInputStartDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Kết Thúc <span class="text-rose-400">*</span></label>
+                        <input type="date" id="dupInputEndDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Áp Dụng (Hiển thị cho ứng viên):</label>
+                    <textarea id="dupInputNote" rows="2" placeholder="Ví dụ: Áp dụng cho data tuyển sinh đăng ký trong tháng 11/2026" class="form-input-luxury py-2 px-3 text-xs text-amber-200"></textarea>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-black/50 border border-slate-800 flex items-center gap-2">
+                    <input type="checkbox" id="dupCheckActive" class="w-4 h-4 accent-amber-500 rounded cursor-pointer" checked>
+                    <label for="dupCheckActive" class="text-[11px] font-semibold text-slate-200 cursor-pointer">
+                        Đặt làm bảng thưởng <span class="text-emerald-400 font-bold">CHÍNH THỨC</span> đang áp dụng cho ứng viên
+                    </label>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeDuplicateCampaignModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">
+                        Hủy
+                    </button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-copy text-xs"></i> Nhân Bản & Lưu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SỬA THÔNG TIN KỲ / MẪU BẢNG THƯỞNG -->
+    <div id="editCampaignMetaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+        <div class="gold-card max-w-md w-full p-4 rounded-2xl shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-2 border-b border-amber-500/20 mb-3">
+                <h4 class="font-bold text-xs text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-pen-to-square text-amber-400"></i> Chỉnh Sửa Thông Tin Kỳ Bảng Thưởng
+                </h4>
+                <button type="button" onclick="closeEditCampaignMetaModal()" class="text-slate-400 p-1 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <form id="adminEditCampaignMetaForm" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Tên Mẫu / Chiến Dịch <span class="text-rose-400">*</span></label>
+                    <input type="text" id="metaInputName" required class="form-input-luxury py-2 px-3 text-xs text-white font-medium">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Bắt Đầu <span class="text-rose-400">*</span></label>
+                        <input type="date" id="metaInputStartDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ngày Kết Thúc <span class="text-rose-400">*</span></label>
+                        <input type="date" id="metaInputEndDate" required class="form-input-luxury py-2 px-2 text-xs text-white font-mono">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[11px] font-semibold text-slate-300 mb-1">Ghi Chú Áp Dụng (Hiển thị cho ứng viên):</label>
+                    <textarea id="metaInputNote" rows="2" class="form-input-luxury py-2 px-3 text-xs text-amber-200"></textarea>
+                </div>
+
+                <div class="p-2.5 rounded-xl bg-black/50 border border-slate-800 flex items-center gap-2">
+                    <input type="checkbox" id="metaCheckActive" class="w-4 h-4 accent-amber-500 rounded cursor-pointer">
+                    <label for="metaCheckActive" class="text-[11px] font-semibold text-slate-200 cursor-pointer">
+                        Đặt làm bảng thưởng <span class="text-emerald-400 font-bold">CHÍNH THỨC</span> đang áp dụng
+                    </label>
+                </div>
+
+                <div class="flex gap-2 pt-2">
+                    <button type="button" onclick="closeEditCampaignMetaModal()" class="w-1/2 py-2.5 rounded-xl bg-slate-800 text-xs font-semibold text-slate-300 hover:bg-slate-700">
+                        Hủy
+                    </button>
+                    <button type="submit" class="w-1/2 btn-gold py-2.5 rounded-xl text-xs font-bold active:scale-95 shadow-md flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-floppy-disk text-xs"></i> Lưu Thay Đổi
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
